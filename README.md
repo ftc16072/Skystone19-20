@@ -10,15 +10,6 @@ It is based off of: https://github.com/FIRST-Tech-Challenge/SkyStone
 
 From this point below, this is the README.md from *FIRST*
 
-## Downloading the Project
-It is important to note that this repository is large and can take a long time and use a lot of space to download. If you would like to save time and space, there are some options that you can choose to download only the most current version of the Android project folder:
-
-* If you are a git user, *FIRST* recommends that you use the --depth command line argument to only clone the most current version of the repository:
-
-```
-       git clone --shallow-since=2019-01-01 --no-single-branch https://github.com/ftc16072/2019preseason
-```
-
 ## NOTICE
 
 This repository contains v5.0 of the FTC SDK.  No further versions will pushed to https://github.com/ftctechnh/ftc_app.

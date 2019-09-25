@@ -20,6 +20,7 @@ public class Robot {
     private MecanumDrive mecanumDrive = new MecanumDrive();
     private int quackID;
     private Context appContext;
+    private boolean quacking = false;
 
     public void init(HardwareMap hwMap) {
         imu = hwMap.get(LynxEmbeddedIMU.class, "imu");
@@ -28,6 +29,7 @@ public class Robot {
         mecanumDrive.init(hwMap);
         appContext = hwMap.appContext;
         quackID = appContext.getResources().getIdentifier("quack", "raw", hwMap.appContext.getPackageName());
+        quacking = false;
     }
 
     double getHeadingRadians() {
@@ -47,8 +49,17 @@ public class Robot {
     }
 
     void quack() {
-        SoundPlayer.getInstance().startPlaying(appContext, quackID); //TODO Fix to quack once
+        if (!quacking) {
+            // create a sound parameter that holds the desired player parameters.
+            SoundPlayer.PlaySoundParams params = new SoundPlayer.PlaySoundParams();
+            params.loopControl = 0;
+            params.waitForNonLoopingSoundsToFinish = true;
 
+            quacking = true;
+            SoundPlayer.getInstance().startPlaying(appContext, quackID, params, null,
+                    () -> quacking = false
+            );
+        }
     }
 
     public void strafe(double speed) {
@@ -66,7 +77,6 @@ public class Robot {
         delta = Range.clip(delta, -MAX_ROTATE, MAX_ROTATE);
         driveFieldRelative(x, y, delta);
     }
-
 
 
 }

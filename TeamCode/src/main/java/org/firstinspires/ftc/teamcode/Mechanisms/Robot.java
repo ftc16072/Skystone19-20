@@ -32,7 +32,7 @@ public class Robot {
         quacking = false;
     }
 
-    double getHeadingRadians() {
+    public double getHeadingRadians() {
         Orientation angles;
 
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);
@@ -40,7 +40,7 @@ public class Robot {
 
     }
 
-    void driveFieldRelative(double x, double y, double rotate) {
+    public void driveFieldRelative(double x, double y, double rotate) {
         Polar drive = Polar.fromCartesian(x, y);
         double heading = getHeadingRadians();
 
@@ -48,7 +48,7 @@ public class Robot {
         mecanumDrive.driveMecanum(drive.getY(), drive.getX(), rotate);
     }
 
-    void quack() {
+    public void quack() {
         if (!quacking) {
             // create a sound parameter that holds the desired player parameters.
             SoundPlayer.PlaySoundParams params = new SoundPlayer.PlaySoundParams();
@@ -66,7 +66,7 @@ public class Robot {
         mecanumDrive.driveMecanum(0, speed, 0);
     }
 
-    void driveFieldRelativeAngle(double x, double y, double angle) {
+    public void driveFieldRelativeAngle(double x, double y, double angle) {
         double delta = angle - getHeadingRadians();
         if (delta >= Math.PI) {
             delta = delta - (2 * Math.PI);

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.OpModesTeleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.Mechanisms.Robot;
 import org.firstinspires.ftc.teamcode.Util.Polar;
 
 @TeleOp()
-public class DriveOnlyTeleop extends OpMode {
+public class DriveOnly extends OpMode {
     private Robot robot = new Robot();
 
     // Code to run ONCE when the driver hits INIT

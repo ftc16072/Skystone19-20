@@ -1,13 +1,12 @@
-package org.firstinspires.ftc.teamcode.AutoOpModes;
+package org.firstinspires.ftc.teamcode.OpModesAuto;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Mechanisms.Robot;
 
-@TeleOp()
-@Disabled
+@Autonomous()
+//@Disabled
 public class LookForSkystone extends OpMode {
     private Robot robot = new Robot();
 

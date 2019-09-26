@@ -10,15 +10,15 @@ public class Polar {
         this.r = r;
     }
 
-    double getTheta() {
+    public double getTheta() {
         return theta;
     }
 
-    double getDegrees() {
+    public double getDegrees() {
         return theta * 360 / (2 * Math.PI);
     }
 
-    double getR() {
+    public double getR() {
         return r;
     }
 

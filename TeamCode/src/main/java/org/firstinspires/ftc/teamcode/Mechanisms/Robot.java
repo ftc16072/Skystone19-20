@@ -20,6 +20,7 @@ public class Robot {
     private MecanumDrive mecanumDrive = new MecanumDrive();
     private int quackID;
     private Context appContext;
+    private boolean quacking = false;
 
     public void init(HardwareMap hwMap) {
         imu = hwMap.get(LynxEmbeddedIMU.class, "imu");
@@ -28,9 +29,10 @@ public class Robot {
         mecanumDrive.init(hwMap);
         appContext = hwMap.appContext;
         quackID = appContext.getResources().getIdentifier("quack", "raw", hwMap.appContext.getPackageName());
+        quacking = false;
     }
 
-    double getHeadingRadians() {
+    public double getHeadingRadians() {
         Orientation angles;
 
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);
@@ -38,7 +40,7 @@ public class Robot {
 
     }
 
-    void driveFieldRelative(double x, double y, double rotate) {
+    public void driveFieldRelative(double x, double y, double rotate) {
         Polar drive = Polar.fromCartesian(x, y);
         double heading = getHeadingRadians();
 
@@ -46,16 +48,25 @@ public class Robot {
         mecanumDrive.driveMecanum(drive.getY(), drive.getX(), rotate);
     }
 
-    void quack() {
-        SoundPlayer.getInstance().startPlaying(appContext, quackID); //TODO Fix to quack once
+    public void quack() {
+        if (!quacking) {
+            // create a sound parameter that holds the desired player parameters.
+            SoundPlayer.PlaySoundParams params = new SoundPlayer.PlaySoundParams();
+            params.loopControl = 0;
+            params.waitForNonLoopingSoundsToFinish = true;
 
+            quacking = true;
+            SoundPlayer.getInstance().startPlaying(appContext, quackID, params, null,
+                    () -> quacking = false
+            );
+        }
     }
 
     public void strafe(double speed) {
         mecanumDrive.driveMecanum(0, speed, 0);
     }
 
-    void driveFieldRelativeAngle(double x, double y, double angle) {
+    public void driveFieldRelativeAngle(double x, double y, double angle) {
         double delta = angle - getHeadingRadians();
         if (delta >= Math.PI) {
             delta = delta - (2 * Math.PI);
@@ -66,7 +77,6 @@ public class Robot {
         delta = Range.clip(delta, -MAX_ROTATE, MAX_ROTATE);
         driveFieldRelative(x, y, delta);
     }
-
 
 
 }

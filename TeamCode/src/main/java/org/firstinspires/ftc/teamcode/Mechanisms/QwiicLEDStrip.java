@@ -137,7 +137,7 @@ public class QwiicLEDStrip extends I2cDeviceSynchDevice<I2cDeviceSynchSimple> {
 
     // Turn all LEDS off...
     void turnAllOff() {
-        writeI2C(Commands.WRITE_ALL_LED_OFF, null);
+        setColor(0);
     }
 
     /*

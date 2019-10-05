@@ -6,6 +6,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+import java.util.Arrays;
+import java.util.List;
+
 class MecanumDrive {
     private DcMotor frontLeft;
     private DcMotor frontRight;
@@ -26,7 +29,15 @@ class MecanumDrive {
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
-    void setSpeeds(double flSpeed, double frSpeed, double blSpeed, double brSpeed) {
+    List<QQ_Test> getTests() {
+        return Arrays.asList(
+                new QQ_TestMotor("Mecanum Wheel -> Front Left", 0.3, frontLeft),
+                new QQ_TestMotor("Mecanum Wheel -> Front Right", 0.3, frontRight),
+                new QQ_TestMotor("Mecanum Wheel -> Back Left", 0.3, backLeft),
+                new QQ_TestMotor("Mecanum Wheel -> Back Right", 0.3, backRight));
+     }
+
+    private void setSpeeds(double flSpeed, double frSpeed, double blSpeed, double brSpeed) {
         double largest = 1.0;
         largest = Math.max(largest, Math.abs(flSpeed));
         largest = Math.max(largest, Math.abs(frSpeed));

@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Util;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.vuforia.CameraDevice;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -56,6 +57,9 @@ public class Vuforia {
     private VuforiaTrackable stoneTarget;
     private VuforiaTrackables targetsSkyStone;
 
+    //Custom
+    private static double NO_TARGET = -2000;
+
     public void start(HardwareMap hardwareMap) {
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
@@ -96,7 +100,8 @@ public class Vuforia {
         targetsSkyStone.activate();
     }
 
-    public Location whereIsSkystone(Telemetry telemetry) {
+    public double whereIsSkystone(Telemetry telemetry) {
+        CameraDevice.getInstance().setFlashTorchMode(true); //turns flashlight on
         if (((VuforiaTrackableDefaultListener) stoneTarget.getListener()).isVisible()) {
             // getUpdatedRobotLocation() will return null if no new information is available since
             // the last time that call was made, or if the trackable is not currently visible.
@@ -107,16 +112,11 @@ public class Vuforia {
             VectorF translation = lastLocation.getTranslation();
             telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
                     translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch);
-            double xPosition = translation.get(0);
-            if (xPosition < -10) {
-                return Location.LEFT;
-            } else if (xPosition > 10) {
-                return Location.RIGHT;
-            } else {
-                return Location.CENTER;
-            }
+            double yPosition = translation.get(1);
+            return yPosition;
         } else {
-            return Location.NOT_FOUND;
+            telemetry.addData("Direction", "Not Found");
+            return NO_TARGET;
         }
     }
 

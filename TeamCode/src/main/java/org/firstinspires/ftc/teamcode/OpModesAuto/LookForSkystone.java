@@ -18,27 +18,22 @@ public class LookForSkystone extends OpMode {
     @Override
     public void init() {
         robot.init(hardwareMap);
- vuforia.start(hardwareMap);
+        vuforia.start(hardwareMap);
     }
 
     // Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
     @Override
     public void loop() {
-        Vuforia.Location location = vuforia.whereIsSkystone(telemetry);
-        switch(location){
-            case LEFT:
-                robot.strafe(-0.3);
-                break;
-            case RIGHT:
-                robot.strafe(0.3);
-                break;
-            case CENTER:
-                robot.strafe(0);
-                break;
-            case NOT_FOUND:
-                robot.strafe(-0.3);
-                break;
+        double distance = vuforia.whereIsSkystone(telemetry);
+        if (distance != -2000) {
+            double speed = (distance * 0.008);
+            robot.strafe(speed);
+            telemetry.addData("Traveling", speed);
+        } else {
+            robot.strafe(0);
+            telemetry.addData("Traveling", "Not Found");
         }
-        robot.strafe(0.3);
+
+        //robot.strafe(0.3);
     }
 }

@@ -49,7 +49,7 @@ public class QwiicLEDStrip extends I2cDeviceSynchDevice<I2cDeviceSynchSimple> {
      * Change the color of all LEDs to a single color
      * @param color  what the color should be
      */
-    void setColor(@ColorInt int color) {
+    public void setColor(@ColorInt int color) {
         byte[] data = new byte[3];
         data[0] = (byte) Color.red(color);
         data[1] = (byte) Color.green(color);
@@ -100,7 +100,7 @@ public class QwiicLEDStrip extends I2cDeviceSynchDevice<I2cDeviceSynchSimple> {
      * Change the color of all LEDs using arrays
      * @param colors
      */
-    void setColors(@ColorInt int[] colors) {
+    public void setColors(@ColorInt int[] colors) {
         int length = colors.length;
 
         int numInLastSegment = length % 12;
@@ -117,7 +117,7 @@ public class QwiicLEDStrip extends I2cDeviceSynchDevice<I2cDeviceSynchSimple> {
      *  @param number which LED to change (1-255)
      *  @param brightness brightness level (0-31)
      */
-    void setBrightness(int number, int brightness) {
+    public void setBrightness(int number, int brightness) {
         byte[] data = new byte[2];
         data[0] = (byte) number;
         data[1] = (byte) brightness;
@@ -129,14 +129,14 @@ public class QwiicLEDStrip extends I2cDeviceSynchDevice<I2cDeviceSynchSimple> {
      *
      *  @param brightness brightness level (0-31)
      */
-    void setBrightness(int brightness) {
+    public void setBrightness(int brightness) {
         byte[] data = new byte[1];
         data[0] = (byte) brightness;
         writeI2C(Commands.WRITE_ALL_LED_BRIGHTNESS, data);
     }
 
     // Turn all LEDS off...
-    void turnAllOff() {
+    public void turnAllOff() {
         setColor(0);
     }
 
@@ -145,7 +145,7 @@ public class QwiicLEDStrip extends I2cDeviceSynchDevice<I2cDeviceSynchSimple> {
      *
      * @param newLength - 1 to 100 (longer than 100 not supported)
      */
-    void changeLength(int newLength) {
+    public void changeLength(int newLength) {
         byte[] data = new byte[1];
         data[0] = (byte) newLength;
         writeI2C(Commands.CHANGE_LED_LENGTH, data);

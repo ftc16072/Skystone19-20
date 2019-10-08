@@ -18,6 +18,8 @@ import org.firstinspires.ftc.teamcode.Util.Polar;
 public class Robot {
     private LynxEmbeddedIMU imu;
     private MecanumDrive mecanumDrive = new MecanumDrive();
+    private Pincer pincer = new Pincer();
+    private Rotator rotator = new Rotator();
     private int quackID;
     private Context appContext;
     private boolean quacking = false;
@@ -27,6 +29,8 @@ public class Robot {
         BNO055IMU.Parameters params = new BNO055IMU.Parameters();
         imu.initialize(params);
         mecanumDrive.init(hwMap);
+        pincer.init(hwMap);
+        rotator.init(hwMap);
         appContext = hwMap.appContext;
         quackID = appContext.getResources().getIdentifier("quack", "raw", hwMap.appContext.getPackageName());
         quacking = false;
@@ -76,6 +80,16 @@ public class Robot {
         double MAX_ROTATE = 0.7; //This is to shrink how fast we can rotate so we don't fly past the angle
         delta = Range.clip(delta, -MAX_ROTATE, MAX_ROTATE);
         driveFieldRelative(x, y, delta);
+    }
+
+    public void openPincer(){
+        pincer.open();
+    }
+    public void closePincer(){
+        pincer.close();
+    }
+    public void setRotator(double degrees, AngleUnit angleUnit){
+        rotator.rotate(degrees, angleUnit);
     }
 
 

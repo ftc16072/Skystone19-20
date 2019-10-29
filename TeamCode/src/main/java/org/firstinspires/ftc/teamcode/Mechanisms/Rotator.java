@@ -25,8 +25,12 @@ class Rotator {
 
     void rotate(double angle, AngleUnit angleUnit){
         double angleRadians = angleUnit.toRadians(angle);
-        double position = angleRadians / Math.PI;
-        rotator.setPosition(position);
+        double position = angleRadians;
+        position = position / Math.PI;
+        if (position > 1) {
+            position -= 1;
+        }
+            rotator.setPosition(position);
 
 
     }

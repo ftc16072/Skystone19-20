@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.Util.Polar;
 public class DriveOnly extends OpMode {
     private Robot robot = new Robot();
     private boolean pincerOpen = false;
-    private boolean xPresed = false;
+    private boolean xPressed = false;
 
     // Code to run ONCE when the driver hits INIT
     @Override
@@ -28,7 +28,7 @@ public class DriveOnly extends OpMode {
         Polar g1RightJoystick = Polar.fromCartesian(gamepad1.right_stick_x, -gamepad1.right_stick_y);
         Polar g2LeftJoystick = Polar.fromCartesian(gamepad2.right_stick_x, -gamepad2.right_stick_y);
         telemetry.addData("Gyro Heeading", robot.getHeadingRadians());
-
+        boolean state = false;
 
         double r = g1RightJoystick.getR();
         telemetry.addData("r", r);
@@ -52,18 +52,21 @@ public class DriveOnly extends OpMode {
                 robot.quack();
             }
         }
-        if (gamepad2.x && !xPresed){
+        if (gamepad2.x && !xPressed){
             pincerOpen = !pincerOpen;
-            xPresed = true;
         }
+        xPressed = gamepad2.x;
+
         if (pincerOpen) {
             robot.openPincer();
-            xPresed = false;
+            state = true;
         } else {
             robot.closePincer();
-            xPresed = false;
+            state = false;
         }
+        telemetry.addData("state: ", state);
         if (g2LeftJoystick.getR() >= 0.8){
+            telemetry.addData("Joystick Angle: ", g2LeftJoystick.getDegrees());
             robot.setRotator(g2LeftJoystick.getTheta(), AngleUnit.RADIANS);
         }
     }

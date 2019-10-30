@@ -8,6 +8,7 @@ import com.qualcomm.hardware.lynx.LynxEmbeddedIMU;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
@@ -88,8 +89,8 @@ public class Robot {
     public void closePincer(){
         pincer.close();
     }
-    public void setRotator(double degrees, AngleUnit angleUnit){
-        rotator.rotate(degrees, angleUnit);
+    public void setRotator(double degrees, AngleUnit angleUnit, Telemetry telemetry){
+        rotator.rotate(degrees, angleUnit, telemetry);
     }
 
 

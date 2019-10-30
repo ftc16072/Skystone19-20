@@ -15,9 +15,12 @@ import static org.firstinspires.ftc.robotcore.internal.android.dx.rop.code.RegOp
 
 class Rotator {
     private Servo rotator;
+    private static final double LEFT_POSITION = 0.29;
+    private static final double RIGHT_POSITION = 0.94;
 
     void init(HardwareMap hwmap) {
         rotator = hwmap.get(Servo.class, "rotator");
+        rotator.scaleRange(LEFT_POSITION, RIGHT_POSITION);
     }
 
     List<QQ_Test> getTests() {

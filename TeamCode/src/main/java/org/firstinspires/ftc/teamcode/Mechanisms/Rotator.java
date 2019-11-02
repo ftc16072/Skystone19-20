@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Mechanisms;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -11,12 +12,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.firstinspires.ftc.robotcore.internal.android.dx.rop.code.RegOps.OR;
-
-
 class Rotator {
     private Servo rotator;
-    private static final double LEFT_POSITION = 0.29;
-    private static final double RIGHT_POSITION = 0.94;
+    public static final double LEFT_POSITION = 0.27;
+    public static final double RIGHT_POSITION = 1;
 
     void init(HardwareMap hwmap) {
         rotator = hwmap.get(Servo.class, "rotator");

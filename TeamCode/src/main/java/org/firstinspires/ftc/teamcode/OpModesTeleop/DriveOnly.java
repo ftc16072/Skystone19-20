@@ -1,14 +1,17 @@
 package org.firstinspires.ftc.teamcode.OpModesTeleop;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.Mechanisms.Robot;
+import org.firstinspires.ftc.teamcode.Mechanisms.Rotator;
 import org.firstinspires.ftc.teamcode.Util.Polar;
 
 @TeleOp()
 public class DriveOnly extends OpMode {
+    FtcDashboard dashboard = FtcDashboard.getInstance();
     private Robot robot = new Robot();
     private boolean pincerOpen = false;
     private boolean xPressed = false;

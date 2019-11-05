@@ -25,8 +25,8 @@ class MecanumDrive {
         backRight = hwMap.get(DcMotor.class, "back_right");
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        backRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     List<QQ_Test> getTests() {

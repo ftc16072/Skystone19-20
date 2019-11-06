@@ -28,7 +28,7 @@ public class TestWiring extends OpMode {
         tests = new ArrayList<>();
         tests.addAll(mecanumDrive.getTests());
         tests.addAll(rotator.getTests());
-        tests.add(lift.getTests());
+        tests.addAll(lift.getTests());
                                                                                                                                                                                          tests.addAll(pincer.getTests());
         // To add more tests here, do this: tests.addAll(sampleMechanism.getTests());
     }

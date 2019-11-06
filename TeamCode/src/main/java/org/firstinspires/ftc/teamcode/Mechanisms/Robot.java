@@ -21,9 +21,17 @@ public class Robot {
     private MecanumDrive mecanumDrive = new MecanumDrive();
     private Pincer pincer = new Pincer();
     private Rotator rotator = new Rotator();
+    private Flipper flipper = new Flipper();
     private int quackID;
     private Context appContext;
     private boolean quacking = false;
+
+    public enum FlipperPositions {
+        UP,
+        DOWN,
+        INIT,
+        STOP
+    }
 
     public void init(HardwareMap hwMap) {
         imu = hwMap.get(LynxEmbeddedIMU.class, "imu");
@@ -32,6 +40,7 @@ public class Robot {
         mecanumDrive.init(hwMap);
         pincer.init(hwMap);
         rotator.init(hwMap);
+        flipper.init(hwMap);
         appContext = hwMap.appContext;
         quackID = appContext.getResources().getIdentifier("quack", "raw", hwMap.appContext.getPackageName());
         quacking = false;
@@ -91,6 +100,18 @@ public class Robot {
     }
     public void setRotator(double degrees, AngleUnit angleUnit, Telemetry telemetry){
         rotator.rotate(degrees, angleUnit, telemetry);
+    }
+    public void setFlipper(FlipperPositions position){
+        switch (position){
+            case UP:
+                flipper.up();
+                break;
+            case DOWN:
+                flipper.down();
+                break;
+            case STOP:
+                flipper.stop();
+        }
     }
 
 

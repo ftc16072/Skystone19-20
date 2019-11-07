@@ -61,15 +61,19 @@ public class DriveOnly extends OpMode {
 
         if (pincerOpen) {
             robot.openPincer();
-            state = true;
         } else {
             robot.closePincer();
-            state = false;
         }
-        telemetry.addData("state: ", state);
         if (g2RightJoystick.getR() >= 0.8){
             telemetry.addData("Joystick Angle: ", g2RightJoystick.getDegrees());
             robot.setRotator(g2RightJoystick.getTheta(), AngleUnit.RADIANS, telemetry);
+        }
+        if (gamepad2.dpad_up){
+            robot.setFlipper(Robot.FlipperPositions.UP);
+        } else if(gamepad2.dpad_down){
+            robot.setFlipper(Robot.FlipperPositions.DOWN);
+        } else {
+            robot.setFlipper(Robot.FlipperPositions.STOP);
         }
     }
 }

@@ -22,6 +22,8 @@ public class Robot {
     private Pincer pincer = new Pincer();
     private Rotator rotator = new Rotator();
     private Flipper flipper = new Flipper();
+    private Lifter lifter = new Lifter();
+    private Snatcher snatcher = new Snatcher();
     private int quackID;
     private Context appContext;
     private boolean quacking = false;
@@ -41,6 +43,8 @@ public class Robot {
         pincer.init(hwMap);
         rotator.init(hwMap);
         flipper.init(hwMap);
+        lifter.init(hwMap);
+        snatcher.init(hwMap);
         appContext = hwMap.appContext;
         quackID = appContext.getResources().getIdentifier("quack", "raw", hwMap.appContext.getPackageName());
         quacking = false;
@@ -98,6 +102,12 @@ public class Robot {
     public void closePincer(){
         pincer.close();
     }
+    public void liftSnatcher(){
+        snatcher.lift();
+    }
+    public void lowerSnatcher(){
+        snatcher.lower();
+    }
     public void setRotator(double degrees, AngleUnit angleUnit, Telemetry telemetry){
         rotator.rotate(degrees, angleUnit, telemetry);
     }
@@ -112,6 +122,9 @@ public class Robot {
             case STOP:
                 flipper.stop();
         }
+    }
+    public void moveLifter(double speed) {
+        lifter.move(speed);
     }
 
 

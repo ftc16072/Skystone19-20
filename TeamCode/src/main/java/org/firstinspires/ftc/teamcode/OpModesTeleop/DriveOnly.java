@@ -15,6 +15,8 @@ public class DriveOnly extends OpMode {
     private Robot robot = new Robot();
     private boolean pincerOpen = false;
     private boolean xPressed = false;
+    private boolean snatcherOpen = false;
+    private boolean bPressed = false;
 
     // Code to run ONCE when the driver hits INIT
     @Override
@@ -72,12 +74,43 @@ public class DriveOnly extends OpMode {
             telemetry.addData("Joystick Angle: ", g2RightJoystick.getDegrees());
             robot.setRotator(g2RightJoystick.getTheta(), AngleUnit.RADIANS, telemetry);
         }
-        if (gamepad2.dpad_up){
+        if (gamepad2.dpad_right){
             robot.setFlipper(Robot.FlipperPositions.UP);
-        } else if(gamepad2.dpad_down){
+        } else if(gamepad2.dpad_left){
             robot.setFlipper(Robot.FlipperPositions.DOWN);
         } else {
             robot.setFlipper(Robot.FlipperPositions.STOP);
+        }
+        if(gamepad2.right_bumper || gamepad2.left_bumper){
+            if (gamepad2.dpad_up){
+                robot.moveLifter(0.7);
+
+            } else if (gamepad2.dpad_down) {
+                robot.moveLifter(-0.7);
+            } else {
+                robot.moveLifter(0);
+            }
+
+        }else{
+            if (gamepad2.dpad_up) {
+                robot.moveLifter(0.5);
+
+            } else if (gamepad2.dpad_down){
+                robot.moveLifter(-0.5);
+            } else {
+                robot.moveLifter(0);
+            }
+
+        }
+        if (gamepad2.b && !bPressed){
+            snatcherOpen = !snatcherOpen;
+        }
+        bPressed = gamepad2.b;
+
+        if (snatcherOpen) {
+            robot.liftSnatcher();
+        } else {
+            robot.lowerSnatcher();
         }
     }
 }

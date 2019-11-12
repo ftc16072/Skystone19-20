@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.Util.Polar;
 @TeleOp()
 public class DriveOnly extends OpMode {
     FtcDashboard dashboard = FtcDashboard.getInstance();
+    private static double MAX_SPEED = 0.8;
     private Robot robot = new Robot();
     private boolean pincerOpen = false;
     private boolean xPressed = false;
@@ -27,10 +28,17 @@ public class DriveOnly extends OpMode {
     public void loop() {
         double forward = gamepad1.left_stick_y * -1; //The y direction on the gamepad is reversed idk why
         double strafe = gamepad1.left_stick_x;
+        //squaring driving joystick to make it less sensitive in the middle
+        forward = forward * forward * Math.signum(forward);
+        strafe = strafe * strafe * Math.signum(strafe);
+         // unless turbo bumper is pressed, scale speed down
+        if(!(gamepad1.right_bumper || gamepad1.left_bumper)){
+            forward = MAX_SPEED * forward;
+            strafe = MAX_SPEED * strafe;
+        }
         Polar g1RightJoystick = Polar.fromCartesian(gamepad1.right_stick_x, -gamepad1.right_stick_y);
         Polar g2RightJoystick = Polar.fromCartesian(gamepad2.right_stick_x, -gamepad2.right_stick_y);
-        telemetry.addData("Gyro Heeading", robot.getHeadingRadians());
-        boolean state = false;
+        telemetry.addData("Gyro Heading", robot.getHeadingRadians());
 
         double r = g1RightJoystick.getR();
         telemetry.addData("r", r);
@@ -38,10 +46,6 @@ public class DriveOnly extends OpMode {
             robot.strafe(gamepad1.right_trigger);
         } else if (gamepad1.left_trigger >= 0.05) {
             robot.strafe(-gamepad1.left_trigger);
-        } else if (gamepad1.right_bumper) {
-            robot.driveFieldRelative(0, 0, 0.2);
-        } else if (gamepad1.left_bumper) {
-            robot.driveFieldRelative(0, 0, -0.2);
         } else {
             if (r >= 0.8) {
                 telemetry.addData("joystick angle", g1RightJoystick.getDegrees());

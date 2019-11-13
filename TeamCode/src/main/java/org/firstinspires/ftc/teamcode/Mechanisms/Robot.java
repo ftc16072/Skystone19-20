@@ -126,6 +126,4 @@ public class Robot {
     public void moveLifter(double speed) {
         lifter.move(speed);
     }
-
-
 }

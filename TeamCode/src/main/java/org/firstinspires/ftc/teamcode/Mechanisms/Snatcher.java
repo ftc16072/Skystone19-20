@@ -8,8 +8,8 @@ import java.util.List;
 
 
 class Snatcher {
-    private double OPEN_POSITION = 0.0;
-    private double CLOSE_POSITION = 1.0;
+    private double LOWERED_POSITION = 0.7;
+    private double RAISED_POSITION = 1.0;
     private Servo snatcher;
 
     void init(HardwareMap hwmap) {
@@ -23,10 +23,10 @@ class Snatcher {
     }
 
     void lift(){
-        snatcher.setPosition(OPEN_POSITION);
+        snatcher.setPosition(RAISED_POSITION);
     }
     void lower() {
-        snatcher.setPosition(CLOSE_POSITION);
+        snatcher.setPosition(LOWERED_POSITION);
     }
 
 }

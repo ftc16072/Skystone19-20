@@ -109,8 +109,10 @@ public class DriveOnly extends OpMode {
 
         if (snatcherOpen) {
             robot.liftSnatcher();
+            telemetry.addData("snatcher:", "lifted");
         } else {
             robot.lowerSnatcher();
+            telemetry.addData("snatcher", "Lowered");
         }
     }
 }

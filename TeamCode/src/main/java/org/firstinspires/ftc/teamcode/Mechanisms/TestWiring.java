@@ -14,6 +14,7 @@ public class TestWiring extends OpMode {
     private Rotator rotator = new Rotator();
     private Lifter lift = new Lifter();
     private Flipper flipper = new Flipper();
+    private Snatcher snatcher = new Snatcher();
     private List<QQ_Test> tests;
     private boolean wasDown, wasUp;
     private int testNum;
@@ -26,17 +27,15 @@ public class TestWiring extends OpMode {
         mecanumDrive.init(hardwareMap);
         rotator.init(hardwareMap);
         lift.init(hardwareMap);
-        tests = new ArrayList<>();
-        tests.addAll(mecanumDrive.getTests());
-        tests.addAll(rotator.getTests());
-        tests.addAll(lift.getTests());
+        snatcher.init(hardwareMap);
         flipper.init(hardwareMap);
         tests = new ArrayList<>();
         tests.addAll(mecanumDrive.getTests());
         tests.addAll(rotator.getTests());
         tests.addAll(pincer.getTests());
         tests.addAll(flipper.getTests());
-
+        tests.addAll(lift.getTests());
+        tests.addAll(snatcher.getTests());
                                                                                                                                                                                          tests.addAll(pincer.getTests());
         // To add more tests here, do this: tests.addAll(sampleMechanism.getTests());
     }

@@ -8,7 +8,7 @@ import java.util.List;
 
 
 class Snatcher {
-    private double LOWERED_POSITION = 0.7;
+    private double LOWERED_POSITION = 0.6;
     private double RAISED_POSITION = 1.0;
     private Servo snatcher;
 

@@ -114,5 +114,6 @@ public class DriveOnly extends OpMode {
             robot.lowerSnatcher();
             telemetry.addData("snatcher", "Lowered");
         }
+        telemetry.addData("distances",robot.getDistenceCm());
     }
 }

@@ -22,8 +22,7 @@ public class DriveOnly extends OpMode {
     @Override
     public void init() {
         robot.init(hardwareMap);
-        robot.setMecanumDriveMaxSpeed(0.8);
-
+        robot.setMecanumDriveMaxSpeed(MAX_SPEED);
     }
 
     // Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
@@ -38,7 +37,7 @@ public class DriveOnly extends OpMode {
         if(gamepad1.right_bumper || gamepad1.left_bumper){
             robot.setMecanumDriveMaxSpeed(1);
         } else {
-            robot.setMecanumDriveMaxSpeed(0.8);
+            robot.setMecanumDriveMaxSpeed(MAX_SPEED);
         }
         Polar g1RightJoystick = Polar.fromCartesian(gamepad1.right_stick_x, -gamepad1.right_stick_y);
         Polar g2RightJoystick = Polar.fromCartesian(gamepad2.right_stick_x, -gamepad2.right_stick_y);

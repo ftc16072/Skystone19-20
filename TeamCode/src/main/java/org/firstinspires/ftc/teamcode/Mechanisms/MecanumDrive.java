@@ -23,6 +23,8 @@ class MecanumDrive {
 
     public static double CM_PER_TICK = (2 * Math.PI * WHEEL_RADIUS) / TICKS_PER_ROTATION;
 
+    private double maxSpeed = 1.0;
+
     private MatrixF conversion;
     private GeneralMatrixF encoderMatrix = new GeneralMatrixF(3,1);
 
@@ -57,7 +59,7 @@ class MecanumDrive {
      }
 
     private void setSpeeds(double flSpeed, double frSpeed, double blSpeed, double brSpeed) {
-        double largest = 1.0;
+        double largest = maxSpeed;
         largest = Math.max(largest, Math.abs(flSpeed));
         largest = Math.max(largest, Math.abs(frSpeed));
         largest = Math.max(largest, Math.abs(blSpeed));
@@ -99,5 +101,12 @@ class MecanumDrive {
                 backRight.getCurrentPosition());
 
 
+    }
+    void setMaxSpeed(double speed){
+        maxSpeed = Math.min(speed, 1.0);
+    }
+
+    public double getMaxSpeed() {
+        return maxSpeed;
     }
 }

@@ -131,4 +131,12 @@ public class Robot {
     public double[] getDistenceCm(){
         return mecanumDrive.getDistenceCm();
     }
+
+    public void setMecanumDriveMaxSpeed(double speed){
+        mecanumDrive.setMaxSpeed(speed);
+    }
+
+    public double getMecanumDriveMaxSpeed(){
+        return mecanumDrive.getMaxSpeed();
+    }
 }

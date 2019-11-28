@@ -24,7 +24,7 @@ public class DriveOnly extends OpMode {
     @Override
     public void init() {
         robot.init(hardwareMap);
-        robot.setMecanumDriveMaxSpeed(MAX_SPEED);
+        robot.nav.setMecanumDriveMaxSpeed(MAX_SPEED);
     }
 
     // Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
@@ -37,26 +37,25 @@ public class DriveOnly extends OpMode {
         strafe = strafe * strafe * Math.signum(strafe);
          // unless turbo bumper is pressed, scale speed down
         if(gamepad1.right_bumper || gamepad1.left_bumper){
-            robot.setMecanumDriveMaxSpeed(1);
+            robot.nav.setMecanumDriveMaxSpeed(1);
         } else {
-            robot.setMecanumDriveMaxSpeed(MAX_SPEED);
+            robot.nav.setMecanumDriveMaxSpeed(MAX_SPEED);
         }
         Polar g1RightJoystick = Polar.fromCartesian(gamepad1.right_stick_x, -gamepad1.right_stick_y);
         Polar g2RightJoystick = Polar.fromCartesian(gamepad2.right_stick_x, -gamepad2.right_stick_y);
-        telemetry.addData("Gyro Heading", robot.getHeadingRadians());
 
         double r = g1RightJoystick.getR();
         telemetry.addData("r", r);
         if (gamepad1.right_trigger >= 0.05) {
-            robot.strafe(gamepad1.right_trigger);
+            robot.nav.strafe(gamepad1.right_trigger);
         } else if (gamepad1.left_trigger >= 0.05) {
-            robot.strafe(-gamepad1.left_trigger);
+            robot.nav.strafe(-gamepad1.left_trigger);
         } else {
             if (r >= 0.8) {
                 telemetry.addData("joystick angle", g1RightJoystick.getDegrees());
-                robot.driveFieldRelativeAngle(strafe, forward, g1RightJoystick.getTheta());
+                robot.nav.driveFieldRelativeAngle(strafe, forward, g1RightJoystick.getTheta());
             } else {
-                robot.driveFieldRelative(strafe, forward, 0.0);
+                robot.nav.driveFieldRelative(strafe, forward, 0.0);
             }
 
             if (gamepad1.a) {
@@ -117,8 +116,5 @@ public class DriveOnly extends OpMode {
             robot.lowerSnatcher();
             telemetry.addData("snatcher", "Lowered");
         }
-        double[] distances = robot.getDistenceCm();
-        telemetry.addData("distance Y",distances[0]);
-        telemetry.addData("distance X",distances[1]);
     }
 }

@@ -17,6 +17,8 @@ public class DriveOnly extends OpMode {
     private boolean xPressed = false;
     private boolean snatcherOpen = false;
     private boolean bPressed = false;
+    private static double FAST_LIFT = 1.0;
+    private static double LIFT = 0.7;
 
     // Code to run ONCE when the driver hits INIT
     @Override
@@ -45,13 +47,14 @@ public class DriveOnly extends OpMode {
         if (gamepad1.right_bumper || gamepad1.left_bumper) {
             robot.setMecanumDriveMaxSpeed(1);
         } else {
-            robot.setMecanumDriveMaxSpeed(MAX_SPEED);
+            robot.nav.setMecanumDriveMaxSpeed(MAX_SPEED);
         }
         Polar g1RightJoystick = Polar.fromCartesian(gamepad1.right_stick_x, -gamepad1.right_stick_y);
 
         double r = g1RightJoystick.getR();
         if (gamepad1.right_trigger >= 0.05) {
             robot.strafe(strafeFromTrigger(gamepad1.right_trigger));
+            robot.nav.strafe(gamepad1.right_trigger);
         } else if (gamepad1.left_trigger >= 0.05) {
             robot.strafe(-strafeFromTrigger(gamepad1.left_trigger));
         } else {

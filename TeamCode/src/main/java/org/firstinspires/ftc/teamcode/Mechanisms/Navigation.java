@@ -108,9 +108,7 @@ public class Navigation {
         if ((Math.abs(xDiff) <= DISTANCE_TOLARANCE) &&
                 (Math.abs(yDiff) <= DISTANCE_TOLARANCE)){
             mecanumDrive.driveMecanum(0, 0, 0);
-            setPosition(estimatedPosition.getX(DistanceUnit.CM),
-                    estimatedPosition.getY(DistanceUnit.CM),
-                    DistanceUnit.CM);
+            setPosition(distanceUnit.toCm(x), distanceUnit.toCm(y), DistanceUnit.CM);
             return true;
         }
         if (Math.abs(xDiff) > DISTANCE_TOLARANCE) {

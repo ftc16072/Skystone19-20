@@ -17,14 +17,12 @@ public class DriveOnly extends OpMode {
     private boolean xPressed = false;
     private boolean snatcherOpen = false;
     private boolean bPressed = false;
-    private static double FAST_LIFT = 1.0;
-    private static double LIFT = 0.7;
 
     // Code to run ONCE when the driver hits INIT
     @Override
     public void init() {
         robot.init(hardwareMap);
-        robot.setMecanumDriveMaxSpeed(MAX_SPEED);
+        robot.nav.setMecanumDriveMaxSpeed(MAX_SPEED);
     }
 
     private double squareWithSign(double x) {

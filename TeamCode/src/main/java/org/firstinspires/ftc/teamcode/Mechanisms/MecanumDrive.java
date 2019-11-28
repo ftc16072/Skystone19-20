@@ -17,16 +17,23 @@ class MecanumDrive {
     private DcMotor backRight;
     private DcMotor backLeft;
 
-    public static double GEAR_RATIO = 0.5;
-    public static double WHEEL_RADIUS = 5.0;  // 5 cm
-    public static double TICKS_PER_ROTATION = 383.6;
+    private final static double GEAR_RATIO = 0.5;
+    private final static double WHEEL_RADIUS = 5.0;  // 5 cm
+    private final static double TICKS_PER_ROTATION = 383.6;
 
-    public static double CM_PER_TICK = (2 * Math.PI * WHEEL_RADIUS) / TICKS_PER_ROTATION;
+    private static double CM_PER_TICK = (2 * Math.PI * GEAR_RATIO * WHEEL_RADIUS) / TICKS_PER_ROTATION;
 
     private double maxSpeed = 1.0;
 
     private MatrixF conversion;
     private GeneralMatrixF encoderMatrix = new GeneralMatrixF(3,1);
+
+
+    private int frontLeftOffset;
+    private int frontRightOffset;
+    private int backRightOffset;
+    private int backLeftOffset;
+
 
     MecanumDrive(){
         float[] data = {1.0f, 1.0f, 1.0f,
@@ -79,12 +86,12 @@ class MecanumDrive {
 
         setSpeeds(frontLeftSpeed, frontRightSpeed, backLeftSpeed, backRightSpeed);
     }
-    double[] getDistenceCm(){
+    double[] getDistanceCm(){
         double[] distances = {0.0, 0.0};
 
-        encoderMatrix.put(0, 0,(float) (frontLeft.getCurrentPosition() * CM_PER_TICK));
-        encoderMatrix.put(1, 0, (float) (frontRight.getCurrentPosition() * CM_PER_TICK));
-        encoderMatrix.put(2, 0, (float) (backLeft.getCurrentPosition() * CM_PER_TICK));
+        encoderMatrix.put(0, 0,(float) ((frontLeft.getCurrentPosition() - frontLeftOffset) * CM_PER_TICK));
+        encoderMatrix.put(1, 0, (float) ((frontRight.getCurrentPosition() - frontRightOffset) * CM_PER_TICK));
+        encoderMatrix.put(2, 0, (float) ((backLeft.getCurrentPosition() - backLeftOffset) * CM_PER_TICK));
 
         MatrixF distanceMatrix = conversion.multiplied(encoderMatrix);
         distances[0] = distanceMatrix.get(0, 0);
@@ -93,20 +100,17 @@ class MecanumDrive {
         return distances;
     }
 
-    void reportEncoders(Telemetry telemetry) {
-        telemetry.addData("Encoders", "%d %d %d %d",
-                frontLeft.getCurrentPosition(),
-                frontRight.getCurrentPosition(),
-                backLeft.getCurrentPosition(),
-                backRight.getCurrentPosition());
-
-
-    }
     void setMaxSpeed(double speed){
         maxSpeed = Math.min(speed, 1.0);
     }
 
-    public double getMaxSpeed() {
+    double getMaxSpeed() {
         return maxSpeed;
+    }
+    void setEncoderOffsets(){
+        frontRightOffset = frontRight.getCurrentPosition();
+        frontLeftOffset = frontLeft.getCurrentPosition();
+        backLeftOffset = backLeft.getCurrentPosition();
+        backRightOffset = backRight.getCurrentPosition();
     }
 }

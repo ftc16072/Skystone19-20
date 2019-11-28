@@ -20,6 +20,6 @@ public class LookForSkystone extends OpMode {
     // Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
     @Override
     public void loop() {
-        robot.strafe(0.3);
+        robot.nav.strafe(0.3);
     }
 }

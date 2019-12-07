@@ -15,6 +15,7 @@ public class Navigation {
     private MecanumDrive mecanumDrive = new MecanumDrive();
     private BNO055IMU imu;
     private RobotPosition lastSetPosition;
+    private double imuOffset = 0;
 
     void init(HardwareMap hwMap) {
         imu = hwMap.get(BNO055IMU.class, "imu");
@@ -28,7 +29,10 @@ public class Navigation {
         Orientation angles;
 
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, angleUnit);
-        return -angles.firstAngle;   // Not sure why this is negative, but philip guessed it :)
+        double heading = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS).firstAngle;
+
+
+        return -(angles.firstAngle - imuOffset);   // Not sure why this is negative, but philip guessed it :)
 
     }
 
@@ -121,6 +125,12 @@ public class Navigation {
         }
         driveFieldRelative(xSpeed, ySpeed, 0.0);
         return false;
+    }
+
+    public void resetIMU(double angle, AngleUnit angleUnit) {
+        double desiredAngle = angleUnit.toRadians(angle);
+
+
     }
 
 }

@@ -5,7 +5,7 @@ public class Polar {
     private double theta;
     private double r;
 
-    Polar(double theta, double r) {
+    public Polar(double theta, double r) {
         this.theta = theta;
         this.r = r;
     }

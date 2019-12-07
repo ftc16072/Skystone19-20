@@ -17,6 +17,8 @@ public class DriveOnly extends OpMode {
     private boolean xPressed = false;
     private boolean snatcherOpen = false;
     private boolean bPressed = false;
+    private static double FAST_LIFT = 1.0;
+    private static double LIFT = 0.7;
 
     // Code to run ONCE when the driver hits INIT
     @Override
@@ -84,20 +86,20 @@ public class DriveOnly extends OpMode {
         }
         if(gamepad2.right_bumper || gamepad2.left_bumper){
             if (gamepad2.dpad_up){
-                robot.moveLifter(0.7);
+                robot.moveLifter(FAST_LIFT);
 
             } else if (gamepad2.dpad_down) {
-                robot.moveLifter(-0.7);
+                robot.moveLifter(-FAST_LIFT);
             } else {
                 robot.moveLifter(0);
             }
 
         }else{
             if (gamepad2.dpad_up) {
-                robot.moveLifter(0.5);
+                robot.moveLifter(LIFT);
 
             } else if (gamepad2.dpad_down){
-                robot.moveLifter(-0.5);
+                robot.moveLifter(-LIFT);
             } else {
                 robot.moveLifter(0);
             }

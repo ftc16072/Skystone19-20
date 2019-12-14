@@ -8,11 +8,11 @@ import java.util.List;
 
 
 class Snatcher {
-    private double RIGHT_LOWERED = 0.6;
+    private double RIGHT_LOWERED = 0.5;
     private double RIGHT_RAISED = 1.0;
     private Servo snatcherRight;
     private double LEFT_LOWERED = 1.0;
-    private double LEFT_RAISED = 0.6;
+    private double LEFT_RAISED = 0.5;
     private Servo snatcherLeft;
 
     void init(HardwareMap hwmap) {

@@ -15,7 +15,7 @@ class Lifter {
     private DcMotor lift;
     private DistanceSensor downdistance;
     private static final double DOWN_DISTANCE_CM = 5.5;
-    private static final double UP_DISTANCE_CM = 55;
+    private static final double UP_DISTANCE_CM = 58;
 
     void init(HardwareMap hwmap){
         lift = hwmap.get(DcMotor.class, "lifter");

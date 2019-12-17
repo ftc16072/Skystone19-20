@@ -30,6 +30,7 @@ public class TestWiring extends OpMode {
         lift.init(hardwareMap);
         snatcher.init(hardwareMap);
         flipper.init(hardwareMap);
+        robotLights.init(hardwareMap);
         tests = new ArrayList<>();
         tests.addAll(mecanumDrive.getTests());
         tests.addAll(rotator.getTests());

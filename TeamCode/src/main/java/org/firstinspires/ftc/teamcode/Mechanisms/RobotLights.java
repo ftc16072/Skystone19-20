@@ -18,8 +18,8 @@ public class RobotLights {
     Random rand = new Random();
 
     void init(HardwareMap hwmap) {
-        leds = hwmap.get(QwiicLEDStrip.class, "RobotLights");
-        leds.setBrightness(1);
+        leds = hwmap.get(QwiicLEDStrip.class, "robot_lights");
+        leds.setBrightness(5);
         leds.setColor(Color.rgb(0, 0, 0));
     }
     List<QQ_Test> getTests() {

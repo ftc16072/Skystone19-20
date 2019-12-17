@@ -28,6 +28,7 @@ public class Robot {
     private int quackID;
     private Context appContext;
     private boolean quacking = false;
+    public RobotLights robotLights = new RobotLights();
 
     public enum FlipperPositions {
         UP,
@@ -46,6 +47,7 @@ public class Robot {
         flipper.init(hwMap);
         lifter.init(hwMap);
         snatcher.init(hwMap);
+        robotLights.init(hwMap);
         appContext = hwMap.appContext;
         quackID = appContext.getResources().getIdentifier("quack", "raw", hwMap.appContext.getPackageName());
         quacking = false;

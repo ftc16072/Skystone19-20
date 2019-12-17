@@ -6,6 +6,10 @@
             <goBILDA5202SeriesMotor name="lifter" port="1" />
             <Servo name="snatcher" port="5" />
             <LynxEmbeddedIMU name="imu" port="0" bus="0" />
+            <QWIIC_LED_STRIP
+                name="robot_lights"
+                port="0"
+                bus="1" />
         </LynxModule>
         <LynxModule name="Expansion Hub 3" port="3">
             <goBILDA5202SeriesMotor name="front_left" port="0" />

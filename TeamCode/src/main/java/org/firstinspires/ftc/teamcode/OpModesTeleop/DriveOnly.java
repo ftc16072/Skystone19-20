@@ -27,20 +27,23 @@ public class DriveOnly extends OpMode {
         robot.setMecanumDriveMaxSpeed(MAX_SPEED);
     }
 
+    private double squareWithSign(double x) {
+        return x * x * Math.signum(x);
+    }
+
     private double strafeFromTrigger(double trigger) {
         return trigger / 2; //halve the speed from the trigger
     }
 
     private void driverLoop() {
-        double forward = gamepad1.left_stick_y * -1; //The y direction on the gamepad is reversed idk why
-        double strafe = gamepad1.left_stick_x;
+        //squaring driving joystick to make it less sensitive in the middle
+        double forward = squareWithSign(gamepad1.left_stick_y * -1); //The y direction on the gamepad is reversed idk why
+        double strafe = squareWithSign(gamepad1.left_stick_x);
         if (gamepad1.a) {
             robot.quack();
         } // :)
-        //squaring driving joystick to make it less sensitive in the middle
-        forward = forward * forward * Math.signum(forward);
-        strafe = strafe * strafe * Math.signum(strafe);
-        // unless turbo bumper is pressed, scale speed down
+
+        // if turbo bumper is pressed, allow full speed
         if (gamepad1.right_bumper || gamepad1.left_bumper) {
             robot.setMecanumDriveMaxSpeed(1);
         } else {
@@ -60,6 +63,7 @@ public class DriveOnly extends OpMode {
                 robot.driveFieldRelative(strafe, forward, 0.0);
             }
         }
+        //Snatcher Code
         if (gamepad1.b && !bPressed) {
             snatcherOpen = !snatcherOpen;
         }
@@ -78,48 +82,43 @@ public class DriveOnly extends OpMode {
 
     private void manipulatorLoop() {
         Polar g2RightJoystick = Polar.fromCartesian(gamepad2.right_stick_x, -gamepad2.right_stick_y);
-        if (gamepad2.x && !xPressed) {
-            pincerOpen = !pincerOpen;
-        }
-        xPressed = gamepad2.x;
 
-        if (pincerOpen) {
+        //Pincer Code
+        if (gamepad2.right_trigger >= 0.5 || gamepad2.left_trigger >= 0.5) {
             robot.openPincer();
         } else {
             robot.closePincer();
         }
-        if (g2RightJoystick.getR() >= 0.8) {
+
+        //Rotator Code
+        if (gamepad2.x) {
+            robot.setRotator(-90, AngleUnit.DEGREES, telemetry);
+        } else if (gamepad2.y) {
+            robot.setRotator(0, AngleUnit.DEGREES, telemetry);
+        } else if (gamepad2.b) {
+            robot.setRotator(90, AngleUnit.DEGREES, telemetry);
+        } else if (g2RightJoystick.getR() >= 0.8) { //TODO make field relative
             telemetry.addData("Joystick Angle: ", g2RightJoystick.getDegrees());
             robot.setRotator(g2RightJoystick.getTheta(), AngleUnit.RADIANS, telemetry);
         }
-        if (gamepad2.dpad_right) {
+
+        //Flipper Code
+        if (gamepad2.dpad_up) {
             robot.setFlipper(Robot.FlipperPositions.UP);
-        } else if (gamepad2.dpad_left) {
+        } else if (gamepad2.dpad_down) {
             robot.setFlipper(Robot.FlipperPositions.DOWN);
         } else {
             robot.setFlipper(Robot.FlipperPositions.STOP);
         }
-        if (gamepad2.right_bumper || gamepad2.left_bumper) {
-            if (gamepad2.dpad_up) {
-                robot.moveLifter(FAST_LIFT);
 
-            } else if (gamepad2.dpad_down) {
-                robot.moveLifter(-FAST_LIFT);
-            } else {
-                robot.moveLifter(0);
-            }
-
-        } else {
-            if (gamepad2.dpad_up) {
-                robot.moveLifter(LIFT);
-
-            } else if (gamepad2.dpad_down) {
-                robot.moveLifter(-LIFT);
-            } else {
-                robot.moveLifter(0);
-            }
-
+        //Lift Code
+        //TODO add take lift to bottom if A is pressed
+        if (Math.abs(gamepad2.left_stick_y) >= 0.1) {
+            robot.moveLifter(squareWithSign(gamepad2.left_stick_y * -1));
+        } else { //Stop Lift
+            robot.moveLifter(0);
         }
+
 
     }
 

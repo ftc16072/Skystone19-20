@@ -60,6 +60,9 @@ public class DriveOnly extends OpMode {
                 robot.driveFieldRelative(strafe, forward, 0.0);
             }
         }
+        if (gamepad1.b && !bPressed) {
+            snatcherOpen = !snatcherOpen;
+        }
         bPressed = gamepad1.b;
 
         if (snatcherOpen) {
@@ -69,6 +72,7 @@ public class DriveOnly extends OpMode {
             robot.lowerSnatcher();
             telemetry.addData("snatcher", "Lowered");
         }
+
     }
 
 
@@ -116,13 +120,7 @@ public class DriveOnly extends OpMode {
             }
 
         }
-        if (gamepad2.b && !bPressed) {
-            snatcherOpen = !snatcherOpen;
-        }
 
-        double[] distances = robot.getDistenceCm();
-        telemetry.addData("distance Y", distances[0]);
-        telemetry.addData("distance X", distances[1]);
     }
 
 

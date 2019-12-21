@@ -9,9 +9,9 @@ import org.firstinspires.ftc.teamcode.Mechanisms.Robot;
 import org.firstinspires.ftc.teamcode.Util.Polar;
 
 @TeleOp()
-public class DriveOnly extends OpMode {
+public class DriveOnlyOld extends OpMode {
     FtcDashboard dashboard = FtcDashboard.getInstance();
-    private static double MAX_SPEED = 0.6;
+    private static double MAX_SPEED = 0.8;
     private Robot robot = new Robot();
     private boolean pincerOpen = false;
     private boolean xPressed = false;
@@ -27,16 +27,11 @@ public class DriveOnly extends OpMode {
         robot.setMecanumDriveMaxSpeed(MAX_SPEED);
     }
 
-    private double strafeFromTrigger(double trigger) {
-        return trigger / 2; //halve the speed from the trigger
-    }
-
-    private void driverLoop() {
+    // Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
+    @Override
+    public void loop() {
         double forward = gamepad1.left_stick_y * -1; //The y direction on the gamepad is reversed idk why
         double strafe = gamepad1.left_stick_x;
-        if (gamepad1.a) {
-            robot.quack();
-        } // :)
         //squaring driving joystick to make it less sensitive in the middle
         forward = forward * forward * Math.signum(forward);
         strafe = strafe * strafe * Math.signum(strafe);
@@ -47,33 +42,27 @@ public class DriveOnly extends OpMode {
             robot.setMecanumDriveMaxSpeed(MAX_SPEED);
         }
         Polar g1RightJoystick = Polar.fromCartesian(gamepad1.right_stick_x, -gamepad1.right_stick_y);
+        Polar g2RightJoystick = Polar.fromCartesian(gamepad2.right_stick_x, -gamepad2.right_stick_y);
+        telemetry.addData("Gyro Heading", robot.getHeadingRadians());
 
         double r = g1RightJoystick.getR();
+        telemetry.addData("r", r);
         if (gamepad1.right_trigger >= 0.05) {
-            robot.strafe(strafeFromTrigger(gamepad1.right_trigger));
+            robot.strafe(gamepad1.right_trigger);
         } else if (gamepad1.left_trigger >= 0.05) {
-            robot.strafe(-strafeFromTrigger(gamepad1.left_trigger));
+            robot.strafe(-gamepad1.left_trigger);
         } else {
             if (r >= 0.8) {
+                telemetry.addData("joystick angle", g1RightJoystick.getDegrees());
                 robot.driveFieldRelativeAngle(strafe, forward, g1RightJoystick.getTheta());
             } else {
                 robot.driveFieldRelative(strafe, forward, 0.0);
             }
+
+            if (gamepad1.a) {
+                robot.quack();
+            }
         }
-        bPressed = gamepad1.b;
-
-        if (snatcherOpen) {
-            robot.liftSnatcher();
-            telemetry.addData("snatcher", "Lifted");
-        } else {
-            robot.lowerSnatcher();
-            telemetry.addData("snatcher", "Lowered");
-        }
-    }
-
-
-    private void manipulatorLoop() {
-        Polar g2RightJoystick = Polar.fromCartesian(gamepad2.right_stick_x, -gamepad2.right_stick_y);
         if (gamepad2.x && !xPressed) {
             pincerOpen = !pincerOpen;
         }
@@ -119,18 +108,17 @@ public class DriveOnly extends OpMode {
         if (gamepad2.b && !bPressed) {
             snatcherOpen = !snatcherOpen;
         }
+        bPressed = gamepad2.b;
 
+        if (snatcherOpen) {
+            robot.liftSnatcher();
+            telemetry.addData("snatcher:", "lifted");
+        } else {
+            robot.lowerSnatcher();
+            telemetry.addData("snatcher", "Lowered");
+        }
         double[] distances = robot.getDistenceCm();
         telemetry.addData("distance Y", distances[0]);
         telemetry.addData("distance X", distances[1]);
-    }
-
-
-
-    // Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
-    @Override
-    public void loop() {
-        driverLoop();
-        manipulatorLoop();
     }
 }

@@ -86,6 +86,8 @@ class MecanumDrive {
 
         setSpeeds(frontLeftSpeed, frontRightSpeed, backLeftSpeed, backRightSpeed);
     }
+
+    // Returns forward, strafe
     double[] getDistanceCm(){
         double[] distances = {0.0, 0.0};
 

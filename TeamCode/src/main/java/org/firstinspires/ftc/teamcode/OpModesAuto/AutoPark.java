@@ -46,10 +46,12 @@ public class AutoPark extends QQ_AutoBase {
     private RobotPosition getStartPosition() {
         double startX = 0;
         double startY = 0;
+        double heading = 0;
 
         if (startDepot && redAliance) {
             startX = 60;
             startY = -36;
+            heading = 180;
         }
         if (startDepot && !redAliance) {
             startX = -60;
@@ -62,15 +64,15 @@ public class AutoPark extends QQ_AutoBase {
         if (!startDepot && redAliance) {
             startX = 60;
             startY = 36;
+            heading = 180;
         }
-        return new RobotPosition(startX, startY, DistanceUnit.INCH, 0, AngleUnit.RADIANS);
+        return new RobotPosition(startX, startY, DistanceUnit.INCH, heading, AngleUnit.DEGREES);
 
     }
 
     List<QQ_AutoAction> getSteps() {
         QQ_ActionSetPosition startPosition =
-                new QQ_ActionSetPosition(getStartPosition().getX(DistanceUnit.INCH),
-                        getStartPosition().getY(DistanceUnit.INCH), DistanceUnit.INCH);
+                new QQ_ActionSetPosition(getStartPosition());
         if (redAliance) {
             if (startDepot && farPark) {
                 return Arrays.asList(
@@ -124,5 +126,4 @@ public class AutoPark extends QQ_AutoBase {
                 startPosition
         );
     }
-
 }

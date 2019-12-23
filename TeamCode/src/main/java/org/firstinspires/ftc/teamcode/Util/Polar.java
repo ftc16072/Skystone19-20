@@ -5,7 +5,7 @@ public class Polar {
     private double theta;
     private double r;
 
-    public Polar(double theta, double r) {
+    Polar(double theta, double r) {
         this.theta = theta;
         this.r = r;
     }
@@ -24,20 +24,20 @@ public class Polar {
 
     public static Polar fromCartesian(double x, double y) {
         double r = Math.hypot(x, y);
-        double theta = Math.atan2(x, y);
+        double theta = Math.atan2(y, x);
         return new Polar(theta, r);
     }
 
-   public void subtractAngle(double heading) {
+    public void subtractAngle(double heading) {
         theta = theta - heading;
     }
 
-   public double getX() {
-        return r * Math.sin(theta);
+    public double getX() {
+        return r * Math.cos(theta);
     }
 
     public double getY() {
-        return r * Math.cos(theta);
+        return r * Math.sin(theta);
     }
 
 

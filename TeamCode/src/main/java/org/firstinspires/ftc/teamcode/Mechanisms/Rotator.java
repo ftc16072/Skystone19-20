@@ -34,6 +34,7 @@ class Rotator {
         if (angleRadians < -(Math.PI/2) || angleRadians > (Math.PI/2)){ //throw away the bottom half of the joystick so it wont randomly spin around when its slightly bumped
             return;
         }
+
         double position = -1 * ((angleRadians / Math.PI) - 0.5);      //+ 0.5;
         telemetry.addData("SetPosition", position);
         rotator.setPosition(position);

@@ -47,12 +47,12 @@ public class Navigation {
     }
 
     public void driveFieldRelativeAngle(double x, double y, double angle) {
-        double angle_in = angle + Math.PI / 2;  // convert to robot coordinates
+        double angle_in = angle - Math.PI / 2;  // convert to robot coordinates
 
-        double delta = AngleUnit.normalizeRadians(angle_in - getHeading(AngleUnit.RADIANS));
+        double delta = AngleUnit.normalizeRadians(getHeading(AngleUnit.RADIANS) - angle_in);
 
         double MAX_ROTATE = 0.7; //This is to shrink how fast we can rotate so we don't fly past the angle
-        delta = Range.clip(delta / 6, -MAX_ROTATE, MAX_ROTATE);
+        delta = Range.clip(delta, -MAX_ROTATE, MAX_ROTATE);
         driveFieldRelative(x, y, -delta);
     }
 

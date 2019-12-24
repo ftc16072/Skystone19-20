@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.hardware.configuration.annotations.I2cDeviceType;
 @DeviceProperties(name = "QWIIC LED Strip", description = "Sparkfun QWIIC LED Strip", xmlTag = "QWIIC_LED_STRIP")
 public class QwiicLEDStrip extends I2cDeviceSynchDevice<I2cDeviceSynchSimple> {
 
-    public enum Commands {
+    private enum Commands {
         CHANGE_LED_LENGTH(0x70),
         WRITE_SINGLE_LED_COLOR(0x71),
         WRITE_ALL_LED_COLOR(0x72),
@@ -31,7 +31,7 @@ public class QwiicLEDStrip extends I2cDeviceSynchDevice<I2cDeviceSynchSimple> {
         }
     }
 
-    /*
+    /**
      * Change the color of a specific LED
      * @param position which LED to change (1 - 255)
      * @param color  what color to set it to
@@ -45,11 +45,11 @@ public class QwiicLEDStrip extends I2cDeviceSynchDevice<I2cDeviceSynchSimple> {
         writeI2C(Commands.WRITE_SINGLE_LED_COLOR, data);
     }
 
-    /*
+    /**
      * Change the color of all LEDs to a single color
      * @param color  what the color should be
      */
-    void setColor(@ColorInt int color) {
+    public void setColor(@ColorInt int color) {
         byte[] data = new byte[3];
         data[0] = (byte) Color.red(color);
         data[1] = (byte) Color.green(color);
@@ -57,12 +57,12 @@ public class QwiicLEDStrip extends I2cDeviceSynchDevice<I2cDeviceSynchSimple> {
         writeI2C(Commands.WRITE_ALL_LED_COLOR, data);
     }
 
-    /*
+    /**
      * Send a segment of the LED array
-     * @param cmd - command to send
-     * @param array - the values (limited from 0..255)
-     * @param offset - the starting value (LED only, array starts at 0)
-     * @param length - the length to send
+     * @param cmd command to send
+     * @param array the values (limited from 0..255)
+     * @param offset the starting value (LED only, array starts at 0)
+     * @param length the length to send
      */
     private void sendSegment(Commands cmd, int[] array, int offset, int length) {
         byte[] data = new byte[length + 2];
@@ -75,7 +75,7 @@ public class QwiicLEDStrip extends I2cDeviceSynchDevice<I2cDeviceSynchSimple> {
         writeI2C(cmd, data);
     }
 
-    /*
+    /**
      * Change the color of an LED color segment
      * @param colors      what the colors should be
      * @param offset      where in the array to start
@@ -96,11 +96,11 @@ public class QwiicLEDStrip extends I2cDeviceSynchDevice<I2cDeviceSynchSimple> {
         sendSegment(Commands.WRITE_BLUE_ARRAY, blueArray, offset, length);
     }
 
-    /*
+    /**
      * Change the color of all LEDs using arrays
-     * @param colors
+     * @param colors array of colors to set lights to
      */
-    void setColors(@ColorInt int[] colors) {
+    public void setColors(@ColorInt int[] colors) {
         int length = colors.length;
 
         int numInLastSegment = length % 12;
@@ -111,41 +111,43 @@ public class QwiicLEDStrip extends I2cDeviceSynchDevice<I2cDeviceSynchSimple> {
         setLEDColorSegment(colors, numSegments * 12, numInLastSegment);
     }
 
-    /*
+    /**
      *  Set the brightness of an individual LED
      *
      *  @param number which LED to change (1-255)
      *  @param brightness brightness level (0-31)
      */
-    void setBrightness(int number, int brightness) {
+    public void setBrightness(int number, int brightness) {
         byte[] data = new byte[2];
         data[0] = (byte) number;
         data[1] = (byte) brightness;
         writeI2C(Commands.WRITE_SINGLE_LED_BRIGHTNESS, data);
     }
 
-    /*
+    /**
      *  Set the brightness of all LEDs
      *
      *  @param brightness brightness level (0-31)
      */
-    void setBrightness(int brightness) {
+    public void setBrightness(int brightness) {
         byte[] data = new byte[1];
         data[0] = (byte) brightness;
         writeI2C(Commands.WRITE_ALL_LED_BRIGHTNESS, data);
     }
 
-    // Turn all LEDS off...
-    void turnAllOff() {
+    /**
+     * Turn all LEDS off...
+     */
+    public void turnAllOff() {
         setColor(0);
     }
 
-    /*
+    /**
      * Change the length of the LED strip
      *
-     * @param newLength - 1 to 100 (longer than 100 not supported)
+     * @param newLength 1 to 100 (longer than 100 not supported)
      */
-    void changeLength(int newLength) {
+    public void changeLength(int newLength) {
         byte[] data = new byte[1];
         data[0] = (byte) newLength;
         writeI2C(Commands.CHANGE_LED_LENGTH, data);

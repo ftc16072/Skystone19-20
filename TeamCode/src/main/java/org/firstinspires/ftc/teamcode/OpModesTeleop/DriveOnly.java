@@ -99,7 +99,7 @@ public class DriveOnly extends OpMode {
             robot.setRotator(90, AngleUnit.DEGREES, telemetry);
         } else if (g2RightJoystick.getR() >= 0.8) { //TODO make field relative
             telemetry.addData("Joystick Angle: ", AngleUnit.normalizeDegrees(g2RightJoystick.getDegrees() - 90));
-            robot.setRotator(g2RightJoystick.getTheta() + ((3 * Math.PI) / 2), AngleUnit.RADIANS, telemetry);
+            robot.setRotator(g2RightJoystick.getTheta() - ((Math.PI) / 2), AngleUnit.RADIANS, telemetry);
         }
 
         //Flipper Code

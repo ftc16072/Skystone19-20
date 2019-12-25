@@ -16,6 +16,7 @@ public class TestWiring extends OpMode {
     private Flipper flipper = new Flipper();
     private Snatcher snatcher = new Snatcher();
     private RobotLights robotLights = new RobotLights();
+    private Parker parker = new Parker();
     private List<QQ_Test> tests;
     private boolean wasDown, wasUp;
     private int testNum;
@@ -31,6 +32,7 @@ public class TestWiring extends OpMode {
         snatcher.init(hardwareMap);
         flipper.init(hardwareMap);
         robotLights.init(hardwareMap);
+        parker.init(hardwareMap);
         tests = new ArrayList<>();
         tests.addAll(mecanumDrive.getTests());
         tests.addAll(rotator.getTests());
@@ -39,6 +41,7 @@ public class TestWiring extends OpMode {
         tests.addAll(lift.getTests());
         tests.addAll(snatcher.getTests());
         tests.addAll(robotLights.getTests());
+        tests.addAll(parker.getTests());
                                                                                                                                                                                          tests.addAll(pincer.getTests());
         // To add more tests here, do this: tests.addAll(sampleMechanism.getTests());
     }

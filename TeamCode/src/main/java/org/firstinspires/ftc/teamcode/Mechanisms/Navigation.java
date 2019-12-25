@@ -86,7 +86,7 @@ public class Navigation {
     public boolean rotateTo(double angle, AngleUnit angleUnit){
         double rotateSpeed = 0.0;
 
-        double rotateDiff = angleUnit.toRadians(angle) - getHeading(AngleUnit.RADIANS);
+        double rotateDiff = AngleUnit.normalizeRadians(getHeading(AngleUnit.RADIANS) - angleUnit.toRadians(angle));
         if (Math.abs(rotateDiff) <= ANGLE_TOLARANCE) {
             mecanumDrive.driveMecanum(0,0,0);
             return true;

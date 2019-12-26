@@ -120,10 +120,10 @@ public class Navigation {
             return true;
         }
         if (Math.abs(xDiff) > DISTANCE_TOLARANCE) {
-            xSpeed = Math.min(SLOWEST_SPEED, KP_DISTANCE * xDiff);
+            xSpeed = Math.signum(xDiff) * Math.max(SLOWEST_SPEED, Math.abs(KP_DISTANCE * xDiff));
         }
         if (Math.abs(yDiff) > DISTANCE_TOLARANCE) {
-            ySpeed = Math.min(SLOWEST_SPEED, KP_DISTANCE * yDiff);
+            ySpeed = Math.signum(yDiff) * Math.max(SLOWEST_SPEED, Math.abs(KP_DISTANCE * yDiff));
         }
         Polar drive = Polar.fromCartesian(xSpeed, ySpeed);
         drive.subtractAngle(-Math.PI / 2);

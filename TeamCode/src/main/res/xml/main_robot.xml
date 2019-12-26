@@ -4,6 +4,9 @@
         <LynxModule name="Expansion Hub 2" port="2">
             <RevRoboticsCoreHexMotor name="flipper" port="0" />
             <goBILDA5202SeriesMotor name="lifter" port="1" />
+            <NeveRest3.7v1Gearmotor
+                name="parker"
+                port="2" />
             <Servo name="snatcher_right" port="5" />
             <LynxEmbeddedIMU name="imu" port="0" bus="0" />
             <QWIIC_LED_STRIP

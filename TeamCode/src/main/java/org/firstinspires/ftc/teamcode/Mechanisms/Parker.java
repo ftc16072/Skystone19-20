@@ -8,18 +8,18 @@ import java.util.Arrays;
 import java.util.List;
 
 class Parker {
-    private static double SPEED = 0.6;
+    private static double SPEED = -0.6;
     private DcMotor parker;
 
     void init(HardwareMap hwMap) {
-        parker = hwMap.get(DcMotor.class, "flipper");
+        parker = hwMap.get(DcMotor.class, "parker");
         parker.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     List<QQ_Test> getTests() {
         NeveRest3_7GearmotorV1 motor;
         return Arrays.asList(
-                new QQ_TestMotor("Parker", 0.2, parker)
+                new QQ_TestMotor("Parker", SPEED, parker)
         );
     }
 

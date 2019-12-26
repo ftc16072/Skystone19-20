@@ -22,6 +22,12 @@ public class AutoWaffle extends QQ_AutoBase {
         startDepot = false;
     }
 
+    @Override
+    public void start() {
+        super.start();
+        robot.flipper.holdUp();
+    }
+
     List<QQ_AutoAction> getSteps() {
         List<QQ_AutoAction> steps = new ArrayList<>();
         QQ_ActionSetPosition startPosition =
@@ -29,33 +35,36 @@ public class AutoWaffle extends QQ_AutoBase {
         if (redAlliance) {
             steps.addAll(Arrays.asList(
                     startPosition,
-                    new QQ_ActionDriveTo(WAFFLE_RED_X, WAFLLE_RED_Y, DistanceUnit.INCH),
+                    new QQ_ActionDriveTo(WAFFLE_RED_X + 4, WAFFLE_RED_Y, DistanceUnit.INCH),
+                    new QQ_ActionDriveTo(WAFFLE_RED_X - 2, WAFFLE_RED_Y, DistanceUnit.INCH),
                     new QQ_ActionSnatcher(true),
-                    new QQ_ActionDelayFor(0.5),
-                    new QQ_ActionDriveTo(WAFFLE_RED_X + 8, WAFLLE_RED_Y, DistanceUnit.INCH),
+                    new QQ_ActionDelayFor(1.25),
+                    new QQ_ActionDriveTo(WAFFLE_RED_X + 8, WAFFLE_RED_Y, DistanceUnit.INCH),
                     new QQ_ActionRotateTo(90, AngleUnit.DEGREES),
-                    new QQ_ActionDriveTo(WAFFLE_RED_X + 8, WAFLLE_RED_Y + 4, DistanceUnit.INCH), //to square on wall
-                    new QQ_ActionSetPosition(new RobotPosition(WAFFLE_RED_X + 8, FIELD_BOUNDARIES - WAFFLE_WIDTH, DistanceUnit.INCH, 90, AngleUnit.DEGREES)),
+                    new QQ_ActionDriveTo(WAFFLE_RED_X + 8, WAFFLE_RED_Y + 12, DistanceUnit.INCH), //to square on wall
+                    new QQ_ActionSetPosition(new RobotPosition(30, FIELD_BOUNDARIES - (WAFFLE_WIDTH + 9), DistanceUnit.INCH, 90, AngleUnit.DEGREES)),
                     new QQ_ActionSnatcher(false),
-                    new QQ_ActionDelayFor(0.5)
+                    new QQ_ActionDelayFor(1.25)
             ));
         } else {
             steps.addAll(Arrays.asList(
                     startPosition,
-                    new QQ_ActionDriveTo(-WAFFLE_RED_X, WAFLLE_RED_Y, DistanceUnit.INCH),
+                    new QQ_ActionDriveTo(-(WAFFLE_RED_X + 4), WAFFLE_RED_Y, DistanceUnit.INCH),
+                    new QQ_ActionDriveTo(-(WAFFLE_RED_X - 2), WAFFLE_RED_Y, DistanceUnit.INCH),
                     new QQ_ActionSnatcher(true),
-                    new QQ_ActionDelayFor(0.5),
-                    new QQ_ActionDriveTo(-WAFFLE_RED_X - 8, WAFLLE_RED_Y, DistanceUnit.INCH),
+                    new QQ_ActionDelayFor(1.25),
+                    new QQ_ActionDriveTo(-(WAFFLE_RED_X + 8), WAFFLE_RED_Y, DistanceUnit.INCH),
                     new QQ_ActionRotateTo(90, AngleUnit.DEGREES),
-                    new QQ_ActionDriveTo(-WAFFLE_RED_X - 8, WAFLLE_RED_Y + 4, DistanceUnit.INCH), //to square on wall
-                    new QQ_ActionSetPosition(new RobotPosition(-WAFFLE_RED_X - 8, FIELD_BOUNDARIES - WAFFLE_WIDTH, DistanceUnit.INCH, 90, AngleUnit.DEGREES)),
+                    new QQ_ActionDriveTo(-(WAFFLE_RED_X + 8), WAFFLE_RED_Y + 12, DistanceUnit.INCH), //to square on wall
+                    new QQ_ActionSetPosition(new RobotPosition(-30, FIELD_BOUNDARIES - (WAFFLE_WIDTH + 9), DistanceUnit.INCH, 90, AngleUnit.DEGREES)),
                     new QQ_ActionSnatcher(false),
-                    new QQ_ActionDelayFor(0.5)
+                    new QQ_ActionDelayFor(1.25)
             ));
         }
         steps.addAll(getParkSteps());
         return steps;
     }
+
 
     List<QQ_AutoAction> getParkSteps() {
         if (farPark) {
@@ -63,7 +72,7 @@ public class AutoWaffle extends QQ_AutoBase {
                     new QQ_ActionDriveTo(farPark_x, 0, DistanceUnit.INCH));
         } else {
             return Arrays.asList(
-                    new QQ_ActionDriveTo(nearPark_x, FIELD_BOUNDARIES - WAFFLE_WIDTH, DistanceUnit.INCH),
+                    new QQ_ActionDriveTo(nearPark_x, FIELD_BOUNDARIES - (WAFFLE_WIDTH + 14), DistanceUnit.INCH),
                     new QQ_ActionDriveTo(nearPark_x, 0, DistanceUnit.INCH));
         }
     }

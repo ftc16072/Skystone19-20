@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Util.RobotPosition;
 import java.util.List;
 
 abstract public class QQ_AutoBase extends OpMode {
-    private Robot robot = new Robot();
+    protected Robot robot = new Robot();
 
     private List<QQ_AutoAction> autoSteps;
     private int stepNum;
@@ -31,8 +31,8 @@ abstract public class QQ_AutoBase extends OpMode {
     static double BLUE_START_X = -63;
     static double FAR_PARK_RED_X = 36;
     static double NEAR_PARK_RED_X = 62;
-    static double WAFFLE_RED_X = 33;
-    static double WAFLLE_RED_Y = 48;
+    static double WAFFLE_RED_X = 32;
+    static double WAFFLE_RED_Y = 48;
 
     public void init_loop() {
         if (gamepad1.a & !aPressed) {

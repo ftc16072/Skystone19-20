@@ -6,13 +6,14 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import java.util.Arrays;
 import java.util.List;
 
-class Flipper {
+public class Flipper {
     private static double SPEED_UP = -0.7;
     private static double SPEED_DOWN = 0.1;
     private DcMotor flipper;
     void init(HardwareMap hwMap){
         flipper = hwMap.get(DcMotor.class, "flipper");
         flipper.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        flipper.setPower(0.0);
     }
     List<QQ_Test> getTests() {
         return Arrays.asList(
@@ -29,4 +30,9 @@ class Flipper {
     void stop(){
         flipper.setPower(0.0);
     }
+
+    public void holdUp() {
+        flipper.setPower(-0.2);
+    }
 }
+

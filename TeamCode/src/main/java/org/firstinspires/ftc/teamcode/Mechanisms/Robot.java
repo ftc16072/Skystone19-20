@@ -20,7 +20,7 @@ public class Robot {
     public Navigation nav = new Navigation();
     private Pincer pincer = new Pincer();
     private Rotator rotator = new Rotator();
-    private Flipper flipper = new Flipper();
+    public Flipper flipper = new Flipper();
     private Lifter lifter = new Lifter();
     private Snatcher snatcher = new Snatcher();
     private int quackID;

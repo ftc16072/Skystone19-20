@@ -11,8 +11,9 @@ import org.firstinspires.ftc.teamcode.Util.RobotPosition;
 public class Navigation {
     static double DISTANCE_TOLARANCE = 2;
     static double ANGLE_TOLARANCE = AngleUnit.RADIANS.fromDegrees(1);
-    static double KP_DISTANCE = 0.02;
+    static double KP_DISTANCE = 0.03;
     static double KP_ANGLE = 1;
+    static double SLOWEST_SPEED = 0.2;
     private MecanumDrive mecanumDrive = new MecanumDrive();
     private BNO055IMU imu;
     private RobotPosition lastSetPosition;
@@ -119,14 +120,15 @@ public class Navigation {
             return true;
         }
         if (Math.abs(xDiff) > DISTANCE_TOLARANCE) {
-            xSpeed = KP_DISTANCE * xDiff;
+            xSpeed = Math.min(SLOWEST_SPEED, KP_DISTANCE * xDiff);
         }
         if (Math.abs(yDiff) > DISTANCE_TOLARANCE) {
-            ySpeed = KP_DISTANCE * yDiff;
+            ySpeed = Math.min(SLOWEST_SPEED, KP_DISTANCE * yDiff);
         }
         Polar drive = Polar.fromCartesian(xSpeed, ySpeed);
         drive.subtractAngle(-Math.PI / 2);
         System.out.printf("--Driving: %f %f\n", drive.getX(), drive.getY());
+
         driveFieldRelative(drive.getX(), drive.getY(), 0.0);
         return false;
     }

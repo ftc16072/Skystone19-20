@@ -15,7 +15,7 @@ public class DriveOnly extends OpMode {
     private Robot robot = new Robot();
     private boolean pincerOpen = false;
     private boolean xPressed = false;
-    private boolean snatcherOpen = false;
+    private boolean snatcherOpen = true;
     private boolean bPressed = false;
     private static double FAST_LIFT = 1.0;
     private static double LIFT = 0.7;
@@ -24,7 +24,7 @@ public class DriveOnly extends OpMode {
     @Override
     public void init() {
         robot.init(hardwareMap);
-        robot.setMecanumDriveMaxSpeed(MAX_SPEED);
+        robot.nav.setMecanumDriveMaxSpeed(MAX_SPEED);
     }
 
     private double squareWithSign(double x) {
@@ -45,22 +45,22 @@ public class DriveOnly extends OpMode {
 
         // if turbo bumper is pressed, allow full speed
         if (gamepad1.right_bumper || gamepad1.left_bumper) {
-            robot.setMecanumDriveMaxSpeed(1);
+            robot.nav.setMecanumDriveMaxSpeed(1);
         } else {
-            robot.setMecanumDriveMaxSpeed(MAX_SPEED);
+            robot.nav.setMecanumDriveMaxSpeed(MAX_SPEED);
         }
         Polar g1RightJoystick = Polar.fromCartesian(gamepad1.right_stick_x, -gamepad1.right_stick_y);
 
         double r = g1RightJoystick.getR();
         if (gamepad1.right_trigger >= 0.05) {
-            robot.strafe(strafeFromTrigger(gamepad1.right_trigger));
+            robot.nav.strafe(strafeFromTrigger(gamepad1.right_trigger));
         } else if (gamepad1.left_trigger >= 0.05) {
-            robot.strafe(-strafeFromTrigger(gamepad1.left_trigger));
+            robot.nav.strafe(-strafeFromTrigger(gamepad1.left_trigger));
         } else {
             if (r >= 0.8) {
-                robot.driveFieldRelativeAngle(strafe, forward, g1RightJoystick.getTheta());
+                robot.nav.driveFieldRelativeAngle(strafe, forward, g1RightJoystick.getTheta());
             } else {
-                robot.driveFieldRelative(strafe, forward, 0.0);
+                robot.nav.driveFieldRelative(strafe, forward, 0.0);
             }
         }
         //Snatcher Code
@@ -98,8 +98,8 @@ public class DriveOnly extends OpMode {
         } else if (gamepad2.b) {
             robot.setRotator(90, AngleUnit.DEGREES, telemetry);
         } else if (g2RightJoystick.getR() >= 0.8) { //TODO make field relative
-            telemetry.addData("Joystick Angle: ", g2RightJoystick.getDegrees());
-            robot.setRotator(g2RightJoystick.getTheta(), AngleUnit.RADIANS, telemetry);
+            telemetry.addData("Joystick Angle: ", AngleUnit.normalizeDegrees(g2RightJoystick.getDegrees() - 90));
+            robot.setRotator(g2RightJoystick.getTheta() - ((Math.PI) / 2), AngleUnit.RADIANS, telemetry);
         }
 
         //Flipper Code
@@ -121,8 +121,6 @@ public class DriveOnly extends OpMode {
 
 
     }
-
-
 
     // Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
     @Override

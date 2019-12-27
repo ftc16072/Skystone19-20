@@ -41,6 +41,7 @@ abstract public class QQ_AutoBase extends OpMode {
         aPressed = gamepad1.a;
         if (gamepad1.x & !xPressed) {
             redAlliance = !redAlliance;
+            robot.robotLights.allianceLights(!redAlliance);
         }
         xPressed = gamepad1.x;
         if (gamepad1.y & !yPressed) {
@@ -79,6 +80,7 @@ abstract public class QQ_AutoBase extends OpMode {
     @Override
     public void init() {
         robot.init(hardwareMap);
+        robot.robotLights.allianceLights(false);
     }
 
     abstract List<QQ_AutoAction> getSteps();
@@ -105,6 +107,7 @@ abstract public class QQ_AutoBase extends OpMode {
             telemetry.addData("auto", stepNum);
             if (step.run(robot, time, telemetry)) {
                 stepNum++;
+                System.out.printf("QQ_Step %d finished at %f\n", stepNum, time);
             }
         } else {
             telemetry.addData("auto", "Finished");

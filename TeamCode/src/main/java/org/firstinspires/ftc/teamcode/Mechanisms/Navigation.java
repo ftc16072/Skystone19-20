@@ -127,7 +127,6 @@ public class Navigation {
         }
         Polar drive = Polar.fromCartesian(xSpeed, ySpeed);
         drive.subtractAngle(-Math.PI / 2);
-        System.out.printf("--Driving: %f %f\n", drive.getX(), drive.getY());
 
         driveFieldRelative(drive.getX(), drive.getY(), 0.0);
         return false;

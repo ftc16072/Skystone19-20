@@ -14,9 +14,9 @@ class QQ_ActionRotateTo extends QQ_AutoAction {
 
     @Override
     boolean run(Robot robot, double gameTime, Telemetry telemetry) {
-        robot.nav.setMecanumDriveMaxSpeed(0.8);
+        //     robot.nav.setMecanumDriveMaxSpeed(0.8);
         if (robot.nav.rotateTo(angleRadians, AngleUnit.RADIANS)) {
-            robot.nav.setMecanumDriveMaxSpeed(1);
+            //         robot.nav.setMecanumDriveMaxSpeed(1);
             return true;
         }
         return false;

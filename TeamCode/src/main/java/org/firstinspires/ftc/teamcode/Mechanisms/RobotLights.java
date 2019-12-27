@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import android.graphics.Color;
+import android.support.annotation.ColorInt;
 
 public class RobotLights {
     private QwiicLEDStrip leds;
@@ -19,7 +20,7 @@ public class RobotLights {
 
     void init(HardwareMap hwmap) {
         leds = hwmap.get(QwiicLEDStrip.class, "robot_lights");
-        leds.setBrightness(5);
+        //       leds.setBrightness(5);
         leds.setColor(Color.rgb(0, 0, 0));
     }
     List<QQ_Test> getTests() {
@@ -28,7 +29,11 @@ public class RobotLights {
         );
     }
 
-    void allianceLights (boolean isBlue) {
+    public void setColor(@ColorInt int color) {
+        leds.setColor(color);
+    }
+
+    public void allianceLights(boolean isBlue) {
         if (isBlue) {
             leds.setColor(Color.rgb(0, 0, 255));
         } else {

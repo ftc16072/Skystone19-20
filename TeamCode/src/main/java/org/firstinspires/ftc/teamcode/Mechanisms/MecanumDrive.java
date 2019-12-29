@@ -34,7 +34,9 @@ class MecanumDrive {
     private int backRightOffset;
     private int backLeftOffset;
 
-
+    /**
+     * constructor for the mecanum drive, it sets up the encoder matrix
+     */
     MecanumDrive(){
         float[] data = {1.0f, 1.0f, 1.0f,
                         1.0f, -1.0f, -1.0f,
@@ -42,7 +44,11 @@ class MecanumDrive {
         conversion = new GeneralMatrixF(3, 3, data);
         conversion = conversion.inverted();
     }
-
+    /**
+     * this initializes the mecanum drive
+     * 
+     * @param hwMap comes from the configuration
+     */
     void init(HardwareMap hwMap) {
         frontLeft = hwMap.get(DcMotor.class, "front_left");
         frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -53,10 +59,15 @@ class MecanumDrive {
         backRight = hwMap.get(DcMotor.class, "back_right");
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        backLeft.setDirection(DcMotorSimple.Direction.REVERSE); // the backleft and front left motors are backwards 
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
+    /**
+     * adds tests to test wiring to test our mecanum wheels gearing and wiring
+     * 
+     * @return returns a test for each motor that spins it forwards
+     */
     List<QQ_Test> getTests() {
         return Arrays.asList(
                 new QQ_TestMotor("Mecanum Wheel -> Front Left", 0.3, frontLeft),
@@ -65,6 +76,16 @@ class MecanumDrive {
                 new QQ_TestMotor("Mecanum Wheel -> Back Right", 0.3, backRight));
      }
 
+    /**
+     * scales all the speeds so that we travel the way we want to
+     * it also makes sure that we don't pass the max speed {@link #setMaxSpeed}
+     * then after doing both of those, we set the speed
+     * @param flSpeed speed gotten for Front Left Motor
+     * @param frSpeed speed gotten for Front Right Motor
+     * @param blSpeed speed gotten for Back Left Motor
+     * @param brSpeed speed gotten for Back Right Motor
+     *
+     */
     private void setSpeeds(double flSpeed, double frSpeed, double blSpeed, double brSpeed) {
         double largest = 1.0;
         largest = Math.max(largest, Math.abs(flSpeed));
@@ -78,6 +99,15 @@ class MecanumDrive {
         backRight.setPower(maxSpeed * (brSpeed / largest));
     }
 
+    /**
+     * this does the math to figure out how fast to move the wheels
+     * it then calls {@link #setSpeeds}
+     * 
+     * @param forward this is the speed forward
+     * @param strafe this is the strafe speed
+     * @param rotate this is the rotate speed
+     *
+     */
     void driveMecanum(double forward, double strafe, double rotate) {
         double frontLeftSpeed = forward + strafe + rotate;
         double frontRightSpeed = forward - strafe - rotate;
@@ -87,7 +117,11 @@ class MecanumDrive {
         setSpeeds(frontLeftSpeed, frontRightSpeed, backLeftSpeed, backRightSpeed);
     }
 
-    // Returns forward, strafe
+    /**
+     * this uses matrix math to figure out how far we've driven (robot relative)
+     * 
+     * @return returns distances in cm from last reset in order forward, strafe
+     */
     double[] getDistanceCm(){
         double[] distances = {0.0, 0.0};
 
@@ -102,13 +136,24 @@ class MecanumDrive {
         return distances;
     }
 
+    /**
+     * this allows us to set our max speed
+     * it makes sure that we don't try to set the max speed above 1
+     * 
+     * @param speed this is the max speed that is set for the mecanum drive
+     */
     void setMaxSpeed(double speed){
         maxSpeed = Math.min(speed, 1.0);
     }
-
+    /**
+     * @return the maxSpeed mecanum drive is currently set to
+     */
     double getMaxSpeed() {
         return maxSpeed;
     }
+    /**
+     * Resets the encoder positions using offsets
+     */
     void setEncoderOffsets(){
         frontRightOffset = frontRight.getCurrentPosition();
         frontLeftOffset = frontLeft.getCurrentPosition();

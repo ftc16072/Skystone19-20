@@ -17,6 +17,13 @@ class Lifter {
     private static final double DOWN_DISTANCE_CM = 5.5;
     private static final double UP_DISTANCE_CM = 58;
 
+    /**
+     * This initilizes our Lifter.
+     * it makes sure that it will break at 0
+     *
+     * 
+     * @param hwmap This is the Hardware map from the configuration
+     */
     void init(HardwareMap hwmap){
         lift = hwmap.get(DcMotor.class, "lifter");
         downdistance = hwmap.get(DistanceSensor.class, "downward_distance");
@@ -24,7 +31,11 @@ class Lifter {
         lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         lift.setDirection(DcMotorSimple.Direction.REVERSE);
     }
-
+    /**
+     * This gives us lifter tests for test wiring
+     * 
+     * @return a lifter up and lifter down test for test wiring also a test for the downward_distance
+     */
     List<QQ_Test> getTests() {
         return Arrays.asList(
                 new QQ_TestMotor("Lift-Down", -0.2, lift),
@@ -32,7 +43,12 @@ class Lifter {
                 new QQ_TestDistanceSensor("Down Sensor:", downdistance)
         );
     }
-
+    /**
+     * this lets us move our lift
+     * 
+     * @param speed this is the speed to move the lift + is up and - is down
+     * @return returns true if the move completed, and returns false if it stopped due to the distance sensor 
+     */
     boolean move(double speed) {
         boolean returnValue = true;
         if(speed < 0){
@@ -49,6 +65,10 @@ class Lifter {
         lift.setPower(speed);
         return returnValue;
     }
+
+    /**
+     * @return returns encoder position of the lift
+     */
     int getPosiition(){
         return lift.getCurrentPosition();
     }

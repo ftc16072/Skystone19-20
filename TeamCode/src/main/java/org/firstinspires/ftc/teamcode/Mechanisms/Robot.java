@@ -36,6 +36,10 @@ public class Robot {
         STOP
     }
 
+    /**
+     * initializes the robot and all mecanisms on it
+     * @param hwMap hardware map from config
+     */
     public void init(HardwareMap hwMap) {
         nav.init(hwMap);
         pincer.init(hwMap);
@@ -50,7 +54,9 @@ public class Robot {
         quacking = false;
     }
 
-
+    /**
+     * Quacks!!
+     */
     public void quack() {
         if (!quacking) {
             // create a sound parameter that holds the desired player parameters.
@@ -65,7 +71,22 @@ public class Robot {
         }
     }
 
-
+    /**
+     * sets flipper to position
+     * @param position what Flipper position to use [UP, DOWN, STOP]
+     */
+    public void setFlipper(FlipperPositions position){
+        switch (position){
+            case UP:
+                flipper.up();
+                break;
+            case DOWN:
+                flipper.down();
+                break;
+            case STOP:
+                flipper.stop();
+        }
+    }
 
     public void openPincer(){
         pincer.open();
@@ -81,19 +102,7 @@ public class Robot {
     }
     public void setRotator(double degrees, AngleUnit angleUnit, Telemetry telemetry){
         rotator.rotate(degrees, angleUnit, telemetry);
-    }
-    public void setFlipper(FlipperPositions position){
-        switch (position){
-            case UP:
-                flipper.up();
-                break;
-            case DOWN:
-                flipper.down();
-                break;
-            case STOP:
-                flipper.stop();
-        }
-    }
+    } 
     public void moveLifter(double speed) {
         lifter.move(speed);
     }

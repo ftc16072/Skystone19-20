@@ -13,6 +13,10 @@ import java.util.List;
 
 @Autonomous(name = "Park", group = "ftc16072")
 public class AutoPark extends QQ_AutoBase {
+    /**
+     * main body of Auto
+     * @return returns the steps for auto based on starting location
+     */
     List<QQ_AutoAction> getSteps() {
         QQ_ActionSetPosition startPosition =
                 new QQ_ActionSetPosition(getStartPosition());

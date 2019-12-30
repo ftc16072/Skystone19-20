@@ -17,17 +17,30 @@ class Rotator {
     public static final double LEFT_POSITION = 0.27;
     public static final double RIGHT_POSITION = 1;
 
+    /**
+     * Initializes the rotator
+     * @param hwmap hardware map from the config
+     */
     void init(HardwareMap hwmap) {
         rotator = hwmap.get(Servo.class, "rotator");
         rotator.scaleRange(LEFT_POSITION, RIGHT_POSITION);
     }
 
+    /**
+     * @return test that tests the rotator
+     */
     List<QQ_Test> getTests() {
         return Arrays.asList(
                 new QQ_TestServo("rotator", 0, 1, rotator)
         );
     }
 
+    /**
+     * rotate the rotator based on a angle
+     * @param angle what angle to rotate to (-PI/2) < angle < (PI/2) -- -90 < speed > 90
+     * @param angleUnit what unit is the angle in (Radians, Degrees)
+     * @param telemetry allows for printing what it is being set to
+     */
     void rotate(double angle, AngleUnit angleUnit, Telemetry telemetry){
         double angleRadians = angleUnit.toRadians(angle);
 
@@ -35,7 +48,7 @@ class Rotator {
             return;
         }
 
-        double position = -1 * ((angleRadians / Math.PI) - 0.5);      //+ 0.5;
+        double position = -1 * ((angleRadians / Math.PI) - 0.5);
         telemetry.addData("SetPosition", position);
         rotator.setPosition(position);
 

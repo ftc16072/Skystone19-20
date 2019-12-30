@@ -18,18 +18,28 @@ public class AutoWaffle extends QQ_AutoBase {
     double WAFFLE_WIDTH = 18.5;
     double FIELD_BOUNDARIES = 72;
 
+    /**
+     * overides to Forces placement in the build area
+     * @see QQ_AutoBase
+     */
     @Override
     public void init_loop() {
         super.init_loop();
         startDepot = false;
     }
 
+    /**
+     * overides to makesure the flipper stays up
+     */
     @Override
     public void start() {
         super.start();
         robot.flipper.holdUp();
     }
 
+    /**
+     * @return list of steps based on alliance
+     */
     List<QQ_AutoAction> getSteps() {
         List<QQ_AutoAction> steps = new ArrayList<>();
         QQ_ActionSetPosition startPosition =
@@ -65,7 +75,10 @@ public class AutoWaffle extends QQ_AutoBase {
         return steps;
     }
 
-
+    /**
+     * simplifies {@link getSteps} by moving parking commands out
+     * @return commands to park based on weather we are parking near or far
+     */
     List<QQ_AutoAction> getParkSteps() {
         if (farPark) {
             return Arrays.asList(

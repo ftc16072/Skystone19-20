@@ -8,11 +8,19 @@ import org.firstinspires.ftc.teamcode.Mechanisms.Robot;
 class QQ_ActionDelayFor extends QQ_AutoAction {
     double endTime;
     double timeDelay;
-
+    /**
+     * @param timeDelay how long to delay for in sec
+     */
     QQ_ActionDelayFor(double timeDelay) {
         this.timeDelay = timeDelay;
     }
-
+    /**
+     * delays for specified time
+     * @param robot gives access to all robot functions
+     * @param gameTime lets us know the time since the op-mode was selected
+     * @param telemetry lets us print stuff back to the telemetry
+     * @return returns true when completed
+     */
     @Override
     boolean run(Robot robot, double gameTime, Telemetry telemetry) {
         if (endTime == 0.0) {

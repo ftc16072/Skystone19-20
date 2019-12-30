@@ -20,21 +20,37 @@ public class DriveOnly extends OpMode {
     private static double FAST_LIFT = 1.0;
     private static double LIFT = 0.7;
 
-    // Code to run ONCE when the driver hits INIT
+    /**
+     * initilizes robot and sets max speed to 0.6
+     */
     @Override
     public void init() {
         robot.init(hardwareMap);
         robot.nav.setMecanumDriveMaxSpeed(MAX_SPEED);
     }
 
+    
+    /**
+     * squares but maintains the sign
+     * @param x what number to square
+     * @return x squared without loosing the sign
+     */
     private double squareWithSign(double x) {
         return x * x * Math.signum(x);
     }
 
+    /**
+     * figures out how fast to strafe based on the trigger
+     * @param trigger how far down is the trigger pressed
+     * @return how fast to strafe 
+     */
     private double strafeFromTrigger(double trigger) {
         return trigger / 2; //halve the speed from the trigger
     }
 
+    /**
+     * Contains all the driving controls
+     */
     private void driverLoop() {
         //squaring driving joystick to make it less sensitive in the middle
         double forward = squareWithSign(gamepad1.left_stick_y * -1); //The y direction on the gamepad is reversed idk why
@@ -79,7 +95,9 @@ public class DriveOnly extends OpMode {
 
     }
 
-
+    /**
+     * Contains all the manipulator controlsd
+     */
     private void manipulatorLoop() {
         Polar g2RightJoystick = Polar.fromCartesian(gamepad2.right_stick_x, -gamepad2.right_stick_y);
 
@@ -123,6 +141,9 @@ public class DriveOnly extends OpMode {
     }
 
     // Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
+    /**
+     * runs the {@link driverLoop} runs the {@link manipulatorLoop}
+     */
     @Override
     public void loop() {
         driverLoop();

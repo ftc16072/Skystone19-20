@@ -21,7 +21,7 @@ public class Robot {
     private Pincer pincer = new Pincer();
     private Rotator rotator = new Rotator();
     public Flipper flipper = new Flipper();
-    private Lifter lifter = new Lifter();
+    public Lifter lifter = new Lifter();
     private Snatcher snatcher = new Snatcher();
     public Parker parker = new Parker();
     private int quackID;

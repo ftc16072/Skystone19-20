@@ -74,7 +74,8 @@ public class DriveOnly extends OpMode {
             robot.nav.strafe(-strafeFromTrigger(gamepad1.left_trigger));
         } else {
             if (r >= 0.8) {
-                robot.nav.driveFieldRelativeAngle(strafe, forward, g1RightJoystick.getTheta());
+                telemetry.addData("joystick angle", g1RightJoystick.getTheta());
+                robot.nav.driveFieldRelativeAngle(strafe, forward, g1RightJoystick.getTheta(), telemetry);
             } else {
                 robot.nav.driveFieldRelative(strafe, forward, 0.0);
             }

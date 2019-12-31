@@ -11,9 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 
 
-class Lifter {
+public class Lifter {
     private DcMotor lift;
-    private DistanceSensor downdistance;
+    public DistanceSensor downdistance;
     private static final double DOWN_DISTANCE_CM = 5.5;
     private static final double UP_DISTANCE_CM = 58;
 
@@ -49,7 +49,7 @@ class Lifter {
      * @param speed this is the speed to move the lift + is up and - is down
      * @return returns true if the move completed, and returns false if it stopped due to the distance sensor 
      */
-    boolean move(double speed) {
+    public boolean move(double speed) {
         boolean returnValue = true;
         if(speed < 0){
             if (downdistance.getDistance(DistanceUnit.CM) <= DOWN_DISTANCE_CM) {
@@ -69,7 +69,7 @@ class Lifter {
     /**
      * @return returns encoder position of the lift
      */
-    int getPosiition(){
+    public int getPosiition() {
         return lift.getCurrentPosition();
     }
 }

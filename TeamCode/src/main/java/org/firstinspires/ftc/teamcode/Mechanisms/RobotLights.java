@@ -10,28 +10,30 @@ import android.graphics.Color;
 import android.support.annotation.ColorInt;
 
 public class RobotLights {
-    private QwiicLEDStrip leds;
-    private ElapsedTime elapsedTime = new ElapsedTime();
-    private int red_color;
-    private int blue_color;
-    private int green_color;
-    private Random rand = new Random();
+    private QwiicLEDStrip top_leds;
+    private QwiicLEDStrip bottom_leds;
+
 
     /**
      * initilizes the lights
      * @param hwmap hardware map from config
      */
     void init(HardwareMap hwmap) {
-        leds = hwmap.get(QwiicLEDStrip.class, "robot_lights");
+        top_leds = hwmap.get(QwiicLEDStrip.class, "top_leds");
         //       leds.setBrightness(5);
-        leds.setColor(Color.rgb(0, 0, 0));
+        top_leds.setColor(Color.rgb(0, 0, 0));
+
+        bottom_leds = hwmap.get(QwiicLEDStrip.class, "bottom_leds");
+        //       leds.setBrightness(5);
+        bottom_leds.setColor(Color.rgb(0, 0, 0));
     }
     /**
      * @return list of tests 
      */
     List<QQ_Test> getTests() {
         return Arrays.asList(
-                new QQ_TestLights("tests the led strip",leds)
+                new QQ_TestLights("tests the top led strip",top_leds),
+                new QQ_TestLights("tests the bottom led strip", bottom_leds)
         );
     }
 
@@ -41,7 +43,8 @@ public class RobotLights {
      * @see ColorInt
      */
     public void setColor(@ColorInt int color) {
-        leds.setColor(color);
+        top_leds.setColor(color);
+        bottom_leds.setColor(color);
     }
 
     /**
@@ -50,9 +53,9 @@ public class RobotLights {
      */
     public void allianceLights(boolean isBlue) {
         if (isBlue) {
-            leds.setColor(Color.rgb(0, 0, 255));
+            setColor(Color.rgb(0, 0, 255));
         } else {
-            leds.setColor(Color.rgb(255, 0, 0));
+            setColor(Color.rgb(255, 0, 0));
         }
     }
 }

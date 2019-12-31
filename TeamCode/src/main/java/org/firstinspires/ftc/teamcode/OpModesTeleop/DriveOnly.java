@@ -142,7 +142,7 @@ public class DriveOnly extends OpMode {
 
     // Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
     /**
-     * runs the {@link driverLoop} runs the {@link manipulatorLoop}
+     * runs the {@link #driverLoop()} runs the {@link #manipulatorLoop()}
      */
     @Override
     public void loop() {

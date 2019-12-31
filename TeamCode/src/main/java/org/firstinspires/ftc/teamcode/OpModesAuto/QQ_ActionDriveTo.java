@@ -1,9 +1,10 @@
-package org.firre stinspires.ftc.teamcode.OpModesAuto;
+package org.firstinspires.ftc.teamcode.OpModesAuto;
 
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.Mechanisms.Robot;
+import org.firstinspires.ftc.teamcode.OpModesAuto.QQ_AutoAction;
 
 class QQ_ActionDriveTo extends QQ_AutoAction {
     private double x;

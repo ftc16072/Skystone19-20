@@ -1,4 +1,4 @@
-opackage org.firstinspires.ftc.teamcode.OpModesAuto;
+package org.firstinspires.ftc.teamcode.OpModesAuto;
 
 
 import android.support.annotation.ColorInt;

@@ -1,4 +1,4 @@
-anpackage org.firstinspires.ftc.teamcode.OpModesAuto;
+package org.firstinspires.ftc.teamcode.OpModesAuto;
 
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;

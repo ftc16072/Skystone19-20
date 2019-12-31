@@ -76,7 +76,7 @@ public class AutoWaffle extends QQ_AutoBase {
     }
 
     /**
-     * simplifies {@link getSteps} by moving parking commands out
+     * simplifies {@link #getSteps()} by moving parking commands out
      * @return commands to park based on weather we are parking near or far
      */
     List<QQ_AutoAction> getParkSteps() {

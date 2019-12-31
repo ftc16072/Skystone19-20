@@ -19,11 +19,11 @@ public class RobotLights {
      * @param hwmap hardware map from config
      */
     void init(HardwareMap hwmap) {
-        top_leds = hwmap.get(QwiicLEDStrip.class, "robot_lights_top");
+        top_leds = hwmap.get(QwiicLEDStrip.class, "top_leds");
         //       leds.setBrightness(5);
         top_leds.setColor(Color.rgb(0, 0, 0));
 
-        bottom_leds = hwmap.get(QwiicLEDStrip.class, "robot_lights_bottom");
+        bottom_leds = hwmap.get(QwiicLEDStrip.class, "bottom_leds");
         //       leds.setBrightness(5);
         bottom_leds.setColor(Color.rgb(0, 0, 0));
     }

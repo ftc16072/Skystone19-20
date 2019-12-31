@@ -96,7 +96,7 @@ public class DriveOnly extends OpMode {
     }
 
     /**
-     * Contains all the manipulator controlsd
+     * Contains all the manipulator controls
      */
     private void manipulatorLoop() {
         Polar g2RightJoystick = Polar.fromCartesian(gamepad2.right_stick_x, -gamepad2.right_stick_y);
@@ -142,7 +142,7 @@ public class DriveOnly extends OpMode {
 
     // Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
     /**
-     * runs the {@link #driverLoop()} runs the {@link #manipulatorLoop()}
+     * runs the {@link #driverLoop()} and the {@link #manipulatorLoop()}
      */
     @Override
     public void loop() {

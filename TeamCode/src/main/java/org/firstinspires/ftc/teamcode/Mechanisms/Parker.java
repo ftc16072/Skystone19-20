@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import java.util.Arrays;
 import java.util.List;
 
-class Parker {
+public class Parker {
     private static double SPEED = -0.6;
     private DcMotor parker;
     /**
@@ -33,14 +33,14 @@ class Parker {
     /**
      * extends parker
      */
-    void out() {
+   public void out() {
         parker.setPower(SPEED);
     }
 
     /**
      * stops the parker
      */
-    void stop() {
+    public void stop() {
         parker.setPower(0.0);
     }
 }

@@ -29,9 +29,10 @@ public class DriveOnly extends OpMode {
         robot.nav.setMecanumDriveMaxSpeed(MAX_SPEED);
     }
 
-    
+
     /**
      * squares but maintains the sign
+     *
      * @param x what number to square
      * @return x squared without loosing the sign
      */
@@ -41,8 +42,9 @@ public class DriveOnly extends OpMode {
 
     /**
      * figures out how fast to strafe based on the trigger
+     *
      * @param trigger how far down is the trigger pressed
-     * @return how fast to strafe 
+     * @return how fast to strafe
      */
     private double strafeFromTrigger(double trigger) {
         return trigger / 2; //halve the speed from the trigger
@@ -93,7 +95,12 @@ public class DriveOnly extends OpMode {
             robot.lowerSnatcher();
             telemetry.addData("snatcher", "Lowered");
         }
-
+        if (gamepad1.y && gamepad1.left_bumper && gamepad1.right_bumper) {
+            robot.parker.out();
+        }
+        else {
+            robot.parker.stop();
+        }
     }
 
     /**
@@ -142,6 +149,7 @@ public class DriveOnly extends OpMode {
     }
 
     // Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
+
     /**
      * runs the {@link #driverLoop()} and the {@link #manipulatorLoop()}
      */

@@ -94,7 +94,7 @@ public class DriveOnly extends OpMode {
             robot.lowerSnatcher();
             telemetry.addData("snatcher", "Lowered");
         }
-        if (gamepad1.y) {
+        if (gamepad1.y && gamepad1.left_bumper && gamepad1.right_bumper) {
             robot.parker.out();
         }
         else {

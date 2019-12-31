@@ -3,6 +3,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.*;
 import org.firstinspires.ftc.teamcode.Util.Polar;
 import org.firstinspires.ftc.teamcode.Util.RobotPosition;
@@ -73,14 +74,17 @@ public class Navigation {
      * @param y y speed
      * @param angle desired angle to turn to
      */
-    public void driveFieldRelativeAngle(double x, double y, double angle) {
+    public void driveFieldRelativeAngle(double x, double y, double angle, Telemetry telemetry) {
         double angle_in = angle - Math.PI / 2;  // convert to robot coordinates
+        telemetry.addData("angle_in:", angle_in);
 
         double delta = AngleUnit.normalizeRadians(getHeading(AngleUnit.RADIANS) - angle_in);
+        telemetry.addData("delta", delta);
 
         double MAX_ROTATE = 0.7; //This is to shrink how fast we can rotate so we don't fly past the angle
         delta = Range.clip(delta, -MAX_ROTATE, MAX_ROTATE);
-        driveFieldRelative(x, y, -delta);
+        telemetry.addData("speed put in", delta);
+        driveFieldRelative(x, y, delta);
     }
 
     /**

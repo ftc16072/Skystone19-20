@@ -41,6 +41,7 @@ abstract public class QQ_AutoBase extends OpMode {
      *             Near park    --  Far park
      */
     public void init_loop() {
+        fitIn18();
         if (gamepad1.a & !aPressed) {
             startDepot = !startDepot;
         }
@@ -92,6 +93,28 @@ abstract public class QQ_AutoBase extends OpMode {
     public void init() {
         robot.init(hardwareMap);
         robot.robotLights.allianceLights(false);
+    }
+
+    /**
+     * makes the robot fit in 18'
+     */
+    public void fitIn18() {
+        robot.liftSnatcher();
+        robot.setRotator(-90, AngleUnit.DEGREES, telemetry);
+        robot.openPincer();
+
+        if (robot.lifter.downdistance.getDistance(DistanceUnit.CM) > 5.5) {
+            robot.lifter.move(-0.2);
+        } else {
+            robot.lifter.move(0.0);
+        }
+
+        if (robot.flipper.getPosition() >= -70) {
+            robot.setFlipper(Robot.FlipperPositions.UP);
+        } else {
+            robot.flipper.holdUp();
+        }
+
     }
 
     /**

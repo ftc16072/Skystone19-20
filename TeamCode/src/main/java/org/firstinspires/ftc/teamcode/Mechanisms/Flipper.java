@@ -14,12 +14,14 @@ public class Flipper {
      * This initilizes our Flipper.
      * it makes sure that it will break at 0
      * it then makes sure it won't move much
-     * 
-     * @param hwmap This is the Hardware map from the configuration
+     *
+     * @param hwMap This is the Hardware map from the configuration
      */
     void init(HardwareMap hwMap){
         flipper = hwMap.get(DcMotor.class, "flipper");
         flipper.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        flipper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        flipper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         flipper.setPower(0.0);
     }
 
@@ -57,6 +59,13 @@ public class Flipper {
      */
     public void holdUp() {
         flipper.setPower(-0.2);
+    }
+
+    /**
+     * @return encoder position of flipper
+     */
+    public double getPosition() {
+        return flipper.getCurrentPosition();
     }
 }
 

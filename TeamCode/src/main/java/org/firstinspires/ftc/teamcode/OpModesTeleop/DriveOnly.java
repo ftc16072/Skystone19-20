@@ -17,6 +17,7 @@ public class DriveOnly extends OpMode {
     private boolean xPressed = false;
     private boolean snatcherOpen = true;
     private boolean bPressed = false;
+    private boolean dispenserDumped;
     private static double FAST_LIFT = 1.0;
     private static double LIFT = 0.7;
 
@@ -95,12 +96,25 @@ public class DriveOnly extends OpMode {
             robot.lowerSnatcher();
             telemetry.addData("snatcher", "Lowered");
         }
+
+        if (gamepad1.x && !xPressed) {
+            dispenserDumped = !dispenserDumped;
+        }
+        xPressed = gamepad1.x;
+
+        if (dispenserDumped) {
+            robot.dispenser.dump();
+        } else {
+            robot.dispenser.hold();
+        }
+
         if (gamepad1.y && gamepad1.left_bumper && gamepad1.right_bumper) {
             robot.parker.out();
         }
         else {
             robot.parker.stop();
         }
+
     }
 
     /**

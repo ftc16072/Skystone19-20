@@ -10,12 +10,19 @@ import java.util.List;
 class Parker {
     private static double SPEED = -0.6;
     private DcMotor parker;
-
+    /**
+     * inistializes the parker
+     * @param hwMap hardware map from the config
+     */
     void init(HardwareMap hwMap) {
         parker = hwMap.get(DcMotor.class, "parker");
         parker.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
+    /**
+     * gets test for test wiring
+     * @return returns a test that extends the parker
+     */
     List<QQ_Test> getTests() {
         NeveRest3_7GearmotorV1 motor;
         return Arrays.asList(
@@ -23,10 +30,16 @@ class Parker {
         );
     }
 
+    /**
+     * extends parker
+     */
     void out() {
         parker.setPower(SPEED);
     }
 
+    /**
+     * stops the parker
+     */
     void stop() {
         parker.setPower(0.0);
     }

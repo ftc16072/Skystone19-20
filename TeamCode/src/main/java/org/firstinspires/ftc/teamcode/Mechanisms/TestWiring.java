@@ -22,7 +22,9 @@ public class TestWiring extends OpMode {
     private int testNum;
 
 
-    // Code to run ONCE when the driver hits INIT
+    /**
+     * initilizes all the testing fetures and adds them to a test list
+     */
     @Override
     public void init() {
         pincer.init(hardwareMap);
@@ -47,8 +49,12 @@ public class TestWiring extends OpMode {
     }
 
     // Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
+    /**
+     * allows the user to cycle through tests and press A to switch on to true
+     */
     @Override
     public void loop() {
+         // move up in the list of test
         if (gamepad1.dpad_up && !wasUp) {
             testNum--;
             if (testNum < 0) {
@@ -56,7 +62,9 @@ public class TestWiring extends OpMode {
             }
         }
         wasUp = gamepad1.dpad_up;
-        if (gamepad1.dpad_down && !wasDown){
+
+        // move down in the list of tests
+        if (gamepad1.dpad_down && !wasDown){ 
             testNum++;
             if (testNum >= tests.size()) {
                 testNum = 0;
@@ -64,10 +72,13 @@ public class TestWiring extends OpMode {
         }
         wasDown = gamepad1.dpad_down;
 
+        //Put instructions on the telemtry
         telemetry.addLine("Use Up and Down on D-pad to cycle through choices");
         telemetry.addLine("Press A to run test");
+        //put the test on the telemetry
         QQ_Test currTest = tests.get(testNum);
         telemetry.addData("Test:", currTest.getDescription());
+        //run or don't run based on a
         currTest.run(gamepad1.a, telemetry);
      }
  }

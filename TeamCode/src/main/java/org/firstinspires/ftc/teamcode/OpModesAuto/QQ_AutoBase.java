@@ -34,6 +34,12 @@ abstract public class QQ_AutoBase extends OpMode {
     static double WAFFLE_RED_X = 32;
     static double WAFFLE_RED_Y = 48;
 
+    /**
+     * allows for the user to select settings from:
+     *             Start depot  --  Start build
+     *             Red Alliance --  Blue Alliance
+     *             Near park    --  Far park
+     */
     public void init_loop() {
         if (gamepad1.a & !aPressed) {
             startDepot = !startDepot;
@@ -58,6 +64,9 @@ abstract public class QQ_AutoBase extends OpMode {
         telemetry.addData("Place robot at:", "%.0f in %.0f in", getStartPosition().getX(DistanceUnit.INCH), getStartPosition().getY(DistanceUnit.INCH));
     }
 
+    /**
+     * @return RobotPosition based on the settings set in init_Loop
+     */
     protected RobotPosition getStartPosition() {
         double startX = BLUE_START_X;
         double startY = 0;
@@ -76,15 +85,25 @@ abstract public class QQ_AutoBase extends OpMode {
         return new RobotPosition(startX, startY, DistanceUnit.INCH, heading, AngleUnit.DEGREES);
     }
 
-    // Code to run ONCE when the driver hits INIT
+    /**
+     * Init's robot
+     */
     @Override
     public void init() {
         robot.init(hardwareMap);
         robot.robotLights.allianceLights(false);
     }
 
+    /**
+     * forces all autos to have a getsteps method
+     * @return List of QQ Auto Actions
+     */
     abstract List<QQ_AutoAction> getSteps();
 
+    /**
+     * set the far and near park variables based on the alliance
+     * get the steps and set the index to 0
+     */
     @Override
     public void start() {
         if (redAlliance) {
@@ -100,6 +119,11 @@ abstract public class QQ_AutoBase extends OpMode {
     }
 
     // Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
+    /**
+     * steps through the list of actions, waiting till they are true to advance
+     * print current step to the telemetry and to the system log
+     * print finished when done
+     */
     @Override
     public void loop() {
         if (stepNum < autoSteps.size()) {

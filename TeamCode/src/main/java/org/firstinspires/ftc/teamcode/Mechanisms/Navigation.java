@@ -19,6 +19,11 @@ public class Navigation {
     private RobotPosition lastSetPosition;
     private double imuOffset = 0;
 
+    /**
+     * this initilizes the imu and the mecanumdrive and sets our postiion at (0,0) (center of the field)
+     * 
+     * @param hwMap
+     */
     void init(HardwareMap hwMap) {
         imu = hwMap.get(BNO055IMU.class, "imu");
         BNO055IMU.Parameters params = new BNO055IMU.Parameters();
@@ -27,6 +32,12 @@ public class Navigation {
         setPosition(0, 0, DistanceUnit.CM);
     }
 
+    /**
+     * gets our imu heading
+     * 
+     * @param angleUnit this determines the angleunit (degrees/radians) that it will return in
+     * @return returns the current angle with the offset in the angleUnit specified
+     */
     public double getHeading(AngleUnit angleUnit) {
         Orientation angles;
 
@@ -35,6 +46,12 @@ public class Navigation {
         return angleUnit.fromRadians(angles.firstAngle + imuOffset);
     }
 
+    /**
+     * this makes the driving field relative 
+     * @param x x Speed
+     * @param y y Speed
+     * @param rotate rotate speed
+     */
     public void driveFieldRelative(double x, double y, double rotate) {
         Polar drive = Polar.fromCartesian(x, y);
         double heading = getHeading(AngleUnit.RADIANS);
@@ -42,11 +59,20 @@ public class Navigation {
         drive.subtractAngle(heading);
         mecanumDrive.driveMecanum(drive.getY(), drive.getX(), rotate);
     }
-
+    /**
+     * this allows us to easily strafe
+     * @param speed this is the speed at which to strafe
+     */
     public void strafe(double speed) {
         mecanumDrive.driveMecanum(0, speed, 0);
     }
 
+    /**
+     * this rotates from the field angle system to the robot angle system it then decides which way is faster to turn, and turns that way
+     * @param x x speed
+     * @param y y speed
+     * @param angle desired angle to turn to
+     */
     public void driveFieldRelativeAngle(double x, double y, double angle) {
         double angle_in = angle - Math.PI / 2;  // convert to robot coordinates
 
@@ -57,21 +83,32 @@ public class Navigation {
         driveFieldRelative(x, y, -delta);
     }
 
-
+    /**
+     * this sets the mecanum drive max Speed
+     * @param speed this is the new max speed
+     */
     public void setMecanumDriveMaxSpeed(double speed) {
         mecanumDrive.setMaxSpeed(speed);
     }
 
+    /**
+     * @return mecanum drives currently set max speed
+     */
     public double getMecanumDriveMaxSpeed() {
         return mecanumDrive.getMaxSpeed();
     }
 
+    /**
+     * gets the robots estimated position by translating robot relative translation into field relative coridinates
+     * @return returns a RobotPosition that is the x, y, and angle that the robot moved
+     * @see     RobotPosition
+     */
     public RobotPosition getEstimatedPosition() {
         double[] distanceDriven = mecanumDrive.getDistanceCm();
 
         Polar translation = Polar.fromCartesian(distanceDriven[0], -distanceDriven[1]);
         double rotate = getHeading(AngleUnit.RADIANS);
-        translation.subtractAngle(-rotate);
+        translation.subtractAngle(-rotate); // transmogrify into field relative
 
         double estX = lastSetPosition.getX(DistanceUnit.CM) + translation.getX();
         double estY = lastSetPosition.getY(DistanceUnit.CM) + translation.getY();
@@ -79,15 +116,28 @@ public class Navigation {
         return new RobotPosition(estX, estY, DistanceUnit.CM, rotate, AngleUnit.RADIANS);
     }
 
+    /**
+     * sets the robot's estimated position 
+     * @param x believed x position
+     * @param y believed y position
+     * @param distanceUnit what distanceUnit did you use
+     */
     public void setPosition(double x, double y, DistanceUnit distanceUnit) {
         lastSetPosition = new RobotPosition(x, y, distanceUnit, getHeading(AngleUnit.RADIANS), AngleUnit.RADIANS);
         mecanumDrive.setEncoderOffsets();
     }
 
+    /**
+     * rotates to the angle specified
+     * 
+     * @param angle angle to ratate to
+     * @param angleUnit angle unit that was used for the angle
+     * @return returns true when the angle is reached
+     */
     public boolean rotateTo(double angle, AngleUnit angleUnit){
         double rotateSpeed = 0.0;
 
-        double rotateDiff = AngleUnit.normalizeRadians(getHeading(AngleUnit.RADIANS) - angleUnit.toRadians(angle));
+        double rotateDiff = AngleUnit.normalizeRadians(getHeading(AngleUnit.RADIANS) - angleUnit.toRadians(angle)); 
         if (Math.abs(rotateDiff) <= ANGLE_TOLARANCE) {
             mecanumDrive.driveMecanum(0,0,0);
             return true;
@@ -99,6 +149,14 @@ public class Navigation {
         return false;
     }
 
+    /**
+     * drives to a specified position
+     * 
+     * @param x desired x position
+     * @param y desired y position
+     * @param distanceUnit what distance unit was unsed in the coordinates
+     * @return returns true when it reaches the desired location
+     */
     public boolean driveTo(double x, double y, DistanceUnit distanceUnit) {
         RobotPosition estimatedPosition = getEstimatedPosition();
         double xDiff = distanceUnit.toCm(x) - estimatedPosition.getX(DistanceUnit.CM);
@@ -119,22 +177,27 @@ public class Navigation {
                     DistanceUnit.CM);
             return true;
         }
-        if (Math.abs(xDiff) > DISTANCE_TOLARANCE) {
+        if (Math.abs(xDiff) > DISTANCE_TOLARANCE) { // if off on x move x
             xSpeed = Math.signum(xDiff) * Math.max(SLOWEST_SPEED, Math.abs(KP_DISTANCE * xDiff));
         }
-        if (Math.abs(yDiff) > DISTANCE_TOLARANCE) {
+        if (Math.abs(yDiff) > DISTANCE_TOLARANCE) { // if off on y move y
             ySpeed = Math.signum(yDiff) * Math.max(SLOWEST_SPEED, Math.abs(KP_DISTANCE * yDiff));
         }
         Polar drive = Polar.fromCartesian(xSpeed, ySpeed);
-        drive.subtractAngle(-Math.PI / 2);
+        drive.subtractAngle(-Math.PI / 2); //rotates it from field angles to robot angles
 
         driveFieldRelative(drive.getX(), drive.getY(), 0.0);
         return false;
     }
 
+    /**
+     * offsets the imu so it acts reset
+     * @param heading heading to reset it to
+     * @param angleUnit what angleUnit is the heading in
+     */
     public void resetIMU(double heading, AngleUnit angleUnit) {
-        double supposedHeading = angleUnit.toRadians(heading);
-        double currentHeading = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS).firstAngle;
+        double supposedHeading = angleUnit.toRadians(heading); 
+        double currentHeading = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS).firstAngle; //Because if we used our read imu method it would double the offset
         imuOffset = supposedHeading - currentHeading;
     }
 }

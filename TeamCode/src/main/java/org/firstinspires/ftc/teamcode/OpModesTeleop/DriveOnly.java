@@ -13,13 +13,9 @@ public class DriveOnly extends OpMode {
     FtcDashboard dashboard = FtcDashboard.getInstance();
     private static double MAX_SPEED = 0.6;
     private Robot robot = new Robot();
-    private boolean pincerOpen = false;
-    private boolean xPressed = false;
     private boolean snatcherOpen = true;
     private boolean bPressed = false;
-    private boolean dispenserDumped;
-    private static double FAST_LIFT = 1.0;
-    private static double LIFT = 0.7;
+
 
     /**
      * initilizes robot and sets max speed to 0.6
@@ -97,12 +93,7 @@ public class DriveOnly extends OpMode {
             telemetry.addData("snatcher", "Lowered");
         }
 
-        if (gamepad1.x && !xPressed) {
-            dispenserDumped = !dispenserDumped;
-        }
-        xPressed = gamepad1.x;
-
-        if (dispenserDumped) {
+        if (gamepad1.x) {
             robot.dispenser.dump();
         } else {
             robot.dispenser.hold();

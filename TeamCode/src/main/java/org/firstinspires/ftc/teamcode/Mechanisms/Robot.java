@@ -24,6 +24,7 @@ public class Robot {
     public Lifter lifter = new Lifter();
     private Snatcher snatcher = new Snatcher();
     public Parker parker = new Parker();
+    public Dispenser dispenser = new Dispenser();
     private int quackID;
     private Context appContext;
     private boolean quacking = false;
@@ -49,6 +50,7 @@ public class Robot {
         snatcher.init(hwMap);
         robotLights.init(hwMap);
         parker.init(hwMap);
+        dispenser.init(hwMap);
         appContext = hwMap.appContext;
         quackID = appContext.getResources().getIdentifier("quack", "raw", hwMap.appContext.getPackageName());
         quacking = false;

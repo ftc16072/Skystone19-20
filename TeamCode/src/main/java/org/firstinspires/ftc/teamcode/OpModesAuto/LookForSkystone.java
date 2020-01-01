@@ -2,10 +2,8 @@ package org.firstinspires.ftc.teamcode.OpModesAuto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.Mechanisms.Robot;
-import org.firstinspires.ftc.teamcode.Util.Vuforia;
 import org.firstinspires.ftc.teamcode.Util.Vuforia;
 
 @Autonomous()
@@ -27,10 +25,10 @@ public class LookForSkystone extends OpMode {
         double distance = vuforia.whereIsSkystone(telemetry);
         if (distance != -2000) {
             double speed = (distance * 0.008);
-            robot.strafe(speed);
+            robot.nav.strafe(speed);
             telemetry.addData("Traveling", speed);
         } else {
-            robot.strafe(0);
+            robot.nav.strafe(0);
             telemetry.addData("Traveling", "Not Found");
         }
 

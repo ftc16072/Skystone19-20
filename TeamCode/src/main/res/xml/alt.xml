@@ -13,17 +13,13 @@
             <goBILDA5202SeriesMotor
                 name="lifter"
                 port="1" />
-            <Servo
-                name="snatcher"
-                port="5" />
+            <NeveRest3.7v1Gearmotor
+                name="parker"
+                port="2" />
             <LynxEmbeddedIMU
                 name="imu"
                 port="0"
                 bus="0" />
-            <QWIIC_LED_STRIP
-                name="robot_lights"
-                port="0"
-                bus="1" />
         </LynxModule>
         <LynxModule
             name="Expansion Hub 3"
@@ -46,6 +42,15 @@
             <Servo
                 name="rotator"
                 port="1" />
+            <Servo
+                name="snatcher_left"
+                port="2" />
+            <Servo
+                name="snatcher_right"
+                port="3" />
+            <Servo
+                name="dispenser"
+                port="5" />
             <LynxEmbeddedIMU
                 name="imu 1"
                 port="0"
@@ -54,10 +59,14 @@
                 name="downward_distance"
                 port="0"
                 bus="1" />
-            <REV_VL53L0X_RANGE_SENSOR
-                name="front_distance"
+            <QWIIC_LED_STRIP
+                name="bottom_leds"
                 port="0"
                 bus="2" />
+            <QWIIC_LED_STRIP
+                name="top_leds"
+                port="0"
+                bus="3" />
         </LynxModule>
     </LynxUsbDevice>
 </Robot>

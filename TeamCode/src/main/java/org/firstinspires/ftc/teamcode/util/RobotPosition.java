@@ -22,6 +22,8 @@ public class RobotPosition {
     }
 
     /**
+     * gets the x component of the robot position
+     *
      * @param du what distance unit do you want it in
      * @return x in the requested distance unit
      */
@@ -30,6 +32,8 @@ public class RobotPosition {
     }
 
     /**
+     * gets the y component of the robot position
+     *
      * @param du what distance unit do you want it in
      * @return y in the requested distance unit
      */
@@ -38,6 +42,8 @@ public class RobotPosition {
     }
 
     /**
+     * gets the heading component of the robot position
+     *
      * @param au what angle unit do you want it in
      * @return the heading in the requested angle unit
      */

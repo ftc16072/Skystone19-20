@@ -17,6 +17,7 @@ public class Polar {
     }
 
     /**
+     * returns the angle in radians
      * @return returns theta in radians
      */
     public double getTheta() {
@@ -24,6 +25,7 @@ public class Polar {
     }
 
     /**
+     * returns the angle in degrees
      * @return theta in degrees
      */
     public double getDegrees() {
@@ -62,6 +64,8 @@ public class Polar {
     }
 
     /**
+     * gets the cartesian x
+     *
      * @return x in cartesian coordinates
      */
     public double getX() {
@@ -69,6 +73,8 @@ public class Polar {
     }
 
     /**
+     * gets the cartesian y
+     *
      * @return y in cartesian coordinates
      */
     public double getY() {

@@ -67,6 +67,7 @@ public class Flipper {
     }
 
     /**
+     * gets encoder ticks of flipper
      * @return encoder position of flipper
      */
     public double getPosition() {

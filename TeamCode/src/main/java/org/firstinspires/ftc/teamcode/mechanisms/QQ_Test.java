@@ -15,6 +15,8 @@ abstract class QQ_Test {
     }
 
     /**
+     * gets the description of the test
+     *
      * @return returns the description
      */
     String getDescription() {

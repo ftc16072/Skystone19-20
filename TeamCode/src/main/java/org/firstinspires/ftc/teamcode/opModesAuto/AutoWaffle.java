@@ -12,13 +12,13 @@ import java.util.Arrays;
 import java.util.List;
 
 @Autonomous(name = "Waffle", group = "ftc16072")
-public class AutoWaffle extends QQ_AutoBase {
+public class AutoWaffle extends AutoBase {
 
 
     /**
-     * overrides to Forces placement in the build area
+     * overrides to Force placement in the build area
      *
-     * @see QQ_AutoBase
+     * @see AutoBase
      */
     @Override
     public void init_loop() {

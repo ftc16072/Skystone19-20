@@ -68,6 +68,7 @@ public class Lifter {
     }
 
     /**
+     * gets encoder ticks of lift motor
      * @return returns encoder position of the lift
      */
     public int getPosition() {

@@ -24,6 +24,8 @@ class QQ_TestServo extends QQ_Test {
 
 
     /**
+     * determines whether to move the servo to the on location of the off location
+     *
      * @param on        determines which position the servo moves to
      * @param telemetry allows sending back the position
      */

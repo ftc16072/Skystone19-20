@@ -103,7 +103,8 @@ public class Navigation {
     }
 
     /**
-     * @return mecanum drives currently set max speed
+     * gets current max speed each wheel can turn at
+     * @return mecanum drive's currently set max speed
      */
     public double getMecanumDriveMaxSpeed() {
         return mecanumDrive.getMaxSpeed();

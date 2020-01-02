@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Autonomous(name = "Park", group = "ftc16072")
-public class AutoPark extends QQ_AutoBase {
+public class AutoPark extends AutoBase {
     /**
      * main body of Auto
      *

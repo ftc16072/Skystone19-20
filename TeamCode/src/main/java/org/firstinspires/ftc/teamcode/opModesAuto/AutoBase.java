@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.util.RobotPosition;
 
 import java.util.List;
 
-abstract public class QQ_AutoBase extends OpMode {
+abstract public class AutoBase extends OpMode {
     final Robot robot = new Robot();
 
     private List<QQ_AutoAction> autoSteps;
@@ -89,7 +89,7 @@ abstract public class QQ_AutoBase extends OpMode {
     }
 
     /**
-     * Init's robot
+     * Initializes robot
      */
     @Override
     public void init() {

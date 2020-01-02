@@ -1,30 +1,72 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
 <Robot type="FirstInspires-FTC">
-    <LynxUsbDevice name="Expansion Hub Portal 1" serialNumber="DQ3MYEG4" parentModuleAddress="3">
-        <LynxModule name="Expansion Hub 2" port="2">
-            <RevRoboticsCoreHexMotor name="flipper" port="0" />
-            <goBILDA5202SeriesMotor name="lifter" port="1" />
+    <LynxUsbDevice
+        name="Expansion Hub Portal 1"
+        serialNumber="DQ2EDK50"
+        parentModuleAddress="2">
+        <LynxModule
+            name="Expansion Hub 2"
+            port="2">
+            <RevRoboticsCoreHexMotor
+                name="flipper"
+                port="0" />
+            <goBILDA5202SeriesMotor
+                name="lifter"
+                port="1" />
             <NeveRest3.7v1Gearmotor
                 name="parker"
                 port="2" />
-            <Servo name="snatcher_right" port="5" />
-            <LynxEmbeddedIMU name="imu" port="0" bus="0" />
-            <QWIIC_LED_STRIP
-                name="robot_lights"
+            <LynxEmbeddedIMU
+                name="imu"
+                port="0"
+                bus="0" />
+        </LynxModule>
+        <LynxModule
+            name="Expansion Hub 3"
+            port="3">
+            <goBILDA5202SeriesMotor
+                name="front_left"
+                port="0" />
+            <goBILDA5202SeriesMotor
+                name="back_left"
+                port="1" />
+            <goBILDA5202SeriesMotor
+                name="front_right"
+                port="2" />
+            <goBILDA5202SeriesMotor
+                name="back_right"
+                port="3" />
+            <Servo
+                name="pincer"
+                port="0" />
+            <Servo
+                name="rotator"
+                port="1" />
+            <Servo
+                name="snatcher_left"
+                port="2" />
+            <Servo
+                name="snatcher_right"
+                port="3" />
+            <Servo
+                name="dispenser"
+                port="5" />
+            <LynxEmbeddedIMU
+                name="imu 1"
+                port="0"
+                bus="0" />
+            <REV_VL53L0X_RANGE_SENSOR
+                name="downward_distance"
                 port="0"
                 bus="1" />
-        </LynxModule>
-        <LynxModule name="Expansion Hub 3" port="3">
-            <goBILDA5202SeriesMotor name="front_left" port="0" />
-            <goBILDA5202SeriesMotor name="back_left" port="1" />
-            <goBILDA5202SeriesMotor name="front_right" port="2" />
-            <goBILDA5202SeriesMotor name="back_right" port="3" />
-            <Servo name="pincer" port="0" />
-            <Servo name="rotator" port="1" />
-            <Servo name="snatcher_left" port="2" />
-            <LynxEmbeddedIMU name="imu 1" port="0" bus="0" />
-            <REV_VL53L0X_RANGE_SENSOR name="downward_distance" port="0" bus="1" />
-            <REV_VL53L0X_RANGE_SENSOR name="front_distance" port="0" bus="2" />
+            <QWIIC_LED_STRIP
+                name="bottom_leds"
+                port="0"
+                bus="2" />
+            <QWIIC_LED_STRIP
+                name="top_leds"
+                port="0"
+                bus="3" />
         </LynxModule>
     </LynxUsbDevice>
 </Robot>

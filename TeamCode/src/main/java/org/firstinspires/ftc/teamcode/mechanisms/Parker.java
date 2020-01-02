@@ -9,8 +9,10 @@ import java.util.List;
 public class Parker {
     private static final double SPEED = -0.6;
     private DcMotor parker;
+
     /**
      * initializes the parker
+     *
      * @param hwMap hardware map from the config
      */
     void init(HardwareMap hwMap) {
@@ -20,6 +22,7 @@ public class Parker {
 
     /**
      * gets test for test wiring
+     *
      * @return returns a test that extends the parker
      */
     List<QQ_Test> getTests() {
@@ -31,7 +34,7 @@ public class Parker {
     /**
      * extends parker
      */
-   public void out() {
+    public void out() {
         parker.setPower(SPEED);
     }
 

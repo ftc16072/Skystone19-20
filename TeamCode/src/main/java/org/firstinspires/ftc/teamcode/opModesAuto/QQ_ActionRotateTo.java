@@ -9,7 +9,7 @@ class QQ_ActionRotateTo extends QQ_AutoAction {
     private double angleRadians;
 
     /**
-     * @param angle what angle to turn to
+     * @param angle     what angle to turn to
      * @param angleUnit what unit is angle in
      */
     QQ_ActionRotateTo(double angle, AngleUnit angleUnit) {
@@ -18,8 +18,9 @@ class QQ_ActionRotateTo extends QQ_AutoAction {
 
     /**
      * turns to angle
-     * @param robot gives access to all robot functions
-     * @param gameTime lets us know the time since the op-mode was selected
+     *
+     * @param robot     gives access to all robot functions
+     * @param gameTime  lets us know the time since the op-mode was selected
      * @param telemetry lets us print stuff back to the telemetry
      * @return returns true when completed
      */

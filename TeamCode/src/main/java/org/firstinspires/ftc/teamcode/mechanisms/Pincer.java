@@ -14,6 +14,7 @@ public class Pincer {
 
     /**
      * Initializes the pincer
+     *
      * @param hwmap hardware map from the config
      */
     void init(HardwareMap hwmap) {
@@ -22,11 +23,12 @@ public class Pincer {
 
     /**
      * returns tests for get test
+     *
      * @return returns a test that opens when held and closes when released
      */
     List<QQ_Test> getTests() {
         return Arrays.asList(
-                new QQ_TestServo("Pincer", 0, 1,pincer)
+                new QQ_TestServo("Pincer", 0, 1, pincer)
         );
     }
 

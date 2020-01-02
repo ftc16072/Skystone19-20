@@ -9,6 +9,7 @@ class QQ_ActionSnatcher extends QQ_AutoAction {
 
     /**
      * snatches -- returns true right away... to wait for it to finish, wait ~1.25 sec after to lower
+     *
      * @param snatch raise or lower -- true = lower; false = raise
      */
     QQ_ActionSnatcher(Boolean snatch) {
@@ -17,8 +18,9 @@ class QQ_ActionSnatcher extends QQ_AutoAction {
 
     /**
      * starts the snatchers (should delay ~1.25 to allow snatching to happen)
-     * @param robot gives access to all robot functions
-     * @param gameTime lets us know the time since the op-mode was selected
+     *
+     * @param robot     gives access to all robot functions
+     * @param gameTime  lets us know the time since the op-mode was selected
      * @param telemetry lets us print stuff back to the telemetry
      * @return returns true when completed
      */

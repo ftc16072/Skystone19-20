@@ -22,6 +22,7 @@ public class Robot {
 
     /**
      * initializes the robot and all mechanisms on it
+     *
      * @param hwMap hardware map from config
      */
     public void init(HardwareMap hwMap) {

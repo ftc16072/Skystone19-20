@@ -11,8 +11,8 @@ class QQ_TestMotor extends QQ_Test {
 
     /**
      * @param description string that describes the test
-     * @param speed the speed for the test to use
-     * @param motor the motor for the test to use
+     * @param speed       the speed for the test to use
+     * @param motor       the motor for the test to use
      */
     QQ_TestMotor(String description, double speed, DcMotor motor) {
         super(description);
@@ -22,12 +22,13 @@ class QQ_TestMotor extends QQ_Test {
 
     /**
      * spins the motor at set speed or turns it off
-     * @param on determines the action taken -- true = spin motor; false = stop
+     *
+     * @param on        determines the action taken -- true = spin motor; false = stop
      * @param telemetry allows for sending encoder ticks back so we know if the encoder is wired right
      */
     @Override
     public void run(boolean on, Telemetry telemetry) {
-        if (on){
+        if (on) {
             motor.setPower(speed);
         } else {
             motor.setPower(0.0);

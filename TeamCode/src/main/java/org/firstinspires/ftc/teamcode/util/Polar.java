@@ -4,10 +4,12 @@ public class Polar {
 
     private double theta;
     private double r;
+
     /**
      * Constructor based on polar coordinates
+     *
      * @param theta theta or angle from x-axis to point
-     * @param r r or distance from (0,0) to point
+     * @param r     r or distance from (0,0) to point
      */
     Polar(double theta, double r) {
         this.theta = theta;
@@ -30,6 +32,7 @@ public class Polar {
 
     /**
      * Returns magnitude
+     *
      * @return r magnitude portion of polar
      */
     public double getR() {
@@ -38,6 +41,7 @@ public class Polar {
 
     /**
      * creates a polar class from cartesian coordinates
+     *
      * @param x x in cartesian coordinates
      * @param y y in cartesian coordinates
      * @return instance of Polar class having translated to polar coordinates
@@ -50,6 +54,7 @@ public class Polar {
 
     /**
      * subtracts heading from theta
+     *
      * @param heading what to subtract (in radians)
      */
     public void subtractAngle(double heading) {

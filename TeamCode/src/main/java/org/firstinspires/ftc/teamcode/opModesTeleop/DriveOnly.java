@@ -101,8 +101,7 @@ public class DriveOnly extends OpMode {
 
         if (gamepad1.y && gamepad1.left_bumper && gamepad1.right_bumper) {
             robot.parker.out();
-        }
-        else {
+        } else {
             robot.parker.stop();
         }
 

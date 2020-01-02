@@ -17,6 +17,7 @@ public class AutoWaffle extends QQ_AutoBase {
 
     /**
      * overrides to Forces placement in the build area
+     *
      * @see QQ_AutoBase
      */
     @Override
@@ -74,6 +75,7 @@ public class AutoWaffle extends QQ_AutoBase {
 
     /**
      * simplifies {@link #getSteps()} by moving parking commands out
+     *
      * @return commands to park based on weather we are parking near or far
      */
     private List<QQ_AutoAction> getParkSteps() {

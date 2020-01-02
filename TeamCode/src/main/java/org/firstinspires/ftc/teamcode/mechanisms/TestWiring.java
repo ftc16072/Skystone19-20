@@ -46,17 +46,18 @@ public class TestWiring extends OpMode {
         tests.addAll(robotLights.getTests());
         tests.addAll(parker.getTests());
         tests.addAll(dispenser.getTests());
-                                                                                                                                                                                         tests.addAll(pincer.getTests());
+        tests.addAll(pincer.getTests());
         // To add more tests here, do this: tests.addAll(sampleMechanism.getTests());
     }
 
     // Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
+
     /**
      * allows the user to cycle through tests and press A to switch on to true
      */
     @Override
     public void loop() {
-         // move up in the list of test
+        // move up in the list of test
         if (gamepad1.dpad_up && !wasUp) {
             testNum--;
             if (testNum < 0) {
@@ -66,7 +67,7 @@ public class TestWiring extends OpMode {
         wasUp = gamepad1.dpad_up;
 
         // move down in the list of tests
-        if (gamepad1.dpad_down && !wasDown){ 
+        if (gamepad1.dpad_down && !wasDown) {
             testNum++;
             if (testNum >= tests.size()) {
                 testNum = 0;
@@ -82,5 +83,5 @@ public class TestWiring extends OpMode {
         telemetry.addData("Test:", currTest.getDescription());
         //run or don't run based on a
         currTest.run(gamepad1.a, telemetry);
-     }
- }
+    }
+}

@@ -10,6 +10,7 @@ public class Flipper {
     private static final double SPEED_UP = -0.7;
     private static final double SPEED_DOWN = 0.1;
     private DcMotor flipper;
+
     /**
      * This initializes our Flipper.
      * it makes sure that it will break at 0
@@ -17,7 +18,7 @@ public class Flipper {
      *
      * @param hwMap This is the Hardware map from the configuration
      */
-    void init(HardwareMap hwMap){
+    void init(HardwareMap hwMap) {
         flipper = hwMap.get(DcMotor.class, "flipper");
         flipper.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         flipper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -27,7 +28,7 @@ public class Flipper {
 
     /**
      * This gives us flipper tests for test wiring
-     * 
+     *
      * @return a flipper up and flipper down test for test wiring
      */
     List<QQ_Test> getTests() {
@@ -36,24 +37,28 @@ public class Flipper {
                 new QQ_TestMotor("Flipper - Down", SPEED_DOWN, flipper)
         );
     }
+
     /**
      * Moves the flipper down
      */
     public void down() {
         flipper.setPower(SPEED_DOWN);
     }
+
     /**
      * Moves the flipper up
      */
     public void up() {
         flipper.setPower(SPEED_UP);
     }
+
     /**
      * Stops the flipper
      */
     public void stop() {
         flipper.setPower(0.0);
     }
+
     /**
      * Keeps the flipper held against the top of the lift for autos
      */

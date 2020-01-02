@@ -1,12 +1,12 @@
 package org.firstinspires.ftc.teamcode.mechanisms;
 
+import android.graphics.Color;
+import android.support.annotation.ColorInt;
+
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import java.util.Arrays;
 import java.util.List;
-
-import android.graphics.Color;
-import android.support.annotation.ColorInt;
 
 public class RobotLights {
     private QwiicLEDStrip top_leds;
@@ -15,6 +15,7 @@ public class RobotLights {
 
     /**
      * initializes the lights
+     *
      * @param hwmap hardware map from config
      */
     void init(HardwareMap hwmap) {
@@ -26,18 +27,20 @@ public class RobotLights {
         //       leds.setBrightness(5);
         bottom_leds.setColor(Color.rgb(0, 0, 0));
     }
+
     /**
-     * @return list of tests 
+     * @return list of tests
      */
     List<QQ_Test> getTests() {
         return Arrays.asList(
-                new QQ_TestLights("tests the top led strip",top_leds),
+                new QQ_TestLights("tests the top led strip", top_leds),
                 new QQ_TestLights("tests the bottom led strip", bottom_leds)
         );
     }
 
     /**
      * Sets the color of the strip
+     *
      * @param color what color to set it to as a color int
      * @see ColorInt
      */
@@ -48,6 +51,7 @@ public class RobotLights {
 
     /**
      * sets the alliance lights
+     *
      * @param isBlue is the alliance blue
      */
     public void allianceLights(boolean isBlue) {

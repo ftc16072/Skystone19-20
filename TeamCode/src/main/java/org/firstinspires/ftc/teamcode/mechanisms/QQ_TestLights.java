@@ -9,7 +9,7 @@ class QQ_TestLights extends QQ_Test {
 
     /**
      * @param description string describing the test
-     * @param ledStrip led strip to be used when testing
+     * @param ledStrip    led strip to be used when testing
      */
     QQ_TestLights(String description, QwiicLEDStrip ledStrip) {
         super(description);
@@ -18,7 +18,8 @@ class QQ_TestLights extends QQ_Test {
 
     /**
      * sets the lights to Blue or Red
-     * @param on determines blue or red -- true = blue; false = red
+     *
+     * @param on        determines blue or red -- true = blue; false = red
      * @param telemetry is required from abstract method
      */
     @Override

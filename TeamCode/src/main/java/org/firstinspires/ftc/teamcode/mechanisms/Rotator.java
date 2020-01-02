@@ -16,6 +16,7 @@ public class Rotator {
 
     /**
      * Initializes the rotator
+     *
      * @param hwmap hardware map from the config
      */
     void init(HardwareMap hwmap) {
@@ -34,14 +35,15 @@ public class Rotator {
 
     /**
      * rotate the rotator based on a angle
-     * @param angle what angle to rotate to (-PI/2) < angle < (PI/2) -- -90 < speed > 90
+     *
+     * @param angle     what angle to rotate to (-PI/2) < angle < (PI/2) -- -90 < speed > 90
      * @param angleUnit what unit is the angle in (Radians, Degrees)
      * @param telemetry allows for printing what it is being set to
      */
     public void rotate(double angle, AngleUnit angleUnit, Telemetry telemetry) {
         double angleRadians = angleUnit.toRadians(angle);
 
-        if (angleRadians < -(Math.PI/2) || angleRadians > (Math.PI/2)){ //throw away the bottom half of the joystick so it wont randomly spin around when its slightly bumped
+        if (angleRadians < -(Math.PI / 2) || angleRadians > (Math.PI / 2)) { //throw away the bottom half of the joystick so it wont randomly spin around when its slightly bumped
             return;
         }
 

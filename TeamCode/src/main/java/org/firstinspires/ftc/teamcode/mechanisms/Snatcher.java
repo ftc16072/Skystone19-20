@@ -17,6 +17,7 @@ public class Snatcher {
 
     /**
      * Initializes the snatcher
+     *
      * @param hwmap hardware map from the config
      */
     void init(HardwareMap hwmap) {
@@ -29,10 +30,11 @@ public class Snatcher {
      */
     List<QQ_Test> getTests() {
         return Arrays.asList(
-                new QQ_TestServo("snatcher_right", RIGHT_RAISED, RIGHT_LOWERED, snatcherRight) ,
+                new QQ_TestServo("snatcher_right", RIGHT_RAISED, RIGHT_LOWERED, snatcherRight),
                 new QQ_TestServo("snatcher_left", LEFT_RAISED, LEFT_LOWERED, snatcherLeft)
         );
     }
+
     /**
      * Lifts the snatchers
      */
@@ -40,6 +42,7 @@ public class Snatcher {
         snatcherRight.setPosition(RIGHT_RAISED);
         snatcherLeft.setPosition(LEFT_RAISED);
     }
+
     /**
      * Lowers the snatchers
      */

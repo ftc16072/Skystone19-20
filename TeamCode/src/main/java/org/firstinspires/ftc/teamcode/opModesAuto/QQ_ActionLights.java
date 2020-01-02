@@ -21,8 +21,9 @@ class QQ_ActionLights extends QQ_AutoAction {
 
     /**
      * sets the lights
-     * @param robot gives access to all robot functions
-     * @param gameTime lets us know the time since the op-mode was selected
+     *
+     * @param robot     gives access to all robot functions
+     * @param gameTime  lets us know the time since the op-mode was selected
      * @param telemetry lets us print stuff back to the telemetry
      * @return returns true when completed
      */

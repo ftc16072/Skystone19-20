@@ -8,11 +8,12 @@ class QQ_TestServo extends QQ_Test {
     private double offLocation;
     private double onLocation;
     private Servo servo;
+
     /**
      * @param description string that describes the test
      * @param offLocation location to move too when off
-     * @param onLocation location to move too when on
-     * @param servo servo to use during test
+     * @param onLocation  location to move too when on
+     * @param servo       servo to use during test
      */
     QQ_TestServo(String description, double offLocation, double onLocation, Servo servo) {
         super(description);
@@ -23,12 +24,12 @@ class QQ_TestServo extends QQ_Test {
 
 
     /**
-     * @param on determines which position the servo moves to
+     * @param on        determines which position the servo moves to
      * @param telemetry allows sending back the position
      */
     @Override
     void run(boolean on, Telemetry telemetry) {
-        if (on){
+        if (on) {
             servo.setPosition(onLocation);
         } else {
             servo.setPosition(offLocation);

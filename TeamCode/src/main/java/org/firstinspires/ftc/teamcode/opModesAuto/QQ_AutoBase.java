@@ -38,9 +38,9 @@ abstract public class QQ_AutoBase extends OpMode {
 
     /**
      * allows for the user to select settings from:
-     *             Start depot  --  Start build
-     *             Red Alliance --  Blue Alliance
-     *             Near park    --  Far park
+     * Start depot  --  Start build
+     * Red Alliance --  Blue Alliance
+     * Near park    --  Far park
      */
     public void init_loop() {
         fitIn18();
@@ -121,6 +121,7 @@ abstract public class QQ_AutoBase extends OpMode {
 
     /**
      * forces all autos to have a getSteps() method
+     *
      * @return List of QQ Auto Actions
      */
     abstract List<QQ_AutoAction> getSteps();
@@ -144,6 +145,7 @@ abstract public class QQ_AutoBase extends OpMode {
     }
 
     // Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
+
     /**
      * steps through the list of actions, waiting till they are true to advance
      * print current step to the telemetry and to the system log

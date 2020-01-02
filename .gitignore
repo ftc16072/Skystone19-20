@@ -1,6 +1,9 @@
 # license file
 TeamCode/src/main/res/values/licenses.xml
 
+# Doxygen
+doxygen/
+
 # built application files
 *.apk
 *.ap_

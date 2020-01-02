@@ -12,7 +12,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.firstinspires.ftc.robotcore.internal.android.dx.rop.code.RegOps.OR;
-class Rotator {
+
+public class Rotator {
     private Servo rotator;
     public static final double LEFT_POSITION = 0.27;
     public static final double RIGHT_POSITION = 1;
@@ -41,7 +42,7 @@ class Rotator {
      * @param angleUnit what unit is the angle in (Radians, Degrees)
      * @param telemetry allows for printing what it is being set to
      */
-    void rotate(double angle, AngleUnit angleUnit, Telemetry telemetry){
+    public void rotate(double angle, AngleUnit angleUnit, Telemetry telemetry) {
         double angleRadians = angleUnit.toRadians(angle);
 
         if (angleRadians < -(Math.PI/2) || angleRadians > (Math.PI/2)){ //throw away the bottom half of the joystick so it wont randomly spin around when its slightly bumped

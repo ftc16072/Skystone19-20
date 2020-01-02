@@ -99,9 +99,9 @@ abstract public class QQ_AutoBase extends OpMode {
      * makes the robot fit in 18'
      */
     public void fitIn18() {
-        robot.liftSnatcher();
-        robot.setRotator(-90, AngleUnit.DEGREES, telemetry);
-        robot.openPincer();
+        robot.snatcher.lift();
+        robot.rotator.rotate(-90, AngleUnit.DEGREES, telemetry);
+        robot.pincer.open();
 
         if (robot.lifter.downdistance.getDistance(DistanceUnit.CM) > 5.5) {
             robot.lifter.move(-0.2);
@@ -110,7 +110,7 @@ abstract public class QQ_AutoBase extends OpMode {
         }
 
         if (robot.flipper.getPosition() >= -70) {
-            robot.setFlipper(Robot.FlipperPositions.UP);
+            robot.flipper.up();
         } else {
             robot.flipper.holdUp();
         }

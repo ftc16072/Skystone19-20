@@ -39,19 +39,19 @@ public class Flipper {
     /**
      * Moves the flipper down
      */
-    void down(){
+    public void down() {
         flipper.setPower(SPEED_DOWN);
     }
     /**
      * Moves the flipper up
      */
-    void up(){
+    public void up() {
         flipper.setPower(SPEED_UP);
     }
     /**
      * Stops the flipper
      */
-    void stop(){
+    public void stop() {
         flipper.setPower(0.0);
     }
     /**

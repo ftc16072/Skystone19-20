@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-class Pincer {
+public class Pincer {
     private double OPEN_POSITION = 0.0;
     private double CLOSE_POSITION = 1.0;
     private Servo pincer;
@@ -33,14 +33,14 @@ class Pincer {
     /**
      * opens the pincer
      */
-    void open(){
+    public void open() {
         pincer.setPosition(OPEN_POSITION);
     }
 
     /**
      * closes the pincer
      */
-    void close() {
+    public void close() {
         pincer.setPosition(CLOSE_POSITION);
     }
 

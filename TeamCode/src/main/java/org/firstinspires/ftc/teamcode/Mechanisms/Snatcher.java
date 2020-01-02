@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-class Snatcher {
+public class Snatcher {
     private double RIGHT_LOWERED = 0.5;
     private double RIGHT_RAISED = 1.0;
     private Servo snatcherRight;
@@ -36,14 +36,14 @@ class Snatcher {
     /**
      * Lifts the snatchers
      */
-    void lift(){
+    public void lift() {
         snatcherRight.setPosition(RIGHT_RAISED);
         snatcherLeft.setPosition(LEFT_RAISED);
     }
     /**
      * Lowers the snatchers
      */
-    void lower() {
+    public void lower() {
         snatcherRight.setPosition(RIGHT_LOWERED);
         snatcherLeft.setPosition(LEFT_LOWERED);
     }

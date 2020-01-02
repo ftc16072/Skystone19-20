@@ -26,7 +26,7 @@ class QQ_ActionFlipper extends QQ_AutoAction {
         if (position > 0) {
             return true;
         } else {
-            robot.setFlipper(Robot.FlipperPositions.STOP);
+            robot.flipper.stop();
             return true;
         }
     }

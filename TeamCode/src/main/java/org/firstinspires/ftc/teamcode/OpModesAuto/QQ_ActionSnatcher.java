@@ -26,10 +26,10 @@ class QQ_ActionSnatcher extends QQ_AutoAction {
     @Override
     boolean run(Robot robot, double gameTime, Telemetry telemetry) {
         if (snatch) {
-            robot.lowerSnatcher();
+            robot.snatcher.lower();
             return true;
         } else {
-            robot.liftSnatcher();
+            robot.snatcher.lift();
             return true;
         }
     }

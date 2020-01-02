@@ -86,10 +86,10 @@ public class DriveOnly extends OpMode {
         bPressed = gamepad1.b;
 
         if (snatcherOpen) {
-            robot.liftSnatcher();
+            robot.snatcher.lift();
             telemetry.addData("snatcher", "Lifted");
         } else {
-            robot.lowerSnatcher();
+            robot.snatcher.lower();
             telemetry.addData("snatcher", "Lowered");
         }
 
@@ -116,38 +116,38 @@ public class DriveOnly extends OpMode {
 
         //Pincer Code
         if (gamepad2.right_trigger >= 0.5 || gamepad2.left_trigger >= 0.5) {
-            robot.openPincer();
+            robot.pincer.open();
         } else {
-            robot.closePincer();
+            robot.pincer.close();
         }
 
         //Rotator Code
         if (gamepad2.x) {
-            robot.setRotator(-90, AngleUnit.DEGREES, telemetry);
+            robot.rotator.rotate(-90, AngleUnit.DEGREES, telemetry);
         } else if (gamepad2.y) {
-            robot.setRotator(0, AngleUnit.DEGREES, telemetry);
+            robot.rotator.rotate(0, AngleUnit.DEGREES, telemetry);
         } else if (gamepad2.b) {
-            robot.setRotator(90, AngleUnit.DEGREES, telemetry);
+            robot.rotator.rotate(90, AngleUnit.DEGREES, telemetry);
         } else if (g2RightJoystick.getR() >= 0.8) { //TODO make field relative
             telemetry.addData("Joystick Angle: ", AngleUnit.normalizeDegrees(g2RightJoystick.getDegrees() - 90));
-            robot.setRotator(g2RightJoystick.getTheta() - ((Math.PI) / 2), AngleUnit.RADIANS, telemetry);
+            robot.rotator.rotate(g2RightJoystick.getTheta() - ((Math.PI) / 2), AngleUnit.RADIANS, telemetry);
         }
 
         //Flipper Code
         if (gamepad2.dpad_up) {
-            robot.setFlipper(Robot.FlipperPositions.UP);
+            robot.flipper.up();
         } else if (gamepad2.dpad_down) {
-            robot.setFlipper(Robot.FlipperPositions.DOWN);
+            robot.flipper.down();
         } else {
-            robot.setFlipper(Robot.FlipperPositions.STOP);
+            robot.flipper.stop();
         }
 
         //Lift Code
         //TODO add take lift to bottom if A is pressed
         if (Math.abs(gamepad2.left_stick_y) >= 0.1) {
-            robot.moveLifter(squareWithSign(gamepad2.left_stick_y * -1));
+            robot.lifter.move(squareWithSign(gamepad2.left_stick_y * -1));
         } else { //Stop Lift
-            robot.moveLifter(0);
+            robot.lifter.move(0);
         }
 
 

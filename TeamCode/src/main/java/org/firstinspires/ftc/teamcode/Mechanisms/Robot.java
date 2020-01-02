@@ -18,11 +18,11 @@ import org.firstinspires.ftc.teamcode.Util.Polar;
 
 public class Robot {
     public Navigation nav = new Navigation();
-    private Pincer pincer = new Pincer();
-    private Rotator rotator = new Rotator();
+    public Pincer pincer = new Pincer();
+    public Rotator rotator = new Rotator();
     public Flipper flipper = new Flipper();
     public Lifter lifter = new Lifter();
-    private Snatcher snatcher = new Snatcher();
+    public Snatcher snatcher = new Snatcher();
     public Parker parker = new Parker();
     public Dispenser dispenser = new Dispenser();
     private int quackID;
@@ -30,12 +30,6 @@ public class Robot {
     private boolean quacking = false;
     public RobotLights robotLights = new RobotLights();
 
-    public enum FlipperPositions {
-        UP,
-        DOWN,
-        INIT,
-        STOP
-    }
 
     /**
      * initializes the robot and all mecanisms on it
@@ -73,41 +67,5 @@ public class Robot {
         }
     }
 
-    /**
-     * sets flipper to position
-     * @param position what Flipper position to use [UP, DOWN, STOP]
-     */
-    public void setFlipper(FlipperPositions position){
-        switch (position){
-            case UP:
-                flipper.up();
-                break;
-            case DOWN:
-                flipper.down();
-                break;
-            case STOP:
-                flipper.stop();
-        }
-    }
-
-    public void openPincer(){
-        pincer.open();
-    }
-    public void closePincer(){
-        pincer.close();
-    }
-    public void liftSnatcher(){
-        snatcher.lift();
-    }
-    public void lowerSnatcher(){
-        snatcher.lower();
-    }
-    public void setRotator(double degrees, AngleUnit angleUnit, Telemetry telemetry){
-        rotator.rotate(degrees, angleUnit, telemetry);
-    } 
-    public void moveLifter(double speed) {
-        lifter.move(speed);
-    }
-    
 
 }

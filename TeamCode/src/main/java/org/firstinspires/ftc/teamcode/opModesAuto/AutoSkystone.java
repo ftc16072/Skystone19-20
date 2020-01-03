@@ -56,7 +56,7 @@ public class AutoSkystone extends AutoBase {
 
             ));
         }
-        steps.addAll(getParkSteps());
+        //steps.addAll(getParkSteps());
         return steps;
     }
 

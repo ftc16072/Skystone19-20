@@ -27,7 +27,9 @@ public class Lifter {
         lift = hwmap.get(DcMotor.class, "lifter");
         downdistance = hwmap.get(DistanceSensor.class, "downward_distance");
         lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lift.setDirection(DcMotorSimple.Direction.REVERSE);
         lift.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 

@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.mechanisms.Robot;
 import org.firstinspires.ftc.teamcode.util.Vuforia;
 
 @Autonomous()
-//@Disabled
+@Disabled
 public class LookForSkystone extends OpMode {
     private final Robot robot = new Robot();
     private final Vuforia vuforia = new Vuforia();

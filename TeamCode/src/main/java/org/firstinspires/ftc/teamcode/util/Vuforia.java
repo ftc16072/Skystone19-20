@@ -60,18 +60,24 @@ public class Vuforia {
     //Custom
     private static double NO_TARGET = -2000;
 
+
     public void start(HardwareMap hardwareMap) {
+        System.out.println("QQ_Test -- Started");
+
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
         //parameters.vuforiaLicenseKey = hardwareMap.appContext.getString(R.string.vuforiaLicense);
         parameters.cameraDirection = CAMERA_CHOICE;
-
+        System.out.println("QQ_Test -- parameters set");
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
+        System.out.println("QQ_Test -- Instantiate");
+
 
         // Load the data sets for the trackable objects. These particular data
         // sets are stored in the 'assets' part of our application.
         targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
+        System.out.println("QQ_Test -- load data sets");
 
         stoneTarget = targetsSkyStone.get(0);
         stoneTarget.setName("Stone Target");
@@ -97,11 +103,14 @@ public class Vuforia {
         OpenGLMatrix robotFromCamera = OpenGLMatrix
                 .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YZX, DEGREES, phoneYRotate, phoneZRotate, phoneXRotate));
+        ((VuforiaTrackableDefaultListener) stoneTarget.getListener()).setPhoneInformation(robotFromCamera, parameters.cameraDirection);
+
         targetsSkyStone.activate();
     }
 
     public double whereIsSkystone(Telemetry telemetry) {
         CameraDevice.getInstance().setFlashTorchMode(true); //turns flashlight on
+
         if (((VuforiaTrackableDefaultListener) stoneTarget.getListener()).isVisible()) {
             // getUpdatedRobotLocation() will return null if no new information is available since
             // the last time that call was made, or if the trackable is not currently visible.

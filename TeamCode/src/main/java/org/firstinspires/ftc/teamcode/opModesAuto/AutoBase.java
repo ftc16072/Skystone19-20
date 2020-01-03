@@ -97,7 +97,7 @@ abstract public class AutoBase extends OpMode {
     @Override
     public void init() {
         robot.init(hardwareMap);
-        robot.robotLights.allianceLights(false);
+        robot.robotLights.allianceLights(!redAlliance);
         vuforia.start(hardwareMap);
     }
 
@@ -110,13 +110,12 @@ abstract public class AutoBase extends OpMode {
         robot.rotator.fit(telemetry);
         robot.pincer.open();
 
-  /*
         if (robot.lifter.downdistance.getDistance(DistanceUnit.CM) > 5.5) {
             robot.lifter.move(-0.2);
         } else {
             robot.lifter.move(0.0);
         }
-*/
+
         if (robot.flipper.getPosition() >= -70) {
             robot.flipper.up();
         } else {

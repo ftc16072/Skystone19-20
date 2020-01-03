@@ -1,16 +1,18 @@
 package org.firstinspires.ftc.teamcode.opModesAuto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.mechanisms.Robot;
 import org.firstinspires.ftc.teamcode.util.Vuforia;
 
 @Autonomous()
-//@Disabled
+@Disabled
 public class LookForSkystone extends OpMode {
     private final Robot robot = new Robot();
     private final Vuforia vuforia = new Vuforia();
+
 
     // Code to run ONCE when the driver hits INIT
     @Override

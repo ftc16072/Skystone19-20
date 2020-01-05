@@ -116,7 +116,7 @@ public class Navigation {
      * @return returns a RobotPosition that is the x, y, and angle that the robot moved
      * @see RobotPosition
      */
-    private RobotPosition getEstimatedPosition() {
+    public RobotPosition getEstimatedPosition() {
         double[] distanceDriven = mecanumDrive.getDistanceCm();
 
         Polar translation = Polar.fromCartesian(distanceDriven[0], -distanceDriven[1]);

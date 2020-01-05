@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Flipper {
     private static final double SPEED_UP = -0.7;
-    private static final double SPEED_DOWN = 0.1;
+    private static final double SPEED_DOWN = 0.3;
     private DcMotor flipper;
 
     /**

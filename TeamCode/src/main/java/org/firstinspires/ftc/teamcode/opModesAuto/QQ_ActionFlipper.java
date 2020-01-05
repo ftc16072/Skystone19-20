@@ -25,7 +25,12 @@ class QQ_ActionFlipper extends QQ_AutoAction {
     @Override
     boolean run(Robot robot, double gameTime, Telemetry telemetry) {
         if (position > 0) {
-            return true;
+            robot.flipper.down();
+            if (robot.flipper.getPosition() >= 20) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
             robot.flipper.stop();
             return true;

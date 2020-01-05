@@ -14,8 +14,17 @@ import java.util.List;
 public class Lifter {
     private DcMotor lift;
     public DistanceSensor downdistance;
+    private static final double SPOOL_DIAMETER_CM = 2.427;
+    private static final double SPOOL_CIRC_CM = SPOOL_DIAMETER_CM * Math.PI;
+    private final static double GEAR_RATIO = 0.5;
+    private final static double TICKS_PER_ROTATION = 383.6;
+
+    private final static double ticsPerCm = (SPOOL_CIRC_CM * GEAR_RATIO) / TICKS_PER_ROTATION;
+
     private static final double DOWN_DISTANCE_CM = 5.5;
     private static final double UP_DISTANCE_CM = 58;
+
+    private static final double DISTANCE_KP = 0.04;
 
     /**
      * This initializes our Lifter.
@@ -74,7 +83,35 @@ public class Lifter {
      *
      * @return returns encoder position of the lift
      */
-    public int getPosition() {
+    public int getEncoderPosition() {
         return lift.getCurrentPosition();
+    }
+
+    /**
+     * gets position of lift in requested distance unit
+     *
+     * @param distanceUnit what distance unit you want
+     * @return returns lift position in requested distance unit
+     */
+    public double getPosition(DistanceUnit distanceUnit) {
+        return distanceUnit.fromCm(getEncoderPosition() * ticsPerCm);
+    }
+
+    /**
+     * moves lift to desired position
+     *
+     * @param position     what position to move lift to
+     * @param distanceUnit what distance unit is the position in
+     * @return whether it is at the position requested
+     */
+    public boolean goToPosition(double position, DistanceUnit distanceUnit) {
+        double desiredPositionCM = distanceUnit.toCm(position);
+        if (desiredPositionCM == getPosition(DistanceUnit.CM)) {
+            return true;
+        }
+
+        move(desiredPositionCM - getPosition(DistanceUnit.CM));
+        return false;
+
     }
 }

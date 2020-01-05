@@ -63,27 +63,33 @@ public class Vuforia {
 
     public void start(HardwareMap hardwareMap) {
         System.out.println("QQ_Test -- Started");
+        System.out.flush();
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
         //parameters.vuforiaLicenseKey = hardwareMap.appContext.getString(R.string.vuforiaLicense);
         parameters.cameraDirection = CAMERA_CHOICE;
         System.out.println("QQ_Test -- parameters set");
+        System.out.flush();
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
         System.out.println("QQ_Test -- Instantiate");
+        System.out.flush();
 
 
         // Load the data sets for the trackable objects. These particular data
         // sets are stored in the 'assets' part of our application.
         targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
         System.out.println("QQ_Test -- load data sets");
+        System.out.flush();
 
         stoneTarget = targetsSkyStone.get(0);
         stoneTarget.setName("Stone Target");
         stoneTarget.setLocation(OpenGLMatrix
                 .translation(0, 0, stoneZ)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90)));
+        System.out.println("QQ_Test -- setPosition");
+        System.out.flush();
         if (CAMERA_CHOICE == BACK) {
             phoneYRotate = -90;
         } else {
@@ -104,7 +110,13 @@ public class Vuforia {
                 .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YZX, DEGREES, phoneYRotate, phoneZRotate, phoneXRotate));
         ((VuforiaTrackableDefaultListener) stoneTarget.getListener()).setPhoneInformation(robotFromCamera, parameters.cameraDirection);
+        System.out.println("QQ_Test -- translate camera");
+        System.out.flush();
+        System.out.println("QQ_Test -- Done");
+        System.out.flush();
+    }
 
+    public void startSkystone() {
         targetsSkyStone.activate();
     }
 

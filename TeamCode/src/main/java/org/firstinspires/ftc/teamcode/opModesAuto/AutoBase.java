@@ -137,6 +137,7 @@ abstract public class AutoBase extends OpMode {
      */
     @Override
     public void start() {
+        vuforia.startSkystone();
         if (redAlliance) {
             farPark_x = FAR_PARK_RED_X;
             nearPark_x = NEAR_PARK_RED_X;

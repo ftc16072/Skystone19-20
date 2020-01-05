@@ -6,8 +6,6 @@ import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 import org.firstinspires.ftc.teamcode.mechanisms.Robot;
 import org.firstinspires.ftc.teamcode.util.Vuforia;
 
-import java.util.List;
-
 public class QQ_ActionFindSkystone extends QQ_AutoAction {
     Vuforia vuforia;
     double strafeSpeed;
@@ -15,9 +13,9 @@ public class QQ_ActionFindSkystone extends QQ_AutoAction {
     QQ_ActionFindSkystone(Vuforia vuforia, Boolean redAlliance) {
         this.vuforia = vuforia;
         if (redAlliance) {
-            strafeSpeed = 0.2;
+            strafeSpeed = -0.1;
         } else {
-            strafeSpeed = -0.2;
+            strafeSpeed = 0.1;
         }
 
     }

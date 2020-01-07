@@ -65,6 +65,7 @@ public class Vuforia {
         System.out.println("QQ_Test -- Started");
         System.out.flush();
 
+
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
         parameters.vuforiaLicenseKey = hardwareMap.appContext.getString(R.string.vuforiaLicense);
@@ -76,7 +77,7 @@ public class Vuforia {
         System.out.println("QQ_Test -- Instantiate");
         System.out.flush();
 
-
+        parameters.useExtendedTracking = false;
         // Load the data sets for the trackable objects. These particular data
         // sets are stored in the 'assets' part of our application.
         targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");

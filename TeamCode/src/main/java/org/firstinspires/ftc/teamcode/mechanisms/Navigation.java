@@ -214,4 +214,9 @@ public class Navigation {
         double currentHeading = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS).firstAngle; //Because if we used our read imu method it would double the offset
         imuOffset = supposedHeading - currentHeading;
     }
+
+
+    public void addToOffset(double value, AngleUnit angleUnit) {
+        imuOffset += angleUnit.toRadians(value);
+    }
 }

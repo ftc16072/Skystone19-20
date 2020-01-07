@@ -98,7 +98,7 @@ abstract public class AutoBase extends OpMode {
     public void init() {
         robot.init(hardwareMap);
         robot.robotLights.allianceLights(!redAlliance);
-        vuforia.start(hardwareMap);
+        //vuforia.start(hardwareMap);
     }
 
     /**
@@ -136,7 +136,7 @@ abstract public class AutoBase extends OpMode {
      */
     @Override
     public void start() {
-        vuforia.startSkystone();
+        //vuforia.startSkystone();
         if (redAlliance) {
             farPark_x = FAR_PARK_RED_X;
             nearPark_x = NEAR_PARK_RED_X;

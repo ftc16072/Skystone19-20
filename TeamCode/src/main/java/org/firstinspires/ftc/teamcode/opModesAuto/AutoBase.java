@@ -12,7 +12,6 @@ import java.util.List;
 
 abstract public class AutoBase extends OpMode {
     final Robot robot = new Robot();
-    protected final Vuforia vuforia = new Vuforia();
 
     private List<QQ_AutoAction> autoSteps;
     private int stepNum;
@@ -98,7 +97,6 @@ abstract public class AutoBase extends OpMode {
     public void init() {
         robot.init(hardwareMap);
         robot.robotLights.allianceLights(!redAlliance);
-        //vuforia.start(hardwareMap);
     }
 
     /**
@@ -137,7 +135,6 @@ abstract public class AutoBase extends OpMode {
      */
     @Override
     public void start() {
-        //vuforia.startSkystone();
         if (redAlliance) {
             farPark_x = FAR_PARK_RED_X;
             nearPark_x = NEAR_PARK_RED_X;

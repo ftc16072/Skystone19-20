@@ -79,6 +79,7 @@ abstract public class AutoBase extends OpMode {
             startX = -1 * startX;
             heading = 180;
         }
+        robot.nav.setRedAlliance(false);
 
         if (startDepot) {
             startY = START_DEPOT_Y;
@@ -164,5 +165,10 @@ abstract public class AutoBase extends OpMode {
         } else {
             telemetry.addData("auto", "Finished");
         }
+    }
+
+    @Override
+    public void stop() {
+        robot.nav.setRedAlliance(redAlliance);
     }
 }

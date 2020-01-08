@@ -23,7 +23,9 @@ public class Navigation {
     private final MecanumDrive mecanumDrive = new MecanumDrive();
     private static BNO055IMU imu;
     private RobotPosition lastSetPosition;
-    private double imuOffset = 0;
+    private static double imuOffset = 0;
+
+    private static boolean redAlliance = false;
 
     /**
      * this initializes the imu and the mecanum drive and sets our position at (0,0) (center of the field)
@@ -38,11 +40,18 @@ public class Navigation {
         setPosition(0, 0, DistanceUnit.CM);
     }
 
-    public void initializeImu(HardwareMap hwMap, double imuOffset) {
+    public void initializeImu(HardwareMap hwMap, double offset) {
         imu = hwMap.get(BNO055IMU.class, "imu");
         BNO055IMU.Parameters params = new BNO055IMU.Parameters();
         imu.initialize(params);
-        this.imuOffset = imuOffset;
+        imuOffset = offset;
+    }
+
+    private double fromDriverRelToFieldRel(double angRadians) {
+        if (redAlliance) {
+            angRadians += Math.PI;
+        }
+        return angRadians;
     }
 
     /**
@@ -69,8 +78,9 @@ public class Navigation {
     public void driveFieldRelative(double x, double y, double rotate) {
         Polar drive = Polar.fromCartesian(x, y);
         double heading = getHeading(AngleUnit.RADIANS);
-
+        heading = fromDriverRelToFieldRel(heading);
         drive.subtractAngle(heading);
+
         mecanumDrive.driveMecanum(drive.getY(), drive.getX(), rotate);
     }
 
@@ -91,6 +101,8 @@ public class Navigation {
      * @param angle desired angle to turn to
      */
     public void driveFieldRelativeAngle(double x, double y, double angle) {
+        angle = fromDriverRelToFieldRel(angle);
+
         double angle_in = angle - Math.PI / 2;  // convert to robot coordinates
 
         double delta = AngleUnit.normalizeRadians(getHeading(AngleUnit.RADIANS) - angle_in);
@@ -220,5 +232,13 @@ public class Navigation {
         double supposedHeading = angleUnit.toRadians(heading);
         double currentHeading = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS).firstAngle; //Because if we used our read imu method it would double the offset
         imuOffset = supposedHeading - currentHeading;
+    }
+
+    public boolean isRedAlliance() {
+        return redAlliance;
+    }
+
+    public void setRedAlliance(boolean redAlliance) {
+        this.redAlliance = redAlliance;
     }
 }

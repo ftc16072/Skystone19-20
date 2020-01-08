@@ -22,8 +22,12 @@ public class DriveOnly extends OpMode {
      */
     @Override
     public void init() {
+        telemetry.addData("State", "Initializing");
+        telemetry.update();
         robot.init(hardwareMap);
         robot.nav.setMecanumDriveMaxSpeed(MAX_SPEED);
+        robot.robotLights.allianceLights(!robot.nav.isRedAlliance());
+        telemetry.addData("State", "Quacktastic");
     }
 
 

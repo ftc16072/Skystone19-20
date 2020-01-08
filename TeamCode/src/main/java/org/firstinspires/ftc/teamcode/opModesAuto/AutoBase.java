@@ -6,7 +6,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.mechanisms.Robot;
 import org.firstinspires.ftc.teamcode.util.RobotPosition;
-import org.firstinspires.ftc.teamcode.util.Vuforia;
 
 import java.util.List;
 
@@ -97,6 +96,7 @@ abstract public class AutoBase extends OpMode {
     public void init() {
         robot.init(hardwareMap);
         robot.robotLights.allianceLights(!redAlliance);
+        //vuforia.start(hardwareMap);
     }
 
     /**

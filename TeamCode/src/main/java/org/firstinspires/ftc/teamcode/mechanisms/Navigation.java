@@ -21,7 +21,7 @@ public class Navigation {
     private static final double KP_ANGLE = 1;
     private static final double SLOWEST_SPEED = 0.2;
     private final MecanumDrive mecanumDrive = new MecanumDrive();
-    private BNO055IMU imu;
+    private static BNO055IMU imu;
     private RobotPosition lastSetPosition;
     private double imuOffset = 0;
 
@@ -31,11 +31,18 @@ public class Navigation {
      * @param hwMap hardware map from configuration
      */
     void init(HardwareMap hwMap) {
+        if (imu == null) {
+            initializeImu(hwMap, 0);
+        }
+        mecanumDrive.init(hwMap);
+        setPosition(0, 0, DistanceUnit.CM);
+    }
+
+    public void initializeImu(HardwareMap hwMap, double imuOffset) {
         imu = hwMap.get(BNO055IMU.class, "imu");
         BNO055IMU.Parameters params = new BNO055IMU.Parameters();
         imu.initialize(params);
-        mecanumDrive.init(hwMap);
-        setPosition(0, 0, DistanceUnit.CM);
+        this.imuOffset = imuOffset;
     }
 
     /**
@@ -116,7 +123,7 @@ public class Navigation {
      * @return returns a RobotPosition that is the x, y, and angle that the robot moved
      * @see RobotPosition
      */
-    private RobotPosition getEstimatedPosition() {
+    public RobotPosition getEstimatedPosition() {
         double[] distanceDriven = mecanumDrive.getDistanceCm();
 
         Polar translation = Polar.fromCartesian(distanceDriven[0], -distanceDriven[1]);

@@ -54,5 +54,12 @@ public class Rotator {
 
     }
 
+    public void fit(Telemetry telemetry) {
+        double angleRadians = AngleUnit.DEGREES.toRadians(-75);
+        double position = -1 * ((angleRadians / Math.PI) - 0.5);
+        telemetry.addData("SetPosition", position);
+        rotator.setPosition(position);
+    }
+
 
 }

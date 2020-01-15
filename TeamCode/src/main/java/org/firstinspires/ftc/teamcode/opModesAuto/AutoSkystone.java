@@ -49,7 +49,7 @@ public class AutoSkystone extends AutoBase {
                     new QQ_ActionRotator(0.0),
                     new QQ_ActionPincer(false),
                     new QQ_ActionDriveTo(48, -36, DistanceUnit.INCH),
-                    new QQ_ActionFindSkystone(vuforia, redAlliance),
+                    //new QQ_ActionFindSkystone(vuforia, redAlliance),
                     new QQ_ActionDriveToRelative(-12, 0, DistanceUnit.INCH),
                     new QQ_ActionFlipper(1),
                     new QQ_ActionPincer(true),
@@ -59,8 +59,8 @@ public class AutoSkystone extends AutoBase {
             ));
         } else {
             steps.addAll(Arrays.asList(
-                    startPosition,
-                    new QQ_ActionFindSkystone(vuforia, redAlliance)
+                    startPosition
+                    //new QQ_ActionFindSkystone(vuforia, redAlliance)
 
             ));
         }

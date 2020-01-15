@@ -28,7 +28,7 @@ public class AutoSkystone2 extends AutoBase {
                     new QQ_ActionRotator(0.0),
                     new QQ_ActionFlipper(1),
                     new QQ_ActionDriveTo(35, -36.5, DistanceUnit.INCH),
-                    new QQ_ActionPincer(true);
+                    new QQ_ActionPincer(true),
                     new QQ_ActionDriveTo(27, -36.5, DistanceUnit.INCH),
                     new QQ_ActionRotateTo(90, AngleUnit.DEGREES)
 

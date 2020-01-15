@@ -80,7 +80,7 @@ abstract public class AutoBase extends OpMode {
             startX = -1 * startX;
             heading = 180;
         }
-        robot.nav.setRedAlliance(false);
+        Robot.nav.setRedAlliance(false);
 
         if (startDepot) {
             startY = START_DEPOT_Y;
@@ -107,17 +107,19 @@ abstract public class AutoBase extends OpMode {
         //robot.rotator.rotate(-90, AngleUnit.DEGREES, telemetry);
         robot.rotator.fit(telemetry);
         robot.pincer.open();
+/*
 
         if (robot.lifter.downdistance.getDistance(DistanceUnit.CM) < 5.5 || robot.lifter.getEncoderPosition() <= 0) {
             robot.lifter.move(0.0);
         } else {
             robot.lifter.move(-0.2);
         }
+*/
 
         if (robot.flipper.getPosition() >= -70) {
             robot.flipper.up();
         } else {
-            robot.flipper.holdUp();
+            robot.flipper.stop();
         }
 
     }
@@ -171,6 +173,6 @@ abstract public class AutoBase extends OpMode {
 
     @Override
     public void stop() {
-        robot.nav.setRedAlliance(redAlliance);
+        Robot.nav.setRedAlliance(redAlliance);
     }
 }

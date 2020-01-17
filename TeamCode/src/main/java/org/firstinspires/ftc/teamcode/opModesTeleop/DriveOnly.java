@@ -109,6 +109,17 @@ public class DriveOnly extends OpMode {
             robot.parker.stop();
         }
 
+        if (gamepad1.dpad_down) {
+            robot.nav.resetIMU(180, AngleUnit.DEGREES);
+        } else if (gamepad1.dpad_up) {
+            robot.nav.resetIMU(0, AngleUnit.DEGREES);
+        } else if (gamepad1.dpad_left) {
+            robot.nav.resetIMU(-90, AngleUnit.DEGREES);
+        } else if (gamepad1.dpad_right) {
+            robot.nav.resetIMU(90, AngleUnit.DEGREES);
+        }
+
+
     }
 
     /**

@@ -33,9 +33,9 @@ public class Navigation {
      * @param hwMap hardware map from configuration
      */
     void init(HardwareMap hwMap) {
-        if (imu == null) {
+        //   if (imu == null) {
             initializeImu(hwMap, 0);
-        }
+        //}
         mecanumDrive.init(hwMap);
         setPosition(0, 0, DistanceUnit.CM);
     }

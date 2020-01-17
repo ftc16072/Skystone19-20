@@ -103,7 +103,8 @@ abstract public class AutoBase extends OpMode {
      */
     private void fitIn18() {
         robot.snatcher.lift();
-        robot.rotator.rotate(-90, AngleUnit.DEGREES, telemetry);
+        //robot.rotator.rotate(-90, AngleUnit.DEGREES, telemetry);
+        robot.rotator.fit(telemetry);
         robot.pincer.open();
 
   /*

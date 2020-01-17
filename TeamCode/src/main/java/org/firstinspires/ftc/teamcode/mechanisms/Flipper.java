@@ -7,8 +7,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Flipper {
-    private static final double SPEED_UP = -0.7;
-    private static final double SPEED_DOWN = 0.1;
+    private static final double SPEED_UP = -0.9;
+    private static final double SPEED_DOWN = 0.4;
     private DcMotor flipper;
 
     /**

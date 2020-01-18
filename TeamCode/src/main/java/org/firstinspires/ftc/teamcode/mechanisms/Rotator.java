@@ -14,6 +14,8 @@ public class Rotator {
     private static final double LEFT_POSITION = 0.27;
     private static final double RIGHT_POSITION = 1;
 
+
+
     /**
      * Initializes the rotator
      *

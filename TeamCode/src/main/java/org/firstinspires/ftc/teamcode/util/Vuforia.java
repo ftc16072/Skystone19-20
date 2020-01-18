@@ -63,7 +63,7 @@ public class Vuforia {
     public void start(HardwareMap hardwareMap) {
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-        parameters.vuforiaLicenseKey = hardwareMap.appContext.getString(R.string.vuforiaLicense);
+        //parameters.vuforiaLicenseKey = hardwareMap.appContext.getString(R.string.vuforiaLicense);
         parameters.cameraDirection = CAMERA_CHOICE;
 
         //  Instantiate the Vuforia engine

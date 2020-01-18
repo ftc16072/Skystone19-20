@@ -5,12 +5,12 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.mechanisms.Robot;
 
 class QQ_ActionFlipper extends QQ_AutoAction {
-    private int position;
+    private double position;
 
     /**
      * @param position what position to set flipper to -- <0 means stop (currently does nothing else)
      */
-    QQ_ActionFlipper(int position) {
+    QQ_ActionFlipper(double position) {
         this.position = position;
     }
 
@@ -24,11 +24,6 @@ class QQ_ActionFlipper extends QQ_AutoAction {
      */
     @Override
     boolean run(Robot robot, double gameTime, Telemetry telemetry) {
-        if (position > 0) {
-            return true;
-        } else {
-            robot.flipper.stop();
-            return true;
-        }
+        return robot.flipper.goToDegree(position, telemetry);
     }
 }

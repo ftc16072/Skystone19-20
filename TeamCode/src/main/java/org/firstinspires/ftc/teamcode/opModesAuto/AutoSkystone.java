@@ -3,10 +3,7 @@ package org.firstinspires.ftc.teamcode.opModesAuto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.teamcode.util.RobotPosition;
-import org.firstinspires.ftc.teamcode.util.Vuforia;
 
 import java.util.ArrayList;
 import java.util.Arrays;

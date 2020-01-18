@@ -27,9 +27,9 @@ public class AutoSkystone3 extends AutoBase {
                     startPosition,
                     new QQ_ActionRotator(0.0),
                     new QQ_ActionFlipper(1),
-                    new QQ_ActionDriveTo(35, -28.5, DistanceUnit.INCH),
+                    new QQ_ActionDriveTo(STONE_COLLECTION_RED_X, -28.5, DistanceUnit.INCH),
                     new QQ_ActionPincer(true),
-                    new QQ_ActionDriveTo(27, -28.5, DistanceUnit.INCH),
+                    new QQ_ActionDriveTo(FAR_PARK_RED_X, -28.5, DistanceUnit.INCH),
                     new QQ_ActionRotateTo(90, AngleUnit.DEGREES)
 
             ));

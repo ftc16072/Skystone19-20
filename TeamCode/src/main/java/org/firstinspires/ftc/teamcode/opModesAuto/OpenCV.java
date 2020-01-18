@@ -10,7 +10,7 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 
 @Autonomous(name = "OpenCV", group = "Test")
 public class OpenCV extends OpMode {
-
+    SkystoneOpenCvPipeline pipeline = new SkystoneOpenCvPipeline();
     OpenCvCamera phoneCam;
 
     @Override
@@ -20,20 +20,15 @@ public class OpenCV extends OpMode {
 
         phoneCam.openCameraDevice();
 
-        phoneCam.setPipeline(new SkystoneOpenCvPipeline());
+        phoneCam.setPipeline(pipeline);
 
 
-        phoneCam.startStreaming(320, 240, OpenCvCameraRotation.UPSIDE_DOWN);
+        phoneCam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
     }
 
     @Override
     public void loop() {
-        telemetry.addData("Frame Count", phoneCam.getFrameCount());
-        telemetry.addData("FPS", String.format("%.2f", phoneCam.getFps()));
-        telemetry.addData("Total frame time ms", phoneCam.getTotalFrameTimeMs());
-        telemetry.addData("Pipeline time ms", phoneCam.getPipelineTimeMs());
-        telemetry.addData("Overhead time ms", phoneCam.getOverheadTimeMs());
-        telemetry.addData("Theoretical max FPS", phoneCam.getCurrentPipelineMaxFps());
+        telemetry.addData("Skystone Position", pipeline.stoneLocation);
         telemetry.update();
 
     }

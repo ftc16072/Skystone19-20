@@ -14,10 +14,10 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 @Config
 public class SkystoneOpenCvPipeline extends OpenCvPipeline {
-    static int SKYSTONE_PIXEL_START_X = 20;
-    static int SKYSTONE_PIXEL_START_Y = 20;
-    static int SKYSTONE_PIXEL_WIDTH = 80;
-    static int SKYSTONE_PIXEL_HEIGHT = 40;
+    static public int SKYSTONE_PIXEL_START_X = 5;
+    static public int SKYSTONE_PIXEL_START_Y = 100;
+    static public int SKYSTONE_PIXEL_WIDTH = 70;
+    static public int SKYSTONE_PIXEL_HEIGHT = SKYSTONE_PIXEL_WIDTH / 2;
     static Scalar STONE_COLOR = new Scalar(0,255,0);
     static Scalar SKYSTONE_COLOR = new Scalar(0,0,255);
     public int stoneLocation;
@@ -46,11 +46,11 @@ public class SkystoneOpenCvPipeline extends OpenCvPipeline {
         /*
          * Draw three boxes in stone position
          */
-        Imgproc.rectangle(input, stone1, STONE_COLOR, 4);
+        Imgproc.rectangle(input, stone1, (stoneLocation == 1) ? SKYSTONE_COLOR : STONE_COLOR, 4);
 
-        Imgproc.rectangle(input, stone2, STONE_COLOR, 4);
+        Imgproc.rectangle(input, stone2, (stoneLocation == 2) ? SKYSTONE_COLOR : STONE_COLOR, 4);
 
-        Imgproc.rectangle(input, stone3, STONE_COLOR, 4);
+        Imgproc.rectangle(input, stone3, (stoneLocation == 3) ? SKYSTONE_COLOR : STONE_COLOR, 4);
 
         return input;
     }

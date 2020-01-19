@@ -80,7 +80,7 @@ abstract public class AutoBase extends OpMode {
             startX = -1 * startX;
             heading = 180;
         }
-        Robot.nav.setRedAlliance(false);
+        robot.nav.setRedAlliance(false);
 
         if (startDepot) {
             startY = START_DEPOT_Y;
@@ -172,6 +172,6 @@ abstract public class AutoBase extends OpMode {
 
     @Override
     public void stop() {
-        Robot.nav.setRedAlliance(redAlliance);
+        robot.nav.setRedAlliance(redAlliance);
     }
 }

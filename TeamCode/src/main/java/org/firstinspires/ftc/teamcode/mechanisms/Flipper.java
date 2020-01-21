@@ -4,6 +4,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -18,12 +19,12 @@ public class Flipper {
     private DcMotor flipper;
     private AnalogInput flipperSensor;
     private static final double VOLTAGE_DOWN = 1.272;
-    private static final double VOLTAGE_UP = 0.435;
+    private static final double VOLTAGE_UP = 0.4;
     private static final double DEGREES_DOWN = -10;
     private static final double DEGREES_UP = 90;
-    private static final double VOLTAGE_TOLERANCE = 0.05;
+    private static final double VOLTAGE_TOLERANCE = 0.08;
     public static double KP_VOLTAGE_UP = 1.8;
-    public static double KP_VOLTAGE_DOWN = 0.3;
+    public static double KP_VOLTAGE_DOWN = 0.8;
 
 
     double getDesiredVoltage(double desiredAngle){
@@ -40,9 +41,9 @@ public class Flipper {
     void init(HardwareMap hwMap) {
         flipper = hwMap.get(DcMotor.class, "flipper");
         flipperSensor = hwMap.get(AnalogInput.class, "flipperSensor");
-        flipper.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         flipper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         flipper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        flipper.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         flipper.setPower(0.0);
     }
 
@@ -106,10 +107,10 @@ public class Flipper {
         telemetry.addData("Voltage Diff", voltageDiff);
 
         if (voltageDiff > 0){
-            flipper.setPower(KP_VOLTAGE_DOWN * voltageDiff);
+            flipper.setPower(Math.max(KP_VOLTAGE_DOWN * voltageDiff, 0.4));
             telemetry.addData("power set", KP_VOLTAGE_DOWN * voltageDiff);
         } else {
-            flipper.setPower(KP_VOLTAGE_UP * voltageDiff);
+            flipper.setPower(Math.min(KP_VOLTAGE_UP * voltageDiff, -0.7));
             telemetry.addData("power set", KP_VOLTAGE_UP * voltageDiff);
         }
         return false;

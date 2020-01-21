@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public class Snatcher {
-    private final double RIGHT_LOWERED = 0.5;
+    private final double RIGHT_LOWERED = 0.3;
     private final double RIGHT_RAISED = 1.0;
     private Servo snatcherRight;
     private final double LEFT_LOWERED = 1.0;

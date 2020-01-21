@@ -17,7 +17,7 @@ abstract public class AutoBase extends OpMode {
 
     boolean startDepot = true;
     boolean redAlliance = true;
-    boolean farPark = true;
+    boolean farPark = false;
     double farPark_x;
     double nearPark_x;
 
@@ -35,7 +35,7 @@ abstract public class AutoBase extends OpMode {
     static final double WAFFLE_RED_Y = 48;
     static final double WAFFLE_WIDTH = 18.5;
     static final double FIELD_BOUNDARIES = 72;
-    static final double STONE_COLLECTION_RED_X = 34;
+    static final double STONE_COLLECTION_RED_X = 38.5;
 
     /**
      * allows for the user to select settings from:

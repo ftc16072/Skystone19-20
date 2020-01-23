@@ -3,6 +3,9 @@ package org.firstinspires.ftc.teamcode.opModesAuto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.QQ_Actions.QQ_ActionDriveTo;
+import org.firstinspires.ftc.teamcode.QQ_Actions.QQ_ActionSetPosition;
+import org.firstinspires.ftc.teamcode.QQ_Actions.QQ_AutoAction;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.teamcode.opModesAuto;
+package org.firstinspires.ftc.teamcode.QQ_Actions;
 
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.mechanisms.Robot;
 
-class QQ_ActionSnatcher extends QQ_AutoAction {
+public class QQ_ActionSnatcher extends QQ_AutoAction {
     private Boolean snatch;
 
     /**
@@ -12,7 +12,7 @@ class QQ_ActionSnatcher extends QQ_AutoAction {
      *
      * @param snatch raise or lower -- true = lower; false = raise
      */
-    QQ_ActionSnatcher(Boolean snatch) {
+    public QQ_ActionSnatcher(Boolean snatch) {
         this.snatch = snatch;
     }
 
@@ -25,7 +25,7 @@ class QQ_ActionSnatcher extends QQ_AutoAction {
      * @return returns true when completed
      */
     @Override
-    boolean run(Robot robot, double gameTime, Telemetry telemetry) {
+    public boolean run(Robot robot, double gameTime, Telemetry telemetry) {
         if (snatch) {
             robot.snatcher.lower();
             return true;

@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.teamcode.opModesAuto;
+package org.firstinspires.ftc.teamcode.QQ_Actions;
 
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.mechanisms.Robot;
 
-abstract class QQ_AutoAction {
+public abstract class QQ_AutoAction {
     /**
      * makes sure that all auto actions have a run command with
      *
@@ -13,5 +13,5 @@ abstract class QQ_AutoAction {
      * @param telemetry lets us print stuff back to the telemetry
      * @return returns true when completed iff it wasn't abstract
      */
-    abstract boolean run(Robot robot, double gameTime, Telemetry telemetry);
+    public abstract boolean run(Robot robot, double gameTime, Telemetry telemetry);
 }

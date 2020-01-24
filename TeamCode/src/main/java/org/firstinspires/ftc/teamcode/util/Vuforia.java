@@ -21,6 +21,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
 public class Vuforia {
+    /*
     public enum Location {
         NOT_FOUND,
         LEFT,
@@ -124,5 +125,5 @@ public class Vuforia {
 // Disable Tracking when we are done;
         targetsSkyStone.deactivate();
     }
-
+*/
 }

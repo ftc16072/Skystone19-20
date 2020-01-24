@@ -13,7 +13,9 @@ import java.util.List;
 
 public class Lifter {
     private DcMotor lift;
-    public DistanceSensor middleSensor;
+    public DistanceSensor leftDistanceSensor;
+    public DistanceSensor middleDistanceSensor;
+    public DistanceSensor rightDistanceSensor;
     public static double START_HEIGHT_CM = 1.0;
     private static double BRICK_HEIGHT_CM = DistanceUnit.INCH.toCm(4);
     private static final double DOWN_DISTANCE_CM = 5.5;
@@ -21,13 +23,13 @@ public class Lifter {
     private static final double LIFT_SPOOL_CIRC_CM = 4.8 * Math.PI;
     private static final double TICKS_PER_MOTOR_REVOLUTION = 145.6;
     private static final double GEAR_RATIO = 0.5;
-    private static final double CM_PER_TICK = LIFT_SPOOL_CIRC_CM / (TICKS_PER_MOTOR_REVOLUTION * GEAR_RATIO);
+    private static final double CM_PER_TICK = (LIFT_SPOOL_CIRC_CM * GEAR_RATIO) / (TICKS_PER_MOTOR_REVOLUTION);
     private double stoneDistanceCM;
-    private double DISTANCE_SENSOR_TOLERANCE = 8;
+    public double DISTANCE_SENSOR_TOLERANCE = 8;
     private double CM_HEIGHT_TOLERANCE = 1;
     public static double LiftingSpeedToHitBlockTop = 0.7;
     public static double KP_CM = 1;
-    double desiredLocation = -1;
+    double desiredLocation = 0;
 
     /**
      * This initializes our Lifter.
@@ -37,6 +39,9 @@ public class Lifter {
      */
     void init(HardwareMap hwmap) {
         lift = hwmap.get(DcMotor.class, "lifter");
+        leftDistanceSensor = hwmap.get(DistanceSensor.class, "left_sensor");
+        middleDistanceSensor = hwmap.get(DistanceSensor.class, "middle_sensor");
+        rightDistanceSensor = hwmap.get(DistanceSensor.class, "right_sensor");
         lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -51,7 +56,8 @@ public class Lifter {
     List<QQ_Test> getTests() {
         return Arrays.asList(
                 new QQ_TestMotor("Lift-Down", -0.2, lift),
-                new QQ_TestMotor("lift-Up", 0.2, lift)
+                new QQ_TestMotor("lift-Up", 0.2, lift),
+                new QQ_TestDistanceSensor("Middle sensor", middleDistanceSensor)
         );
     }
 
@@ -69,7 +75,7 @@ public class Lifter {
                 returnValue = false;
             }
         } else {
-            if (true) { // TODO: Find Encoder Top Limit
+            if (false) { // TODO: Find Encoder Top Limit
                 speed = 0;
                 returnValue = false;
             }
@@ -117,9 +123,9 @@ public class Lifter {
 
     public boolean liftToPlacing(){
         if(stoneDistanceCM == 0){
-            stoneDistanceCM = middleSensor.getDistance(DistanceUnit.CM);
+            stoneDistanceCM = middleDistanceSensor.getDistance(DistanceUnit.CM);
         }
-        if(middleSensor.getDistance(DistanceUnit.CM) <= (stoneDistanceCM + DISTANCE_SENSOR_TOLERANCE)){
+        if(middleDistanceSensor.getDistance(DistanceUnit.CM) <= (stoneDistanceCM + DISTANCE_SENSOR_TOLERANCE)){
             move(LiftingSpeedToHitBlockTop);
         } else {
             if(desiredLocation == 0) {

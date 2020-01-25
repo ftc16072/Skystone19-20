@@ -57,7 +57,9 @@ public class Lifter {
         return Arrays.asList(
                 new QQ_TestMotor("Lift-Down", -0.2, lift),
                 new QQ_TestMotor("lift-Up", 0.2, lift),
-                new QQ_TestDistanceSensor("Middle sensor", middleDistanceSensor)
+                new QQ_TestDistanceSensor("Left sensor", leftDistanceSensor),
+                new QQ_TestDistanceSensor("Middle sensor", middleDistanceSensor),
+                new QQ_TestDistanceSensor("Right sensor", rightDistanceSensor)
         );
     }
 

@@ -13,9 +13,23 @@ import java.util.List;
 
 public class Lifter {
     private DcMotor lift;
-    public DistanceSensor downdistance;
+    public DistanceSensor leftDistanceSensor;
+    public DistanceSensor middleDistanceSensor;
+    public DistanceSensor rightDistanceSensor;
+    public static double START_HEIGHT_CM = 1.0;
+    private static double BRICK_HEIGHT_CM = DistanceUnit.INCH.toCm(4);
     private static final double DOWN_DISTANCE_CM = 5.5;
     private static final double UP_DISTANCE_CM = 58;
+    private static final double LIFT_SPOOL_CIRC_CM = 4.8 * Math.PI;
+    private static final double TICKS_PER_MOTOR_REVOLUTION = 145.6;
+    private static final double GEAR_RATIO = 0.5;
+    private static final double CM_PER_TICK = (LIFT_SPOOL_CIRC_CM * GEAR_RATIO) / (TICKS_PER_MOTOR_REVOLUTION);
+    private double stoneDistanceCM;
+    public double DISTANCE_SENSOR_TOLERANCE = 8;
+    private double CM_HEIGHT_TOLERANCE = 1;
+    public static double LiftingSpeedToHitBlockTop = 0.7;
+    public static double KP_CM = 1;
+    double desiredLocation = 0;
 
     /**
      * This initializes our Lifter.
@@ -25,8 +39,11 @@ public class Lifter {
      */
     void init(HardwareMap hwmap) {
         lift = hwmap.get(DcMotor.class, "lifter");
-        downdistance = hwmap.get(DistanceSensor.class, "downward_distance");
+        leftDistanceSensor = hwmap.get(DistanceSensor.class, "left_sensor");
+        middleDistanceSensor = hwmap.get(DistanceSensor.class, "middle_sensor");
+        rightDistanceSensor = hwmap.get(DistanceSensor.class, "right_sensor");
         lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         lift.setDirection(DcMotorSimple.Direction.REVERSE);
     }
@@ -40,7 +57,9 @@ public class Lifter {
         return Arrays.asList(
                 new QQ_TestMotor("Lift-Down", -0.2, lift),
                 new QQ_TestMotor("lift-Up", 0.2, lift),
-                new QQ_TestDistanceSensor("Down Sensor:", downdistance)
+                new QQ_TestDistanceSensor("Left sensor", leftDistanceSensor),
+                new QQ_TestDistanceSensor("Middle sensor", middleDistanceSensor),
+                new QQ_TestDistanceSensor("Right sensor", rightDistanceSensor)
         );
     }
 
@@ -53,12 +72,12 @@ public class Lifter {
     public boolean move(double speed) {
         boolean returnValue = true;
         if (speed < 0) {
-            if (downdistance.getDistance(DistanceUnit.CM) <= DOWN_DISTANCE_CM) {
+            if (getPosition() <= 0) {
                 speed = 0;
                 returnValue = false;
             }
         } else {
-            if (downdistance.getDistance(DistanceUnit.CM) >= UP_DISTANCE_CM) {
+            if (false) { // TODO: Find Encoder Top Limit
                 speed = 0;
                 returnValue = false;
             }
@@ -67,11 +86,64 @@ public class Lifter {
         return returnValue;
     }
 
+    public boolean moveToCM(double cm){
+        double diff = cm - getCMLocation();
+        if(Math.abs(diff) <= CM_HEIGHT_TOLERANCE){
+            move(0);
+            return true;
+        }
+        move(diff * KP_CM);
+        return false;
+    }
+
+    public boolean moveByCm(double cm){
+        if (desiredLocation == -1){
+            desiredLocation = getCMLocation() + cm;
+        }
+        boolean movement = moveToCM(desiredLocation);
+        if (movement){
+            desiredLocation = -1;
+            return true;
+        }
+        return false;
+    }
+
+    public double getCMLocation(){
+        return getPosition() * CM_PER_TICK;
+    }
+
     /**
      * gets encoder ticks of lift motor
      * @return returns encoder position of the lift
      */
     public int getPosition() {
         return lift.getCurrentPosition();
+    }
+    private double getTargetPosition(int numBricks){
+        return START_HEIGHT_CM + (numBricks * BRICK_HEIGHT_CM);
+    }
+
+    public boolean liftToPlacing(){
+        if(stoneDistanceCM == 0){
+            stoneDistanceCM = middleDistanceSensor.getDistance(DistanceUnit.CM);
+        }
+        if(middleDistanceSensor.getDistance(DistanceUnit.CM) <= (stoneDistanceCM + DISTANCE_SENSOR_TOLERANCE)){
+            move(LiftingSpeedToHitBlockTop);
+        } else {
+            if(desiredLocation == 0) {
+                int numBricks = 0;
+                while (getTargetPosition(numBricks) < getCMLocation()) {
+                    numBricks++;
+                }
+                desiredLocation = getTargetPosition(numBricks);
+            }
+            boolean atHeight = moveToCM(desiredLocation);
+            if(atHeight){
+                stoneDistanceCM = 0;
+                desiredLocation = 0;
+                return true;
+            }
+        }
+        return false;
     }
 }

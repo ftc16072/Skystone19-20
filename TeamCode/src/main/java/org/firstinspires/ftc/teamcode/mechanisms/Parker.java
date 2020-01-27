@@ -27,7 +27,8 @@ public class Parker {
      */
     List<QQ_Test> getTests() {
         return Arrays.asList(
-                new QQ_TestMotor("Parker", SPEED, parker)
+                new QQ_TestMotor("Parker-Out", SPEED, parker),
+                new QQ_TestMotor("Parker-IN", -SPEED, parker)
         );
     }
 

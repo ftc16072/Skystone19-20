@@ -1,26 +1,21 @@
-package org.firstinspires.ftc.teamcode.QQ_Actions;
+package org.firstinspires.ftc.teamcode.actions;
 
-
-import android.support.annotation.ColorInt;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.mechanisms.Robot;
 
-
-public class QQ_ActionLights extends QQ_AutoAction {
-    @ColorInt
-    private int color;
+public class QQ_ActionFlipper extends QQ_AutoAction {
+    private double position;
 
     /**
-     * @param color what color to set the lights to as a Color Int
-     * @see ColorInt
+     * @param position what position to set flipper to -- <0 means stop (currently does nothing else)
      */
-    public QQ_ActionLights(@ColorInt int color) {
-        this.color = color;
+    public QQ_ActionFlipper(double position) {
+        this.position = position;
     }
 
     /**
-     * sets the lights
+     * Flips Flipper
      *
      * @param robot     gives access to all robot functions
      * @param gameTime  lets us know the time since the op-mode was selected
@@ -29,7 +24,6 @@ public class QQ_ActionLights extends QQ_AutoAction {
      */
     @Override
     public boolean run(Robot robot, double gameTime, Telemetry telemetry) {
-        robot.robotLights.setColor(this.color);
-        return true;
+        return robot.flipper.goToDegree(position, telemetry);
     }
 }

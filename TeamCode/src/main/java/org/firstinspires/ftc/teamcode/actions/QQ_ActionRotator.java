@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.teamcode.opModesAuto;
+package org.firstinspires.ftc.teamcode.actions;
 
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.mechanisms.Robot;
 
-class QQ_ActionRotator extends QQ_AutoAction {
+public class QQ_ActionRotator extends QQ_AutoAction {
     private Double rotate;
 
     /**
@@ -13,7 +13,7 @@ class QQ_ActionRotator extends QQ_AutoAction {
      *
      * @param rotate what angle to spin to
      */
-    QQ_ActionRotator(Double rotate) {
+    public QQ_ActionRotator(Double rotate) {
         this.rotate = rotate;
     }
 
@@ -26,7 +26,7 @@ class QQ_ActionRotator extends QQ_AutoAction {
      * @return returns true when completed
      */
     @Override
-    boolean run(Robot robot, double gameTime, Telemetry telemetry) {
+    public boolean run(Robot robot, double gameTime, Telemetry telemetry) {
         robot.rotator.rotate(rotate, AngleUnit.DEGREES, telemetry);
         return true;
     }

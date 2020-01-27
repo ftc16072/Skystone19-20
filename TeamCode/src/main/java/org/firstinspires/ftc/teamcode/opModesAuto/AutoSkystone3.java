@@ -4,6 +4,15 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.actions.QQ_ActionDelayFor;
+import org.firstinspires.ftc.teamcode.actions.QQ_ActionDriveTo;
+import org.firstinspires.ftc.teamcode.actions.QQ_ActionFlipper;
+import org.firstinspires.ftc.teamcode.actions.QQ_ActionPincer;
+import org.firstinspires.ftc.teamcode.actions.QQ_ActionRotateTo;
+import org.firstinspires.ftc.teamcode.actions.QQ_ActionRotator;
+import org.firstinspires.ftc.teamcode.actions.QQ_ActionSetPosition;
+import org.firstinspires.ftc.teamcode.actions.QQ_ActionSnatcher;
+import org.firstinspires.ftc.teamcode.actions.QQ_AutoAction;
 import org.firstinspires.ftc.teamcode.util.RobotPosition;
 
 import java.util.ArrayList;

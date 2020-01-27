@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opModesAuto;
+package org.firstinspires.ftc.teamcode.actions;
 
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -6,7 +6,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.mechanisms.Robot;
 import org.firstinspires.ftc.teamcode.util.RobotPosition;
 
-class QQ_ActionDriveToRelative extends QQ_AutoAction {
+public class QQ_ActionDriveToRelative extends QQ_AutoAction {
     private double x;
     private double y;
     private boolean started;
@@ -17,7 +17,7 @@ class QQ_ActionDriveToRelative extends QQ_AutoAction {
      * @param y            y offset to drive to
      * @param distanceUnit unit coordinates are in (In, Cm)
      */
-    QQ_ActionDriveToRelative(double x, double y, DistanceUnit distanceUnit) {
+    public QQ_ActionDriveToRelative(double x, double y, DistanceUnit distanceUnit) {
         this.x = x;
         this.y = y;
         this.distanceUnit = distanceUnit;
@@ -32,7 +32,7 @@ class QQ_ActionDriveToRelative extends QQ_AutoAction {
      * @return returns true when completed
      */
     @Override
-    boolean run(Robot robot, double gameTime, Telemetry telemetry) {
+    public boolean run(Robot robot, double gameTime, Telemetry telemetry) {
         if (!started) {
             RobotPosition robotPosition = robot.nav.getEstimatedPosition();
             x = robotPosition.getX(distanceUnit) + x;

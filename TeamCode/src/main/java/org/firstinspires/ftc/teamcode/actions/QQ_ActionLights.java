@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opModesAuto;
+package org.firstinspires.ftc.teamcode.actions;
 
 
 import android.support.annotation.ColorInt;
@@ -7,7 +7,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.mechanisms.Robot;
 
 
-class QQ_ActionLights extends QQ_AutoAction {
+public class QQ_ActionLights extends QQ_AutoAction {
     @ColorInt
     private int color;
 
@@ -15,7 +15,7 @@ class QQ_ActionLights extends QQ_AutoAction {
      * @param color what color to set the lights to as a Color Int
      * @see ColorInt
      */
-    QQ_ActionLights(@ColorInt int color) {
+    public QQ_ActionLights(@ColorInt int color) {
         this.color = color;
     }
 
@@ -28,7 +28,7 @@ class QQ_ActionLights extends QQ_AutoAction {
      * @return returns true when completed
      */
     @Override
-    boolean run(Robot robot, double gameTime, Telemetry telemetry) {
+    public boolean run(Robot robot, double gameTime, Telemetry telemetry) {
         robot.robotLights.setColor(this.color);
         return true;
     }

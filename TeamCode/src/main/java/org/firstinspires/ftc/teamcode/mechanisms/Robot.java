@@ -6,7 +6,7 @@ import com.qualcomm.ftccommon.SoundPlayer;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Robot {
-    public final Navigation nav = new Navigation();
+    public static final Navigation nav = new Navigation();
     public final Pincer pincer = new Pincer();
     public final Rotator rotator = new Rotator();
     public final Flipper flipper = new Flipper();
@@ -26,7 +26,9 @@ public class Robot {
      * @param hwMap hardware map from config
      */
     public void init(HardwareMap hwMap) {
-        nav.init(hwMap);
+        if (nav != null) {
+            nav.init(hwMap);
+        }
         pincer.init(hwMap);
         rotator.init(hwMap);
         flipper.init(hwMap);

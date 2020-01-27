@@ -18,7 +18,7 @@ abstract public class AutoBase extends OpMode {
 
     boolean startDepot = true;
     boolean redAlliance = true;
-    boolean farPark = true;
+    boolean farPark = false;
     double farPark_x;
     double nearPark_x;
 
@@ -36,6 +36,7 @@ abstract public class AutoBase extends OpMode {
     static final double WAFFLE_RED_Y = 48;
     static final double WAFFLE_WIDTH = 18.5;
     static final double FIELD_BOUNDARIES = 72;
+    static final double STONE_COLLECTION_RED_X = 38.5;
 
     /**
      * allows for the user to select settings from:
@@ -96,7 +97,7 @@ abstract public class AutoBase extends OpMode {
     @Override
     public void init() {
         robot.init(hardwareMap);
-        robot.robotLights.allianceLights(false);
+        robot.robotLights.allianceLights(!redAlliance);
     }
 
     /**
@@ -107,18 +108,19 @@ abstract public class AutoBase extends OpMode {
         //robot.rotator.rotate(-90, AngleUnit.DEGREES, telemetry);
         robot.rotator.fit(telemetry);
         robot.pincer.open();
+/*
 
-  /*
-        if (robot.lifter.downdistance.getDistance(DistanceUnit.CM) > 5.5) {
-            robot.lifter.move(-0.2);
-        } else {
+        if (robot.lifter.downdistance.getDistance(DistanceUnit.CM) < 5.5 || robot.lifter.getEncoderPosition() <= 0) {
             robot.lifter.move(0.0);
+        } else {
+            robot.lifter.move(-0.2);
         }
 */
+
         if (robot.flipper.getPosition() >= -70) {
             robot.flipper.up();
         } else {
-            robot.flipper.holdUp();
+            robot.flipper.stop();
         }
 
     }

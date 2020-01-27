@@ -18,11 +18,17 @@ public class Lifter {
     public DistanceSensor rightDistanceSensor;
     public static double START_HEIGHT_CM = 1.0;
     private static double BRICK_HEIGHT_CM = DistanceUnit.INCH.toCm(4);
+    private static final double SPOOL_DIAMETER_CM = 2.427;
+    private static final double SPOOL_CIRC_CM = SPOOL_DIAMETER_CM * Math.PI;
+    private final static double GEAR_RATIO = 0.5;
+    private final static double TICKS_PER_ROTATION = 383.6;
+
+    private final static double ticsPerCm = (SPOOL_CIRC_CM * GEAR_RATIO) / TICKS_PER_ROTATION;
+
     private static final double DOWN_DISTANCE_CM = 5.5;
     private static final double UP_DISTANCE_CM = 58;
     private static final double LIFT_SPOOL_CIRC_CM = 4.8 * Math.PI;
     private static final double TICKS_PER_MOTOR_REVOLUTION = 145.6;
-    private static final double GEAR_RATIO = 0.5;
     private static final double CM_PER_TICK = (LIFT_SPOOL_CIRC_CM * GEAR_RATIO) / (TICKS_PER_MOTOR_REVOLUTION);
     private double stoneDistanceCM;
     public double DISTANCE_SENSOR_TOLERANCE = 8;
@@ -30,6 +36,8 @@ public class Lifter {
     public static double LiftingSpeedToHitBlockTop = 0.7;
     public static double KP_CM = 1;
     double desiredLocation = 0;
+
+    private static final double DISTANCE_KP = 0.04;
 
     /**
      * This initializes our Lifter.
@@ -72,7 +80,7 @@ public class Lifter {
     public boolean move(double speed) {
         boolean returnValue = true;
         if (speed < 0) {
-            if (getPosition() <= 0) {
+            if (getPosition(DistanceUnit.CM) <= 0) {
                 speed = 0;
                 returnValue = false;
             }
@@ -109,15 +117,44 @@ public class Lifter {
     }
 
     public double getCMLocation(){
-        return getPosition() * CM_PER_TICK;
+        return getPosition(DistanceUnit.CM);
     }
 
     /**
      * gets encoder ticks of lift motor
+     *
      * @return returns encoder position of the lift
      */
-    public int getPosition() {
+    public int getEncoderPosition() {
         return lift.getCurrentPosition();
+    }
+
+    /**
+     * gets position of lift in requested distance unit
+     *
+     * @param distanceUnit what distance unit you want
+     * @return returns lift position in requested distance unit
+     */
+    public double getPosition(DistanceUnit distanceUnit) {
+        return distanceUnit.fromCm(getEncoderPosition() * ticsPerCm);
+    }
+
+    /**
+     * moves lift to desired position
+     *
+     * @param position     what position to move lift to
+     * @param distanceUnit what distance unit is the position in
+     * @return whether it is at the position requested
+     */
+    public boolean goToPosition(double position, DistanceUnit distanceUnit) {
+        double desiredPositionCM = distanceUnit.toCm(position);
+        if (desiredPositionCM == getPosition(DistanceUnit.CM)) {
+            return true;
+        }
+
+        move(desiredPositionCM - getPosition(DistanceUnit.CM));
+        return false;
+
     }
     private double getTargetPosition(int numBricks){
         return START_HEIGHT_CM + (numBricks * BRICK_HEIGHT_CM);

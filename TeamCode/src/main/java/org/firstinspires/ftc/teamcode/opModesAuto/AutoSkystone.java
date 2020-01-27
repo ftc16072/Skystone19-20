@@ -1,13 +1,13 @@
 package org.firstinspires.ftc.teamcode.opModesAuto;
 
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.actions.QQ_ActionDelayFor;
 import org.firstinspires.ftc.teamcode.actions.QQ_ActionDriveTo;
-import org.firstinspires.ftc.teamcode.actions.QQ_ActionDriveToRelative;
 import org.firstinspires.ftc.teamcode.actions.QQ_ActionFlipper;
 import org.firstinspires.ftc.teamcode.actions.QQ_ActionPincer;
 import org.firstinspires.ftc.teamcode.actions.QQ_ActionRotateTo;
@@ -25,26 +25,25 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+@Config
 @Autonomous(name = "Skystone", group = "ftc16072")
 public class AutoSkystone extends AutoBase {
     SkystoneOpenCvPipeline pipeline = new SkystoneOpenCvPipeline();
     OpenCvCamera phoneCam;
     public static boolean useVision = false;
-    public int stoneLocation = 1;
 
     @Override
     public void init() {
         if (useVision){
             int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-            phoneCam = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);\
+            phoneCam = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
 
             phoneCam.openCameraDevice();
 
             phoneCam.setPipeline(pipeline);
             phoneCam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
         } else {
-            pipeline.stoneLocation = stoneLocation;
+            pipeline.stoneLocation = 1;
         }
     }
     /**
@@ -56,31 +55,19 @@ public class AutoSkystone extends AutoBase {
     public void init_loop() {
         super.init_loop();
         startDepot = true;
-        stoneLocation = pipeline.stoneLocation;
-        telemetry.addData("Stone_Location", stoneLocation);
+        telemetry.addData("Stone_Location", pipeline.stoneLocation);
         telemetry.update();
-    }
-
-    /**
-     * overrides to make sure the flipper stays up
-     */
-    @Override
-    public void start() {
-        super.start();
-        robot.flipper.holdUp();
     }
 
     private double getStoneYPosition(int stoneLocation){
         switch (stoneLocation){
-            case 1: {
+            case 1:
                 return -44.5;
-            }
-            case 2: {
+            case 2:
                 return -36.5;
-            }
-            case 3: {
+            case 3:
+            default:
                 return -28.5;
-            }
         }
     }
 
@@ -95,11 +82,11 @@ public class AutoSkystone extends AutoBase {
             steps.addAll(Arrays.asList(
                     startPosition,
                     new QQ_ActionRotator(0.0),
-                    new QQ_ActionDriveTo(STONE_COLLECTION_RED_X, getStoneYPosition(stoneLocation), DistanceUnit.INCH),
+                    new QQ_ActionDriveTo(STONE_COLLECTION_RED_X, getStoneYPosition(pipeline.stoneLocation), DistanceUnit.INCH),
                     new QQ_ActionFlipper(70),
                     new QQ_ActionPincer(true),
                     new QQ_ActionDelayFor(1),
-                    new QQ_ActionDriveTo(STONE_COLLECTION_RED_X + 6, getStoneYPosition(stoneLocation), DistanceUnit.INCH),
+                    new QQ_ActionDriveTo(STONE_COLLECTION_RED_X + 6, getStoneYPosition(pipeline.stoneLocation), DistanceUnit.INCH),
                     new QQ_ActionRotateTo(90, AngleUnit.DEGREES),
                     new QQ_ActionDriveTo(WAFFLE_RED_X + 3, WAFFLE_RED_Y, DistanceUnit.INCH),
                     new QQ_ActionRotateTo(180, AngleUnit.DEGREES),
@@ -119,11 +106,11 @@ public class AutoSkystone extends AutoBase {
             steps.addAll(Arrays.asList(
                     startPosition,
                     new QQ_ActionRotator(0.0),
-                    new QQ_ActionDriveTo(-STONE_COLLECTION_RED_X, getStoneYPosition(stoneLocation), DistanceUnit.INCH),
+                    new QQ_ActionDriveTo(-STONE_COLLECTION_RED_X, getStoneYPosition(pipeline.stoneLocation), DistanceUnit.INCH),
                     new QQ_ActionFlipper(70),
                     new QQ_ActionPincer(true),
                     new QQ_ActionDelayFor(1),
-                    new QQ_ActionDriveTo(-(STONE_COLLECTION_RED_X + 6), getStoneYPosition(stoneLocation), DistanceUnit.INCH),
+                    new QQ_ActionDriveTo(-(STONE_COLLECTION_RED_X + 6), getStoneYPosition(pipeline.stoneLocation), DistanceUnit.INCH),
                     new QQ_ActionRotateTo(90, AngleUnit.DEGREES),
                     new QQ_ActionDriveTo(-(WAFFLE_RED_X + 10), WAFFLE_RED_Y, DistanceUnit.INCH),
                     new QQ_ActionRotateTo(0, AngleUnit.DEGREES),

@@ -20,7 +20,7 @@ public class Navigation {
     private static final double KP_DISTANCE = 0.03;
     private static final double KP_ANGLE = 1;
     private static final double SLOWEST_SPEED = 0.2;
-    private final MecanumDrive mecanumDrive = new MecanumDrive();
+    public final MecanumDrive mecanumDrive = new MecanumDrive();
     private static BNO055IMU imu;
     private RobotPosition lastSetPosition;
     private static double imuOffset = 0;

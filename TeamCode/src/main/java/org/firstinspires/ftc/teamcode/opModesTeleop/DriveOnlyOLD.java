@@ -5,22 +5,16 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.teamcode.actions.QQ_ActionAlignOnBricks;
-import org.firstinspires.ftc.teamcode.actions.QQ_ActionLiftToNextBlock;
-import org.firstinspires.ftc.teamcode.actions.QQ_ActionNull;
-import org.firstinspires.ftc.teamcode.actions.QQ_ActionSquare;
-import org.firstinspires.ftc.teamcode.actions.QQ_AutoAction;
 import org.firstinspires.ftc.teamcode.mechanisms.Robot;
 import org.firstinspires.ftc.teamcode.util.Polar;
 
 @TeleOp()
-public class DriveOnly extends OpMode {
+public class DriveOnlyOLD extends OpMode {
     FtcDashboard dashboard = FtcDashboard.getInstance();
     private static final double MAX_SPEED = 0.6;
     private final Robot robot = new Robot();
     private boolean snatcherOpen = true;
     private boolean bPressed = false;
-    QQ_AutoAction semiAuto = new QQ_ActionNull();
 
 
     /**
@@ -64,8 +58,7 @@ public class DriveOnly extends OpMode {
         //squaring driving joystick to make it less sensitive in the middle
         double forward = squareWithSign(gamepad1.left_stick_y * -1); //The y direction on the gamepad is reversed idk why
         double strafe = squareWithSign(gamepad1.left_stick_x);
-
-        if (gamepad1.y) {
+        if (gamepad1.a) {
             robot.quack();
         } // :)
 
@@ -104,11 +97,16 @@ public class DriveOnly extends OpMode {
             telemetry.addData("snatcher", "Lowered");
         }
 
-        if (gamepad1.x){
-            semiAuto = new QQ_ActionAlignOnBricks();
+        if (gamepad1.x) {
+            robot.dispenser.dump();
+        } else {
+            robot.dispenser.hold();
         }
-        if (gamepad1.a){
-            semiAuto = new QQ_ActionSquare();
+
+        if (gamepad1.y && gamepad1.left_bumper && gamepad1.right_bumper) {
+            robot.parker.out();
+        } else {
+            robot.parker.stop();
         }
 
         if (gamepad1.dpad_down) {
@@ -129,75 +127,42 @@ public class DriveOnly extends OpMode {
      */
     private void manipulatorLoop() {
         Polar g2RightJoystick = Polar.fromCartesian(gamepad2.right_stick_x, -gamepad2.right_stick_y);
-        boolean xPressed = false;
-        boolean pinch = true;
-        double flipperDegree = 0;
-        QQ_ActionLiftToNextBlock nextBlock = new QQ_ActionLiftToNextBlock();
 
+        //Pincer Code
+        if (gamepad2.right_trigger >= 0.5 || gamepad2.left_trigger >= 0.5) {
+            robot.pincer.open();
+        } else {
+            robot.pincer.close();
+        }
 
         //Rotator Code
-        if (gamepad2.b) {
+        if (gamepad2.x) {
             robot.rotator.rotate(-90, AngleUnit.DEGREES, telemetry);
-        } else if (gamepad2.left_stick_button) {
+        } else if (gamepad2.y) {
             robot.rotator.rotate(0, AngleUnit.DEGREES, telemetry);
-        } else if (gamepad2.a) {
+        } else if (gamepad2.b) {
             robot.rotator.rotate(90, AngleUnit.DEGREES, telemetry);
-        } else if (g2RightJoystick.getR() >= 0.8) {
+        } else if (g2RightJoystick.getR() >= 0.8) { //TODO make field relative
             telemetry.addData("Joystick Angle: ", AngleUnit.normalizeDegrees(g2RightJoystick.getDegrees() - 90));
             robot.rotator.rotate(g2RightJoystick.getTheta() - ((Math.PI) / 2), AngleUnit.RADIANS, telemetry);
         }
 
-
-        //Pincer Code
-        if(!xPressed & gamepad2.x){
-            pinch = !pinch;
-        }
-
-        if (pinch) {
-            robot.pincer.close();
-        } else {
-            robot.pincer.open();
-        }
-        xPressed = gamepad2.x;
-
         //Flipper Code
         if (gamepad2.dpad_up) {
-            flipperDegree +=15;
+            robot.flipper.up();
         } else if (gamepad2.dpad_down) {
-            flipperDegree -=15;
+            robot.flipper.down();
+        } else {
+            robot.flipper.stop();
         }
-        robot.flipper.goToDegree(flipperDegree, telemetry);
 
         //Lift Code
+        //TODO add take lift to bottom if A is pressed
         if (Math.abs(gamepad2.left_stick_y) >= 0.1) {
             robot.lifter.move(squareWithSign(gamepad2.left_stick_y * -1));
-        }else if(gamepad2.left_stick_button){
-            semiAuto = nextBlock;
         } else { //Stop Lift
             robot.lifter.move(0);
         }
-//dispenser
-        if (gamepad1.left_trigger >= 0.9) {
-            robot.dispenser.dump();
-        } else {
-            robot.dispenser.hold();
-        }
-//parker
-        if (gamepad2.right_trigger >=0.5){
-            robot.parker.out();
-        }else if (gamepad2.right_bumper){
-            robot.parker.in();
-        }else {
-            robot.parker.stop();
-        }
-//aimer
-        if (gamepad2.dpad_left){
-            robot.parker.aim(false);
-        }
-        else if (gamepad2.dpad_right){
-            robot.parker.aim(true);
-        }
-
 
 
     }
@@ -211,8 +176,5 @@ public class DriveOnly extends OpMode {
     public void loop() {
         driverLoop();
         manipulatorLoop();
-        if (semiAuto.run(robot, time, telemetry) || gamepad2.left_bumper){
-            semiAuto = new QQ_ActionNull();
-        }
     }
 }

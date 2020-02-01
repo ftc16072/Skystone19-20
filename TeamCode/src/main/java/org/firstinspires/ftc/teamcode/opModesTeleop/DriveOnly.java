@@ -13,6 +13,8 @@ import org.firstinspires.ftc.teamcode.actions.QQ_AutoAction;
 import org.firstinspires.ftc.teamcode.mechanisms.Robot;
 import org.firstinspires.ftc.teamcode.util.Polar;
 
+import java.util.concurrent.TimeUnit;
+
 @TeleOp()
 public class DriveOnly extends OpMode {
     FtcDashboard dashboard = FtcDashboard.getInstance();
@@ -22,6 +24,10 @@ public class DriveOnly extends OpMode {
     private boolean bPressed = false;
     QQ_AutoAction semiAuto = new QQ_ActionNull();
 
+    public DriveOnly() {
+        super();
+        msStuckDetectInit = (int) TimeUnit.SECONDS.toMillis(30);
+    }
 
     /**
      * initializes robot and sets max speed to 0.6
@@ -31,8 +37,8 @@ public class DriveOnly extends OpMode {
         telemetry.addData("State", "Initializing");
         telemetry.update();
         robot.init(hardwareMap);
-        robot.nav.setMecanumDriveMaxSpeed(MAX_SPEED);
-        robot.robotLights.allianceLights(!robot.nav.isRedAlliance());
+        Robot.nav.setMecanumDriveMaxSpeed(MAX_SPEED);
+        robot.robotLights.allianceLights(!Robot.nav.isRedAlliance());
         telemetry.addData("State", "Quacktastic");
     }
 
@@ -71,23 +77,23 @@ public class DriveOnly extends OpMode {
 
         // if turbo bumper is pressed, allow full speed
         if (gamepad1.right_bumper || gamepad1.left_bumper) {
-            robot.nav.setMecanumDriveMaxSpeed(1);
+            Robot.nav.setMecanumDriveMaxSpeed(1);
         } else {
-            robot.nav.setMecanumDriveMaxSpeed(MAX_SPEED);
+            Robot.nav.setMecanumDriveMaxSpeed(MAX_SPEED);
         }
         Polar g1RightJoystick = Polar.fromCartesian(gamepad1.right_stick_x, -gamepad1.right_stick_y);
 
         double r = g1RightJoystick.getR();
         if (gamepad1.right_trigger >= 0.05) {
-            robot.nav.strafe(strafeFromTrigger(gamepad1.right_trigger));
+            Robot.nav.strafe(strafeFromTrigger(gamepad1.right_trigger));
         } else if (gamepad1.left_trigger >= 0.05) {
-            robot.nav.strafe(-strafeFromTrigger(gamepad1.left_trigger));
+            Robot.nav.strafe(-strafeFromTrigger(gamepad1.left_trigger));
         } else {
             if (r >= 0.8) {
                 telemetry.addData("joystick angle", g1RightJoystick.getTheta());
-                robot.nav.driveFieldRelativeAngle(strafe, forward, g1RightJoystick.getTheta());
+                Robot.nav.driveFieldRelativeAngle(strafe, forward, g1RightJoystick.getTheta());
             } else {
-                robot.nav.driveFieldRelative(strafe, forward, 0.0);
+                Robot.nav.driveFieldRelative(strafe, forward, 0.0);
             }
         }
         //Snatcher Code
@@ -112,13 +118,13 @@ public class DriveOnly extends OpMode {
         }
 
         if (gamepad1.dpad_down) {
-            robot.nav.resetIMU(180, AngleUnit.DEGREES);
+            Robot.nav.resetIMU(180, AngleUnit.DEGREES);
         } else if (gamepad1.dpad_up) {
-            robot.nav.resetIMU(0, AngleUnit.DEGREES);
+            Robot.nav.resetIMU(0, AngleUnit.DEGREES);
         } else if (gamepad1.dpad_left) {
-            robot.nav.resetIMU(-90, AngleUnit.DEGREES);
+            Robot.nav.resetIMU(-90, AngleUnit.DEGREES);
         } else if (gamepad1.dpad_right) {
-            robot.nav.resetIMU(90, AngleUnit.DEGREES);
+            Robot.nav.resetIMU(90, AngleUnit.DEGREES);
         }
 
 

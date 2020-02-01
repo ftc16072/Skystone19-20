@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Parker {
-    private static final double SPEED_OUT = -1;
+    private static final double SPEED_OUT = -0.8;
     private static final double SPEED_IN = 0.4;
     public static double FRONT = 1;
     public static double BACK = 1;

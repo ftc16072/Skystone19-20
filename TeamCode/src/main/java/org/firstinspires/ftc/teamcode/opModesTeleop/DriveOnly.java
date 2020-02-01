@@ -22,6 +22,10 @@ public class DriveOnly extends OpMode {
     private final Robot robot = new Robot();
     private boolean snatcherOpen = true;
     private boolean bPressed = false;
+    boolean xPressed = false;
+    boolean pinch = true;
+    double flipperDegree = 0;
+    QQ_ActionLiftToNextBlock nextBlock = new QQ_ActionLiftToNextBlock();
     QQ_AutoAction semiAuto = new QQ_ActionNull();
 
     public DriveOnly() {
@@ -135,17 +139,14 @@ public class DriveOnly extends OpMode {
      */
     private void manipulatorLoop() {
         Polar g2RightJoystick = Polar.fromCartesian(gamepad2.right_stick_x, -gamepad2.right_stick_y);
-        boolean xPressed = false;
-        boolean pinch = true;
-        double flipperDegree = 0;
-        QQ_ActionLiftToNextBlock nextBlock = new QQ_ActionLiftToNextBlock();
 
 
         //Rotator Code
         if (gamepad2.b) {
             robot.rotator.rotate(-90, AngleUnit.DEGREES, telemetry);
-        } else if (gamepad2.left_stick_button) {
+        } else if (gamepad2.right_stick_button) {
             robot.rotator.rotate(0, AngleUnit.DEGREES, telemetry);
+            telemetry.addData("rotator", "pushed");
         } else if (gamepad2.a) {
             robot.rotator.rotate(90, AngleUnit.DEGREES, telemetry);
         } else if (g2RightJoystick.getR() >= 0.8) {
@@ -159,8 +160,7 @@ public class DriveOnly extends OpMode {
             pinch = !pinch;
         }
 
-        if (pinch) {
-            robot.pincer.close();
+        if (pinch) { robot.pincer.close();
         } else {
             robot.pincer.open();
         }
@@ -168,9 +168,9 @@ public class DriveOnly extends OpMode {
 
         //Flipper Code
         if (gamepad2.dpad_up) {
-            flipperDegree +=15;
+            flipperDegree = 0;
         } else if (gamepad2.dpad_down) {
-            flipperDegree -=15;
+            flipperDegree = 90;
         }
         robot.flipper.goToDegree(flipperDegree, telemetry);
 
@@ -183,7 +183,7 @@ public class DriveOnly extends OpMode {
             robot.lifter.move(0);
         }
 //dispenser
-        if (gamepad1.left_trigger >= 0.9) {
+        if (gamepad2.left_trigger >= 0.9) {
             robot.dispenser.dump();
         } else {
             robot.dispenser.hold();

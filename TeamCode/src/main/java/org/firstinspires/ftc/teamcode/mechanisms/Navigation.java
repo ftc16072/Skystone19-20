@@ -169,6 +169,7 @@ public class Navigation {
      */
     public boolean rotateTo(double angle, AngleUnit angleUnit) {
         double rotateSpeed;
+        double MIN_TURN_SPEED = 0.3;
 
         double rotateDiff = AngleUnit.normalizeRadians(getHeading(AngleUnit.RADIANS) - angleUnit.toRadians(angle));
         if (Math.abs(rotateDiff) <= ANGLE_TOLERANCE) {
@@ -176,6 +177,9 @@ public class Navigation {
             return true;
         } else {
             rotateSpeed = KP_ANGLE * rotateDiff;
+            if (Math.abs(rotateSpeed) < MIN_TURN_SPEED) {
+                rotateSpeed = MIN_TURN_SPEED * Math.signum(rotateSpeed);
+            }
         }
         mecanumDrive.driveMecanum(0, 0, rotateSpeed);
         return false;
@@ -239,6 +243,6 @@ public class Navigation {
     }
 
     public void setRedAlliance(boolean redAlliance) {
-        this.redAlliance = redAlliance;
+        Navigation.redAlliance = redAlliance;
     }
 }

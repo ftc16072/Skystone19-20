@@ -26,7 +26,7 @@ public class DriveOnly extends OpMode {
     boolean pinch = true;
     double flipperDegree = -5;
     QQ_ActionLiftToNextBlock nextBlock = new QQ_ActionLiftToNextBlock();
-    QQ_AutoAction semiAuto = new QQ_ActionNull();
+    QQ_AutoAction semiAuto = null;
 
     public DriveOnly() {
         super();
@@ -215,10 +215,11 @@ public class DriveOnly extends OpMode {
      */
     @Override
     public void loop() {
-        driverLoop();
-        manipulatorLoop();
-        if (semiAuto.run(robot, time, telemetry) || gamepad2.left_bumper){
-            semiAuto = new QQ_ActionNull();
+        if (semiAuto == null) {
+            driverLoop();
+            manipulatorLoop();
+        } else if (semiAuto.run(robot, time, telemetry) || gamepad2.left_bumper) {
+            semiAuto = null;
         }
     }
 }

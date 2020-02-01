@@ -24,7 +24,7 @@ public class DriveOnly extends OpMode {
     private boolean bPressed = false;
     boolean xPressed = false;
     boolean pinch = true;
-    double flipperDegree = 0;
+    double flipperDegree = -5;
     QQ_ActionLiftToNextBlock nextBlock = new QQ_ActionLiftToNextBlock();
     QQ_AutoAction semiAuto = new QQ_ActionNull();
 
@@ -168,7 +168,7 @@ public class DriveOnly extends OpMode {
 
         //Flipper Code
         if (gamepad2.dpad_up) {
-            flipperDegree = 0;
+            flipperDegree = -5;
         } else if (gamepad2.dpad_down) {
             flipperDegree = 90;
         }

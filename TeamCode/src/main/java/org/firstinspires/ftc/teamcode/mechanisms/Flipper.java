@@ -23,7 +23,7 @@ public class Flipper {
     private static final double DEGREES_DOWN = -10;
     private static final double DEGREES_UP = 90;
     private static final double VOLTAGE_TOLERANCE = 0.08;
-    public static double KP_VOLTAGE_UP = 1.8;
+    public static double KP_VOLTAGE_UP = 1.6;
     public static double KP_VOLTAGE_DOWN = 0.8;
 
 

@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.opencv.core.Mat;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,12 +19,7 @@ public class Lifter {
     public DistanceSensor rightDistanceSensor;
     public static double START_HEIGHT_CM = 1.0;
     private static double BRICK_HEIGHT_CM = DistanceUnit.INCH.toCm(4);
-    private static final double SPOOL_DIAMETER_CM = 2.427;
-    private static final double SPOOL_CIRC_CM = SPOOL_DIAMETER_CM * Math.PI;
     private final static double GEAR_RATIO = 0.5;
-    private final static double TICKS_PER_ROTATION = 383.6;
-
-    private final static double ticsPerCm = (SPOOL_CIRC_CM * GEAR_RATIO) / TICKS_PER_ROTATION;
 
     private static final double DOWN_DISTANCE_CM = 5.5;
     private static final double UP_DISTANCE_CM = 58;
@@ -34,7 +30,7 @@ public class Lifter {
     public double DISTANCE_SENSOR_TOLERANCE = 8;
     private double CM_HEIGHT_TOLERANCE = 1;
     public static double LiftingSpeedToHitBlockTop = 0.7;
-    public static double KP_CM = 1;
+    public static double KP_CM = 0.05;
     double desiredLocation = 0;
 
     private static final double DISTANCE_KP = 0.04;
@@ -136,7 +132,7 @@ public class Lifter {
      * @return returns lift position in requested distance unit
      */
     public double getPosition(DistanceUnit distanceUnit) {
-        return distanceUnit.fromCm(getEncoderPosition() * ticsPerCm);
+        return distanceUnit.fromCm(getEncoderPosition() * CM_PER_TICK);
     }
 
     /**
@@ -148,11 +144,13 @@ public class Lifter {
      */
     public boolean goToPosition(double position, DistanceUnit distanceUnit) {
         double desiredPositionCM = distanceUnit.toCm(position);
-        if (desiredPositionCM == getPosition(DistanceUnit.CM)) {
+        double diff = desiredPositionCM - getPosition(DistanceUnit.CM);
+        if (Math.abs(diff) <= CM_HEIGHT_TOLERANCE) {
+            move(0.0);
             return true;
         }
 
-        move(desiredPositionCM - getPosition(DistanceUnit.CM));
+        move(diff * KP_CM);
         return false;
 
     }

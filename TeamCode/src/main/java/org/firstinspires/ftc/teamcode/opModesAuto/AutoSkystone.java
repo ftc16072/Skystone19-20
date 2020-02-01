@@ -6,9 +6,12 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.actions.QQ_ActionActionList;
+import org.firstinspires.ftc.teamcode.actions.QQ_ActionActionPair;
 import org.firstinspires.ftc.teamcode.actions.QQ_ActionDelayFor;
 import org.firstinspires.ftc.teamcode.actions.QQ_ActionDriveTo;
 import org.firstinspires.ftc.teamcode.actions.QQ_ActionFlipper;
+import org.firstinspires.ftc.teamcode.actions.QQ_ActionLift;
 import org.firstinspires.ftc.teamcode.actions.QQ_ActionPincer;
 import org.firstinspires.ftc.teamcode.actions.QQ_ActionRotateTo;
 import org.firstinspires.ftc.teamcode.actions.QQ_ActionRotator;
@@ -34,6 +37,7 @@ public class AutoSkystone extends AutoBase {
 
     @Override
     public void init() {
+        super.init();
         if (useVision){
             int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
             phoneCam = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
@@ -82,16 +86,17 @@ public class AutoSkystone extends AutoBase {
             steps.addAll(Arrays.asList(
                     startPosition,
                     new QQ_ActionRotator(0.0),
+                    new QQ_ActionFlipper(90),
+                    new QQ_ActionLift(2.0, DistanceUnit.INCH),
                     new QQ_ActionDriveTo(STONE_COLLECTION_RED_X, getStoneYPosition(pipeline.stoneLocation), DistanceUnit.INCH),
-                    new QQ_ActionFlipper(70),
+                    new QQ_ActionLift(0.0, DistanceUnit.CM),
                     new QQ_ActionPincer(true),
                     new QQ_ActionDelayFor(1),
                     new QQ_ActionDriveTo(STONE_COLLECTION_RED_X + 6, getStoneYPosition(pipeline.stoneLocation), DistanceUnit.INCH),
                     new QQ_ActionRotateTo(90, AngleUnit.DEGREES),
                     new QQ_ActionDriveTo(WAFFLE_RED_X + 3, WAFFLE_RED_Y, DistanceUnit.INCH),
-                    new QQ_ActionRotateTo(180, AngleUnit.DEGREES),
-                    new QQ_ActionFlipper(-10),
-                    new QQ_ActionDriveTo(WAFFLE_RED_X - 11, WAFFLE_RED_Y, DistanceUnit.INCH),
+                    new QQ_ActionActionPair(new QQ_ActionActionList("Moving", Arrays.asList(new QQ_ActionRotateTo(180, AngleUnit.DEGREES),
+                            new QQ_ActionDriveTo(WAFFLE_RED_X - 11, WAFFLE_RED_Y, DistanceUnit.INCH))), new QQ_ActionLift(5.0, DistanceUnit.INCH)),
                     //new QQ_ActionFlipper(90),
                     new QQ_ActionPincer(false),
                     new QQ_ActionSnatcher(true),
@@ -106,16 +111,17 @@ public class AutoSkystone extends AutoBase {
             steps.addAll(Arrays.asList(
                     startPosition,
                     new QQ_ActionRotator(0.0),
+                    new QQ_ActionFlipper(90),
+                    new QQ_ActionLift(2.0, DistanceUnit.INCH),
                     new QQ_ActionDriveTo(-STONE_COLLECTION_RED_X, getStoneYPosition(pipeline.stoneLocation), DistanceUnit.INCH),
-                    new QQ_ActionFlipper(70),
+                    new QQ_ActionLift(0.0, DistanceUnit.CM),
                     new QQ_ActionPincer(true),
                     new QQ_ActionDelayFor(1),
                     new QQ_ActionDriveTo(-(STONE_COLLECTION_RED_X + 6), getStoneYPosition(pipeline.stoneLocation), DistanceUnit.INCH),
                     new QQ_ActionRotateTo(90, AngleUnit.DEGREES),
-                    new QQ_ActionDriveTo(-(WAFFLE_RED_X + 10), WAFFLE_RED_Y, DistanceUnit.INCH),
-                    new QQ_ActionRotateTo(0, AngleUnit.DEGREES),
-                    new QQ_ActionFlipper(-10),
-                    new QQ_ActionDriveTo(-(WAFFLE_RED_X - 11), WAFFLE_RED_Y, DistanceUnit.INCH),
+                    new QQ_ActionDriveTo(-(WAFFLE_RED_X + 3), WAFFLE_RED_Y, DistanceUnit.INCH),
+                    new QQ_ActionActionPair(new QQ_ActionActionList("Moving", Arrays.asList(new QQ_ActionRotateTo(0, AngleUnit.DEGREES),
+                            new QQ_ActionDriveTo(-(WAFFLE_RED_X - 11), WAFFLE_RED_Y, DistanceUnit.INCH))), new QQ_ActionLift(5.0, DistanceUnit.INCH)),
                     //new QQ_ActionFlipper(90),
                     new QQ_ActionPincer(false),
                     new QQ_ActionSnatcher(true),

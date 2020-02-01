@@ -107,7 +107,7 @@ abstract public class AutoBase extends OpMode {
         robot.snatcher.lift();
         //robot.rotator.rotate(-90, AngleUnit.DEGREES, telemetry);
         robot.rotator.fit(telemetry);
-        robot.pincer.open();
+        robot.pincer.fit();
 /*
 
         if (robot.lifter.downdistance.getDistance(DistanceUnit.CM) < 5.5 || robot.lifter.getEncoderPosition() <= 0) {

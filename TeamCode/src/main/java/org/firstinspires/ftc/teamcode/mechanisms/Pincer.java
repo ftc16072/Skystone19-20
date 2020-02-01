@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public class Pincer {
-    private static final double OPEN_POSITION = 0.0;
+    private static final double OPEN_POSITION = 0.33;
     private static final double CLOSE_POSITION = 1.0;
     private Servo pincer;
 
@@ -45,5 +45,7 @@ public class Pincer {
     public void close() {
         pincer.setPosition(CLOSE_POSITION);
     }
+
+    public void fit(){pincer.setPosition(0.0);}
 
 }

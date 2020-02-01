@@ -10,7 +10,7 @@ import org.firstinspires.ftc.robotcore.external.matrices.MatrixF;
 import java.util.Arrays;
 import java.util.List;
 
-class MecanumDrive {
+public class MecanumDrive {
     private DcMotor frontLeft;
     private DcMotor frontRight;
     private DcMotor backRight;
@@ -107,7 +107,7 @@ class MecanumDrive {
      * @param strafe  this is the strafe speed
      * @param rotate  this is the rotate speed
      */
-    void driveMecanum(double forward, double strafe, double rotate) {
+    public void driveMecanum(double forward, double strafe, double rotate) {
         double frontLeftSpeed = forward + strafe + rotate;
         double frontRightSpeed = forward - strafe - rotate;
         double backLeftSpeed = forward - strafe + rotate;

@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.opModesAuto;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -12,6 +13,7 @@ import java.util.List;
 
 abstract public class AutoBase extends OpMode {
     final Robot robot = new Robot();
+    OpModeManager mgr;
 
     private List<QQ_AutoAction> autoSteps;
     private int stepNum;
@@ -81,7 +83,7 @@ abstract public class AutoBase extends OpMode {
             startX = -1 * startX;
             heading = 180;
         }
-        robot.nav.setRedAlliance(false);
+        Robot.nav.setRedAlliance(false);
 
         if (startDepot) {
             startY = START_DEPOT_Y;
@@ -173,6 +175,6 @@ abstract public class AutoBase extends OpMode {
 
     @Override
     public void stop() {
-        robot.nav.setRedAlliance(redAlliance);
+        Robot.nav.setRedAlliance(redAlliance);
     }
 }

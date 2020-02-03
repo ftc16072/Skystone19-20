@@ -169,7 +169,7 @@ public class Navigation {
      */
     public boolean rotateTo(double angle, AngleUnit angleUnit) {
         double rotateSpeed;
-        double MIN_TURN_SPEED = 0.3;
+        double MIN_TURN_SPEED = 0.1;
 
         double rotateDiff = AngleUnit.normalizeRadians(getHeading(AngleUnit.RADIANS) - angleUnit.toRadians(angle));
         if (Math.abs(rotateDiff) <= ANGLE_TOLERANCE) {

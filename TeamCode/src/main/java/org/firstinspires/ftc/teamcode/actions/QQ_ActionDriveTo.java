@@ -31,6 +31,8 @@ public class QQ_ActionDriveTo extends QQ_AutoAction {
      */
     @Override
     public boolean run(Robot robot, double gameTime, Telemetry telemetry) {
+        telemetry.addData("Position x", robot.nav.getEstimatedPosition().getX(DistanceUnit.INCH));
+        telemetry.addData("Positon y", robot.nav.getEstimatedPosition().getY(DistanceUnit.INCH));
         return robot.nav.driveTo(x, y, distanceUnit);
     }
 }

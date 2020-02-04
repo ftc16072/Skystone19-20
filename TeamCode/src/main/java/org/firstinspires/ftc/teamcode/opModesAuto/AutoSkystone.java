@@ -34,7 +34,7 @@ import java.util.List;
 public class AutoSkystone extends AutoBase {
     SkystoneOpenCvPipeline pipeline = new SkystoneOpenCvPipeline();
     OpenCvCamera phoneCam;
-    public static boolean useVision = false;
+    public static boolean useVision = true;
 
     @Override
     public void init() {
@@ -50,6 +50,12 @@ public class AutoSkystone extends AutoBase {
         } else {
             pipeline.stoneLocation = 2;
         }
+    }
+
+    @Override
+    public void start() {
+        super.start();
+        phoneCam.stopStreaming();
     }
 
     /**
@@ -84,29 +90,30 @@ public class AutoSkystone extends AutoBase {
         switch (stoneLocation) {
             case 1:
                 return new QQ_ActionActionList("Stone 1", Arrays.asList(
-                        new QQ_ActionDriveTo(allianceMultiplier * (STONE_COLLECTION_RED_X + 8), getStoneYPosition(1) - 24, DistanceUnit.INCH),
+                        new QQ_ActionDriveTo(allianceMultiplier * (STONE_COLLECTION_RED_X + 8), getStoneYPosition(3) - 24, DistanceUnit.INCH),
                         new QQ_ActionActionPair(
                                 new QQ_ActionRotateTo(depoDirection, AngleUnit.DEGREES),
-                                new QQ_ActionLift(2.0, DistanceUnit.INCH)
+                                new QQ_ActionLift(3.0, DistanceUnit.INCH)
                         ),
-                        new QQ_ActionDriveTo(allianceMultiplier * (STONE_COLLECTION_RED_X), getStoneYPosition(1) - 24, DistanceUnit.INCH),
+                        new QQ_ActionDriveTo(allianceMultiplier * (STONE_COLLECTION_RED_X), getStoneYPosition(3) - 24, DistanceUnit.INCH),
                         new QQ_ActionPincer(true),
-                        new QQ_ActionDriveTo(allianceMultiplier * (STONE_COLLECTION_RED_X + 6), getStoneYPosition(1) - 24, DistanceUnit.INCH)
+                        new QQ_ActionDelayFor(1),
+                        new QQ_ActionDriveTo(allianceMultiplier * (STONE_COLLECTION_RED_X + 1.5), getStoneYPosition(3) - 24, DistanceUnit.INCH)
 
                 ));
             case 2:
             case 3:
             default:
                 return new QQ_ActionActionList("Stone 2 or 3", Arrays.asList(
-                        new QQ_ActionDriveTo(allianceMultiplier * (STONE_COLLECTION_RED_X + 8), getStoneYPosition(1) - 15, DistanceUnit.INCH),
+                        new QQ_ActionDriveTo(allianceMultiplier * (STONE_COLLECTION_RED_X + 8), getStoneYPosition(stoneLocation) - 26, DistanceUnit.INCH),
                         new QQ_ActionActionPair(
                                 new QQ_ActionRotateTo(depoDirection, AngleUnit.DEGREES),
-                                new QQ_ActionLift(2.0, DistanceUnit.INCH)
+                                new QQ_ActionLift(3.0, DistanceUnit.INCH)
                         ),
-                        new QQ_ActionDriveTo(allianceMultiplier * (STONE_COLLECTION_RED_X), getStoneYPosition(1) - 20, DistanceUnit.INCH),
+                        new QQ_ActionDriveTo(allianceMultiplier * (STONE_COLLECTION_RED_X), getStoneYPosition(stoneLocation) - 24, DistanceUnit.INCH),
                         new QQ_ActionPincer(true),
                         new QQ_ActionDelayFor(1),
-                        new QQ_ActionDriveTo(allianceMultiplier * (STONE_COLLECTION_RED_X + 6), getStoneYPosition(1), DistanceUnit.INCH)
+                        new QQ_ActionDriveTo(allianceMultiplier * (STONE_COLLECTION_RED_X + 1.5), getStoneYPosition(stoneLocation) - 24, DistanceUnit.INCH)
 
                 ));
 
@@ -126,19 +133,24 @@ public class AutoSkystone extends AutoBase {
             steps.addAll(Arrays.asList(
                     startPosition,
                     new QQ_ActionRotator(0.0),
-                    new QQ_ActionFlipper(90),
                     new QQ_ActionActionPair(
-                            new QQ_ActionLift(2.0, DistanceUnit.INCH),
+                            new QQ_ActionActionPair(
+                                    new QQ_ActionLift(2.0, DistanceUnit.INCH),
+                                    new QQ_ActionFlipper(90)
+                            ),
                             new QQ_ActionDriveTo(STONE_COLLECTION_RED_X, getStoneYPosition(pipeline.stoneLocation), DistanceUnit.INCH)
                     ),
                     new QQ_ActionLift(0.0, DistanceUnit.CM),
                     new QQ_ActionPincer(true),
                     new QQ_ActionDelayFor(1),
-                    new QQ_ActionDriveTo(STONE_COLLECTION_RED_X + 6, getStoneYPosition(pipeline.stoneLocation), DistanceUnit.INCH),
+                    new QQ_ActionDriveTo(STONE_COLLECTION_RED_X + 1.5, getStoneYPosition(pipeline.stoneLocation), DistanceUnit.INCH),
                     new QQ_ActionRotateTo(90, AngleUnit.DEGREES),
-                    new QQ_ActionDriveTo(WAFFLE_RED_X + 3, WAFFLE_RED_Y, DistanceUnit.INCH),
-                    new QQ_ActionActionPair(new QQ_ActionActionList("Moving", Arrays.asList(new QQ_ActionRotateTo(180, AngleUnit.DEGREES),
-                            new QQ_ActionDriveTo(WAFFLE_RED_X - 11, WAFFLE_RED_Y, DistanceUnit.INCH))), new QQ_ActionLift(5.0, DistanceUnit.INCH)),
+                    new QQ_ActionDriveTo(WAFFLE_RED_X, WAFFLE_RED_Y, DistanceUnit.INCH),
+                    new QQ_ActionActionPair(
+                            new QQ_ActionActionList("Moving", Arrays.asList(
+                                    new QQ_ActionRotateTo(180, AngleUnit.DEGREES),
+                                    new QQ_ActionDriveTo(WAFFLE_RED_X - 12, WAFFLE_RED_Y, DistanceUnit.INCH))),
+                            new QQ_ActionLift(11.0, DistanceUnit.INCH)),
                     //new QQ_ActionFlipper(90),
                     new QQ_ActionPincer(false),
                     new QQ_ActionSnatcher(true),
@@ -148,9 +160,10 @@ public class AutoSkystone extends AutoBase {
                     new QQ_ActionDriveTo((WAFFLE_RED_X + 18), WAFFLE_RED_Y + 10, DistanceUnit.INCH), //to square on wall
                     new QQ_ActionSnatcher(false),
                     new QQ_ActionSetPosition(new RobotPosition((WAFFLE_RED_X + 24), FIELD_BOUNDARIES - (WAFFLE_WIDTH + 9), DistanceUnit.INCH, 90, AngleUnit.DEGREES)),
-                    new QQ_ActionDriveTo(36, 24, DistanceUnit.INCH),
+                    new QQ_ActionDriveTo(37, 24, DistanceUnit.INCH),
                     secondStone,
                     new QQ_ActionRotateTo(90.0, AngleUnit.DEGREES)
+
 
             ));
         } else {
@@ -195,7 +208,7 @@ public class AutoSkystone extends AutoBase {
         if (farPark) {
             return Arrays.asList(
                     new QQ_ActionDriveTo(farPark_x, 24, DistanceUnit.INCH),
-                    new QQ_ActionDriveTo(farPark_x, 24, DistanceUnit.INCH));
+                    new QQ_ActionDriveTo(farPark_x, 0, DistanceUnit.INCH));
         } else {
             return Arrays.asList(
                     new QQ_ActionDriveTo(nearPark_x, 24, DistanceUnit.INCH),

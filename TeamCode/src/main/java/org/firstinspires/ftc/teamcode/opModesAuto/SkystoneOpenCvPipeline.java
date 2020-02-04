@@ -32,11 +32,11 @@ public class SkystoneOpenCvPipeline extends OpenCvPipeline {
         double stone3Yel = getAmountYellow(input, stone3);
 
         if((stone1Yel < stone2Yel) && (stone1Yel < stone3Yel)){
-            stoneLocation = 1;
+            stoneLocation = 3;
         } else if((stone2Yel < stone1Yel) && (stone2Yel < stone3Yel)) {
             stoneLocation = 2;
         } else if((stone3Yel < stone1Yel) && (stone3Yel < stone2Yel)){
-            stoneLocation = 3;
+            stoneLocation = 1;
         } else{
             stoneLocation = 0;
         }
@@ -46,11 +46,11 @@ public class SkystoneOpenCvPipeline extends OpenCvPipeline {
         /*
          * Draw three boxes in stone position
          */
-        Imgproc.rectangle(input, stone1, (stoneLocation == 1) ? SKYSTONE_COLOR : STONE_COLOR, 4);
+        Imgproc.rectangle(input, stone1, (stoneLocation == 3) ? SKYSTONE_COLOR : STONE_COLOR, 4);
 
         Imgproc.rectangle(input, stone2, (stoneLocation == 2) ? SKYSTONE_COLOR : STONE_COLOR, 4);
 
-        Imgproc.rectangle(input, stone3, (stoneLocation == 3) ? SKYSTONE_COLOR : STONE_COLOR, 4);
+        Imgproc.rectangle(input, stone3, (stoneLocation == 1) ? SKYSTONE_COLOR : STONE_COLOR, 4);
 
         return input;
     }

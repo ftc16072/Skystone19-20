@@ -17,8 +17,6 @@ public class Robot {
     public final Snatcher snatcher = new Snatcher();
     public final Parker parker = new Parker();
     public final Dispenser dispenser = new Dispenser();
-    public DistanceSensor baseLeft;
-    public DistanceSensor baseRight;
     private int quackID;
     private Context appContext;
     private boolean quacking = false;
@@ -42,8 +40,6 @@ public class Robot {
         robotLights.init(hwMap);
         parker.init(hwMap);
         dispenser.init(hwMap);
-        baseLeft = hwMap.get(DistanceSensor.class, "base_left");
-        baseRight = hwMap.get(DistanceSensor.class, "base_right");
         appContext = hwMap.appContext;
         quackID = appContext.getResources().getIdentifier("quack", "raw", hwMap.appContext.getPackageName());
         quacking = false;

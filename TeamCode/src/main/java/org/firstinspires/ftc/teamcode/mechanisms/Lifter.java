@@ -14,9 +14,6 @@ import java.util.List;
 
 public class Lifter {
     private DcMotor lift;
-    public DistanceSensor leftDistanceSensor;
-    public DistanceSensor middleDistanceSensor;
-    public DistanceSensor rightDistanceSensor;
     public static double START_HEIGHT_CM = 1.0;
     private static double BRICK_HEIGHT_CM = DistanceUnit.INCH.toCm(4);
     private final static double GEAR_RATIO = 0.5;
@@ -43,9 +40,6 @@ public class Lifter {
      */
     void init(HardwareMap hwmap) {
         lift = hwmap.get(DcMotor.class, "lifter");
-        leftDistanceSensor = hwmap.get(DistanceSensor.class, "left_sensor");
-        middleDistanceSensor = hwmap.get(DistanceSensor.class, "middle_sensor");
-        rightDistanceSensor = hwmap.get(DistanceSensor.class, "right_sensor");
         lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -60,10 +54,7 @@ public class Lifter {
     List<QQ_Test> getTests() {
         return Arrays.asList(
                 new QQ_TestMotor("Lift-Down", -0.2, lift),
-                new QQ_TestMotor("lift-Up", 0.2, lift),
-                new QQ_TestDistanceSensor("Left sensor", leftDistanceSensor),
-                new QQ_TestDistanceSensor("Middle sensor", middleDistanceSensor),
-                new QQ_TestDistanceSensor("Right sensor", rightDistanceSensor)
+                new QQ_TestMotor("lift-Up", 0.2, lift)
         );
     }
 
@@ -159,26 +150,6 @@ public class Lifter {
     }
 
     public boolean liftToPlacing(){
-        if(stoneDistanceCM == 0){
-            stoneDistanceCM = middleDistanceSensor.getDistance(DistanceUnit.CM);
-        }
-        if(middleDistanceSensor.getDistance(DistanceUnit.CM) <= (stoneDistanceCM + DISTANCE_SENSOR_TOLERANCE)){
-            move(LiftingSpeedToHitBlockTop);
-        } else {
-            if(desiredLocation == 0) {
-                int numBricks = 0;
-                while (getTargetPosition(numBricks) < getCMLocation()) {
-                    numBricks++;
-                }
-                desiredLocation = getTargetPosition(numBricks);
-            }
-            boolean atHeight = moveToCM(desiredLocation);
-            if(atHeight){
-                stoneDistanceCM = 0;
-                desiredLocation = 0;
-                return true;
-            }
-        }
         return false;
     }
 }

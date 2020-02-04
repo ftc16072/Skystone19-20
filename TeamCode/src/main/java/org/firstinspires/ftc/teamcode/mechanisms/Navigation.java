@@ -169,7 +169,7 @@ public class Navigation {
      */
     public boolean rotateTo(double angle, AngleUnit angleUnit) {
         double rotateSpeed;
-        double MIN_TURN_SPEED = 0.3;
+        double MIN_TURN_SPEED = 0.1;
 
         double rotateDiff = AngleUnit.normalizeRadians(getHeading(AngleUnit.RADIANS) - angleUnit.toRadians(angle));
         if (Math.abs(rotateDiff) <= ANGLE_TOLERANCE) {
@@ -197,10 +197,6 @@ public class Navigation {
         RobotPosition estimatedPosition = getEstimatedPosition();
         double xDiff = distanceUnit.toCm(x) - estimatedPosition.getX(DistanceUnit.CM);
         double yDiff = distanceUnit.toCm(y) - estimatedPosition.getY(DistanceUnit.CM);
-
-        System.out.printf("XDiff: %f (%f -> %f) yDiff: %f (%f -> %f) \n", xDiff,
-                estimatedPosition.getX(DistanceUnit.INCH), distanceUnit.toInches(x),
-                yDiff, estimatedPosition.getY(DistanceUnit.INCH), distanceUnit.toInches(y));
 
         double xSpeed = 0.0;
         double ySpeed = 0.0;

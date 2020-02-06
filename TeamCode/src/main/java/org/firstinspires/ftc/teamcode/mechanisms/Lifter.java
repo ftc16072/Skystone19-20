@@ -27,6 +27,7 @@ public class Lifter {
     public double DISTANCE_SENSOR_TOLERANCE = 8;
     private double CM_HEIGHT_TOLERANCE = 1;
     public static double LiftingSpeedToHitBlockTop = 0.7;
+    private static double MIN_SPEED = 0.3;
     public static double KP_CM = 0.05;
     double desiredLocation = 0;
 
@@ -139,6 +140,10 @@ public class Lifter {
         if (Math.abs(diff) <= CM_HEIGHT_TOLERANCE) {
             move(0.0);
             return true;
+        }
+        double speed = diff * KP_CM;
+        if (Math.abs(speed) <= MIN_SPEED) {
+            speed = MIN_SPEED * Math.signum(speed);
         }
 
         move(diff * KP_CM);

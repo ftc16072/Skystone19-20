@@ -43,6 +43,7 @@ public class Navigation {
     public void initializeImu(HardwareMap hwMap, double offset) {
         imu = hwMap.get(BNO055IMU.class, "imu");
         BNO055IMU.Parameters params = new BNO055IMU.Parameters();
+        params.calibrationDataFile = "BNO055IMUCalibration.json";
         imu.initialize(params);
         imuOffset = offset;
     }

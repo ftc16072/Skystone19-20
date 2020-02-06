@@ -215,11 +215,7 @@ public class DriveOnly extends OpMode {
      */
     @Override
     public void loop() {
-        if (semiAuto == null) {
-            driverLoop();
-            manipulatorLoop();
-        } else if (semiAuto.run(robot, time, telemetry) || gamepad2.left_bumper) {
-            semiAuto = null;
-        }
+        driverLoop();
+        manipulatorLoop();
     }
 }

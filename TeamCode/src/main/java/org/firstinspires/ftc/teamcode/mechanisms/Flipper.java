@@ -107,7 +107,7 @@ public class Flipper {
         telemetry.addData("Voltage Diff", voltageDiff);
 
         if (voltageDiff > 0){
-            flipper.setPower(Math.max(KP_VOLTAGE_DOWN * voltageDiff, 0.4));
+            flipper.setPower(Math.max(KP_VOLTAGE_DOWN * voltageDiff, 0.65));
             telemetry.addData("power set", KP_VOLTAGE_DOWN * voltageDiff);
         } else {
             flipper.setPower(Math.min(KP_VOLTAGE_UP * voltageDiff, -0.7));

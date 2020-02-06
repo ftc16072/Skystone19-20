@@ -38,7 +38,7 @@ abstract public class AutoBase extends OpMode {
     static final double WAFFLE_RED_Y = 48;
     static final double WAFFLE_WIDTH = 18.5;
     static final double FIELD_BOUNDARIES = 72;
-    static final double STONE_COLLECTION_RED_X = 38.5;
+    static final double STONE_COLLECTION_RED_X = 34.25;
 
     /**
      * allows for the user to select settings from:

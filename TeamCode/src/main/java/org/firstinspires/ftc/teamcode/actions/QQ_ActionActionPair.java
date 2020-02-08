@@ -19,7 +19,7 @@ public class QQ_ActionActionPair extends QQ_AutoAction {
     }
 
     /**
-     * delays for specified time
+     * runs both actions in parallel, returns true when both are done
      *
      * @param robot     gives access to all robot functions
      * @param gameTime  lets us know the time since the op-mode was selected

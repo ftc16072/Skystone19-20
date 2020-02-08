@@ -21,7 +21,7 @@ public class QQ_ActionActionList extends QQ_AutoAction {
     }
 
     /**
-     * delays for specified time
+     * steps through the list and returns true when its done
      *
      * @param robot     gives access to all robot functions
      * @param gameTime  lets us know the time since the op-mode was selected

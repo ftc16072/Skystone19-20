@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.mechanisms;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -13,6 +14,7 @@ public class Rotator {
     private Servo rotator;
     private static final double LEFT_POSITION = 0.27;
     private static final double RIGHT_POSITION = 1;
+    private static final double FIT_LOCATION = -80;
 
 
 
@@ -57,7 +59,7 @@ public class Rotator {
     }
 
     public void fit(Telemetry telemetry) {
-        double angleRadians = AngleUnit.DEGREES.toRadians(-75);
+        double angleRadians = AngleUnit.DEGREES.toRadians(FIT_LOCATION);
         double position = -1 * ((angleRadians / Math.PI) - 0.5);
         telemetry.addData("SetPosition", position);
         rotator.setPosition(position);

@@ -45,7 +45,9 @@ public class Pincer {
     public void close() {
         pincer.setPosition(CLOSE_POSITION);
     }
-
+    /**
+     * Sets the pincer position to 0.
+     */
     public void fit(){pincer.setPosition(0.0);}
 
 }

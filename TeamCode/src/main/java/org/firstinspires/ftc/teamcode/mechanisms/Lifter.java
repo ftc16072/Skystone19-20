@@ -82,6 +82,12 @@ public class Lifter {
         return returnValue;
     }
 
+    /**
+     * Allows us to move to a location by cm
+     *
+     * @param cm centimeters remaining between us and our destination
+     * @return returns whether we are moving or not
+     */
     public boolean moveToCM(double cm){
         double diff = cm - getCMLocation();
         if(Math.abs(diff) <= CM_HEIGHT_TOLERANCE){
@@ -92,6 +98,12 @@ public class Lifter {
         return false;
     }
 
+    /**
+     * Move X amount of centimeters from the current location
+     *
+     * @param cm amount of centimeters we wish to move
+     * @return returns whether we are at our location or not
+     */
     public boolean moveByCm(double cm){
         if (desiredLocation == -1){
             desiredLocation = getCMLocation() + cm;

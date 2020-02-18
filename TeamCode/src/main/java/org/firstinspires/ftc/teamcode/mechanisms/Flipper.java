@@ -26,7 +26,12 @@ public class Flipper {
     public static double KP_VOLTAGE_UP = 1.6;
     public static double KP_VOLTAGE_DOWN = 0.8;
 
-
+    /**
+     * Gives us the amount of voltage that we want
+     *
+     * @param desiredAngle the angle which we want to end at
+     * @return returns the voltage being given.
+     */
     double getDesiredVoltage(double desiredAngle){
         return VOLTAGE_UP + (((desiredAngle - DEGREES_UP) * (VOLTAGE_DOWN - VOLTAGE_UP))/(DEGREES_DOWN-DEGREES_UP)); //From Rosetta code
     }
@@ -96,6 +101,13 @@ public class Flipper {
         return flipper.getCurrentPosition();
     }
 
+    /**
+     * Approaches the desired voltage
+     *
+     * @param desiredVoltage the voltage that we want to be at
+     * @param telemetry our voltage stats such as where we are and want to be at
+     * @return returns when the voltage is correctly distributed
+     */
     private boolean goToVoltage(double desiredVoltage, Telemetry telemetry){
         double voltageDiff = flipperSensor.getVoltage() - desiredVoltage;
         if (Math.abs(voltageDiff) <= VOLTAGE_TOLERANCE){
@@ -116,6 +128,13 @@ public class Flipper {
         return false;
     }
 
+    /**
+     *
+     *
+     * @param desiredDegree the degree that we want to be at
+     * @param telemetry the degree that we are currently at
+     * @return returns the degree that we want to hit
+     */
     public boolean goToDegree(double desiredDegree, Telemetry telemetry){
         return goToVoltage(getDesiredVoltage(desiredDegree), telemetry);
     }

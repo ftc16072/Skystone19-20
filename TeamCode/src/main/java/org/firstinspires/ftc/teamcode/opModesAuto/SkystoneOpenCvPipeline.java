@@ -54,7 +54,14 @@ public class SkystoneOpenCvPipeline extends OpenCvPipeline {
 
         return input;
     }
+    /**
+     * Gets the amount of yellow that the sensors cam see in a rectangle.
+     * @param input what the sensor sees
+     * @param rect The area that the data is being taken from.
+     *
+     * @return the amount of yellow that was seen.
 
+     */
     private double getAmountYellow(Mat input, Rect rect){
         Mat stoneMat = input.submat(rect);
         Scalar color = Core.mean(stoneMat);

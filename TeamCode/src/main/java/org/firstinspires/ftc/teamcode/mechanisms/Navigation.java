@@ -40,6 +40,12 @@ public class Navigation {
         setPosition(0, 0, DistanceUnit.CM);
     }
 
+    /**
+     * Initialized the Imu with the hardware map and the offset.
+     *
+     * @param hwMap hardware map used from the configuration
+     * @param offset offset for the imu
+     */
     public void initializeImu(HardwareMap hwMap, double offset) {
         imu = hwMap.get(BNO055IMU.class, "imu");
         BNO055IMU.Parameters params = new BNO055IMU.Parameters();
@@ -48,6 +54,12 @@ public class Navigation {
         imuOffset = offset;
     }
 
+    /**
+     * Gives the robot the information it needs to make the controls field relative.
+     *
+     * @param angRadians angle of the robot in radians
+     * @return returns the angle of the robot in radians
+     */
     private double fromDriverRelToFieldRel(double angRadians) {
         if (redAlliance) {
             angRadians += Math.PI;

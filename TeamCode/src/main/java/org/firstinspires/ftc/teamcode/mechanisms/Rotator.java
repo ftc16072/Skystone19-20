@@ -58,6 +58,11 @@ public class Rotator {
 
     }
 
+    /**
+     * rotates the rotator based on radians
+     *
+     * @param telemetry Displays the position of the rotator.
+     */
     public void fit(Telemetry telemetry) {
         double angleRadians = AngleUnit.DEGREES.toRadians(FIT_LOCATION);
         double position = -1 * ((angleRadians / Math.PI) - 0.5);

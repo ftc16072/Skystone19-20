@@ -7,41 +7,48 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Dispenser {
-    private static final double HOLD_POSITION = 0.45;
-    private static final double DUMP_POSITION = 0.8;
-    private Servo dispenser;
+    private static final double HOLD_POSITION_LOWER = 0.45;
+    private static final double DUMP_POSITION_LOWER = 0.8;
+    private static final double HOLD_POSITION_UPPER = 0.63;
+    private static final double DUMP_POSITION_UPPER = 0.76;
+    private Servo dispenserLower;
+    private Servo dispenserUpper;
 
     /**
-     * initializes the dispenser
+     * initializes the dispenserLower
      *
      * @param hwMap hardware map from the config
      */
     void init(HardwareMap hwMap) {
-        dispenser = hwMap.get(Servo.class, "dispenser");
+        dispenserLower = hwMap.get(Servo.class, "dispenserLower");
+        dispenserUpper = hwMap.get(Servo.class, "dispenserUpper");
     }
 
     /**
      * gets test for test wiring
      *
-     * @return returns a test that extends the dispenser
+     * @return returns a test that extends the dispenserLower
      */
     List<QQ_Test> getTests() {
         return Arrays.asList(
-                new QQ_TestServo("Dispenser", HOLD_POSITION, DUMP_POSITION, dispenser)
+                new QQ_TestServo("Dispenser_Lower", HOLD_POSITION_LOWER, DUMP_POSITION_LOWER, dispenserLower),
+                new QQ_TestServo("Dispenser_Upper", HOLD_POSITION_UPPER, DUMP_POSITION_UPPER, dispenserUpper)
         );
     }
 
     /**
-     * extends dispenser
+     * extends dispenserLower
      */
     public void dump() {
-        dispenser.setPosition(DUMP_POSITION);
+        dispenserLower.setPosition(DUMP_POSITION_LOWER);
+        dispenserUpper.setPosition(DUMP_POSITION_UPPER);
     }
 
     /**
-     * stops the dispenser
+     * stops the dispenserLower
      */
     public void hold() {
-        dispenser.setPosition(HOLD_POSITION);
+        dispenserLower.setPosition(HOLD_POSITION_LOWER);
+        dispenserUpper.setPosition(HOLD_POSITION_UPPER);
     }
 }

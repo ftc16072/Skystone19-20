@@ -9,8 +9,8 @@ import java.util.List;
 public class Dispenser {
     private static final double HOLD_POSITION_LOWER = 0.45;
     private static final double DUMP_POSITION_LOWER = 0.8;
-    private static final double HOLD_POSITION_UPPER = 0;
-    private static final double DUMP_POSITION_UPPER = 1;
+    private static final double HOLD_POSITION_UPPER = 0.63;
+    private static final double DUMP_POSITION_UPPER = 0.76;
     private Servo dispenserLower;
     private Servo dispenserUpper;
 

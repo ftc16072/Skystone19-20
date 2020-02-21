@@ -9,10 +9,9 @@ public class QQ_ActionLift extends QQ_AutoAction {
     DistanceUnit distanceUnit;
 
     /**
-     * Moves the lifter in accordance with the current location and the distance to the new location
      *
-     * @param location the current location of the lift
-     * @param distanceUnit the distance units measuring the remaining distance to move
+     * @param location the desired location of the lift
+     * @param distanceUnit the distance units the location is given in
      */
     public QQ_ActionLift(Double location, DistanceUnit distanceUnit) {
         this.location = location;
@@ -20,12 +19,12 @@ public class QQ_ActionLift extends QQ_AutoAction {
     }
 
     /**
-     * Determines where the lift is supposed to be by using robot functions
+     * moves the lift to desired location
      *
      * @param robot     gives access to all robot functions
      * @param gameTime  lets us know the time since the op-mode was selected
      * @param telemetry lets us print stuff back to the telemetry
-     * @return returns the position which the lifter is approaching
+     * @return returns True when the lifter reaches the desired location
      */
     @Override
     public boolean run(Robot robot, double gameTime, Telemetry telemetry) {

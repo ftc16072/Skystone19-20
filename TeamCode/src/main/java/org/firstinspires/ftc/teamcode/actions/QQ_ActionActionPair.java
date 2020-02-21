@@ -24,7 +24,7 @@ public class QQ_ActionActionPair extends QQ_AutoAction {
      * @param robot     gives access to all robot functions
      * @param gameTime  lets us know the time since the op-mode was selected
      * @param telemetry lets us print stuff back to the telemetry
-     * @return returns true when completed
+     * @return returns true when both actions are completed
      */
     @Override
     public boolean run(Robot robot, double gameTime, Telemetry telemetry) {
@@ -34,6 +34,6 @@ public class QQ_ActionActionPair extends QQ_AutoAction {
             return true;
         } else {
             return false;
-        }
+        } //todo turn this into one return statement
     }
 }

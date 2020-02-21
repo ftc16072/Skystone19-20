@@ -29,6 +29,6 @@ public class QQ_ActionRotateTo extends QQ_AutoAction {
         if (robot.nav.rotateTo(angleRadians, AngleUnit.RADIANS)) {
             return true;
         }
-        return false;
+        return false; //todo simplify if statement
     }
 }

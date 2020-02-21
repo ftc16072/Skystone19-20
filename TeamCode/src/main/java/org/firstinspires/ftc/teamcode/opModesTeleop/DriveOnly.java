@@ -5,10 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.teamcode.actions.QQ_ActionAlignOnBricks;
-import org.firstinspires.ftc.teamcode.actions.QQ_ActionLiftToNextBlock;
-import org.firstinspires.ftc.teamcode.actions.QQ_ActionNull;
-import org.firstinspires.ftc.teamcode.actions.QQ_ActionSquare;
 import org.firstinspires.ftc.teamcode.actions.QQ_AutoAction;
 import org.firstinspires.ftc.teamcode.mechanisms.Robot;
 import org.firstinspires.ftc.teamcode.util.Polar;
@@ -25,7 +21,6 @@ public class DriveOnly extends OpMode {
     boolean xPressed = false;
     boolean pinch = true;
     double flipperDegree = -5;
-    QQ_ActionLiftToNextBlock nextBlock = new QQ_ActionLiftToNextBlock();
     QQ_AutoAction semiAuto = null;
 
     public DriveOnly() {
@@ -114,12 +109,6 @@ public class DriveOnly extends OpMode {
             telemetry.addData("snatcher", "Lowered");
         }
 
-        if (gamepad1.x){
-            semiAuto = new QQ_ActionAlignOnBricks();
-        }
-        if (gamepad1.a){
-            semiAuto = new QQ_ActionSquare();
-        }
 
         if (gamepad1.dpad_down) {
             Robot.nav.resetIMU(180, AngleUnit.DEGREES);
@@ -177,8 +166,6 @@ public class DriveOnly extends OpMode {
         //Lift Code
         if (Math.abs(gamepad2.left_stick_y) >= 0.1) {
             robot.lifter.move(squareWithSign(gamepad2.left_stick_y * -1));
-        }else if(gamepad2.left_stick_button){
-            semiAuto = nextBlock;
         } else { //Stop Lift
             robot.lifter.move(0);
         }

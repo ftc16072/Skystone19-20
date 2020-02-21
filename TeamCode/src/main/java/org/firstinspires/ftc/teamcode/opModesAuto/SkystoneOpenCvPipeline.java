@@ -22,6 +22,12 @@ public class SkystoneOpenCvPipeline extends OpenCvPipeline {
     static Scalar SKYSTONE_COLOR = new Scalar(0,0,255);
     public int stoneLocation;
 
+    /**
+     * processes our image
+     *
+     * @param input the mat to process
+     * @return returns the same mat with colored rectangles corresponding to stone location
+     */
     @Override
     public Mat processFrame(Mat input){
         Rect stone1 = new Rect(SKYSTONE_PIXEL_START_X, SKYSTONE_PIXEL_START_Y, SKYSTONE_PIXEL_WIDTH, SKYSTONE_PIXEL_HEIGHT);
@@ -56,6 +62,7 @@ public class SkystoneOpenCvPipeline extends OpenCvPipeline {
     }
     /**
      * Gets the amount of yellow that the sensors cam see in a rectangle.
+     *
      * @param input what the sensor sees
      * @param rect The area that the data is being taken from.
      *

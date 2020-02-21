@@ -149,6 +149,7 @@ public class MecanumDrive {
 
     /**
      * gets currently set max speed
+     *
      * @return the maxSpeed mecanum drive is currently set to
      */
     double getMaxSpeed() {

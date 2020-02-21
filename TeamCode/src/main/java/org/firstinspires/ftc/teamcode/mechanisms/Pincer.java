@@ -28,7 +28,7 @@ public class Pincer {
      */
     List<QQ_Test> getTests() {
         return Arrays.asList(
-                new QQ_TestServo("Pincer", 0, 1, pincer)
+                new QQ_TestServo("Pincer", 1, 0.33, pincer)
         );
     }
 
@@ -46,7 +46,7 @@ public class Pincer {
         pincer.setPosition(CLOSE_POSITION);
     }
     /**
-     * Sets the pincer position to 0.
+     * makes the pincer go to the required position to fit in 18"
      */
     public void fit(){pincer.setPosition(0.0);}
 

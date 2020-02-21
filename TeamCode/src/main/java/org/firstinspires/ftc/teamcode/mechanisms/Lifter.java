@@ -63,7 +63,7 @@ public class Lifter {
      * this lets us move our lift
      *
      * @param speed this is the speed to move the lift + is up and - is down
-     * @return returns true if the move completed, and returns false if it stopped due to the distance sensor
+     * @return returns true if the move completed cleanly, and returns false if it stopped due to the encoder location
      */
     public boolean move(double speed) {
         boolean returnValue = true;
@@ -83,10 +83,10 @@ public class Lifter {
     }
 
     /**
-     * Allows us to move to a location by cm
+     * Move to desired cm location
      *
-     * @param cm centimeters remaining between us and our destination
-     * @return returns whether we are moving or not
+     * @param cm desired location in cm
+     * @return returns true if location reached
      */
     public boolean moveToCM(double cm){
         double diff = cm - getCMLocation();
@@ -116,6 +116,11 @@ public class Lifter {
         return false;
     }
 
+    /***
+     * get cm location of lift DEPRECATED use {@link #getPosition(DistanceUnit)}
+     *
+     * @return returns cm location of lift
+     */
     public double getCMLocation(){
         return getPosition(DistanceUnit.CM);
     }
@@ -162,11 +167,5 @@ public class Lifter {
         return false;
 
     }
-    private double getTargetPosition(int numBricks){
-        return START_HEIGHT_CM + (numBricks * BRICK_HEIGHT_CM);
-    }
 
-    public boolean liftToPlacing(){
-        return false;
-    }
 }

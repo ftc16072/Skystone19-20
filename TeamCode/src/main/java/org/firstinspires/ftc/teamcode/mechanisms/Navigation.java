@@ -41,7 +41,7 @@ public class Navigation {
     }
 
     /**
-     * Initialized the Imu with the hardware map and the offset.
+     * Initialize the imu with an offset
      *
      * @param hwMap hardware map used from the configuration
      * @param offset offset for the imu
@@ -136,6 +136,7 @@ public class Navigation {
 
     /**
      * gets current max speed each wheel can turn at
+     *
      * @return mecanum drive's currently set max speed
      */
     public double getMecanumDriveMaxSpeed() {
@@ -247,10 +248,20 @@ public class Navigation {
         imuOffset = supposedHeading - currentHeading;
     }
 
+    /**
+     * get alliance
+     *
+     * @return true if it is red alliance
+     */
     public boolean isRedAlliance() {
         return redAlliance;
     }
 
+    /**
+     * set alliance
+     *
+     * @param redAlliance is it redAlliance
+     */
     public void setRedAlliance(boolean redAlliance) {
         Navigation.redAlliance = redAlliance;
     }

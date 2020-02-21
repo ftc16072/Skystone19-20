@@ -59,9 +59,9 @@ public class Rotator {
     }
 
     /**
-     * rotates the rotator based on radians
+     * rotates the rotator to the fit location
      *
-     * @param telemetry Displays the position of the rotator.
+     * @param telemetry allows us to send information back to the phone.
      */
     public void fit(Telemetry telemetry) {
         double angleRadians = AngleUnit.DEGREES.toRadians(FIT_LOCATION);

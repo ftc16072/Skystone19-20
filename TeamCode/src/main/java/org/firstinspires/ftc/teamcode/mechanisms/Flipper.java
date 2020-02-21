@@ -27,12 +27,12 @@ public class Flipper {
     public static double KP_VOLTAGE_DOWN = 0.8;
 
     /**
-     * Gives us the amount of voltage that we want
+     * Gives us the voltage for potentiometer from the desired angle
      *
      * @param desiredAngle the angle which we want to end at
-     * @return returns the voltage being given.
+     * @return returns the desired voltage
      */
-    double getDesiredVoltage(double desiredAngle){
+    double getDesiredVoltage(double desiredAngle) { //todo switch to java range method
         return VOLTAGE_UP + (((desiredAngle - DEGREES_UP) * (VOLTAGE_DOWN - VOLTAGE_UP))/(DEGREES_DOWN-DEGREES_UP)); //From Rosetta code
     }
 
@@ -55,7 +55,7 @@ public class Flipper {
     /**
      * This gives us flipper tests for test wiring
      *
-     * @return a flipper up and flipper down test for test wiring
+     * @return flipper up, flipper down, and flipper sensor tests for test wiring
      */
     List<QQ_Test> getTests() {
         return Arrays.asList(
@@ -87,7 +87,7 @@ public class Flipper {
     }
 
     /**
-     * Keeps the flipper held against the top of the lift for autos
+     * Keeps the flipper held against the top of the lift for autos DEPRECATED use {@link #goToDegree(double, Telemetry)} now
      */
     public void holdUp() {
         flipper.setPower(-0.2);
@@ -102,11 +102,11 @@ public class Flipper {
     }
 
     /**
-     * Approaches the desired voltage
+     * goes to desired voltage
      *
      * @param desiredVoltage the voltage that we want to be at
-     * @param telemetry our voltage stats such as where we are and want to be at
-     * @return returns when the voltage is correctly distributed
+     * @param telemetry allows us to send our voltage stats back to the phone
+     * @return returns when the sensor has reached the desired voltage
      */
     private boolean goToVoltage(double desiredVoltage, Telemetry telemetry){
         double voltageDiff = flipperSensor.getVoltage() - desiredVoltage;
@@ -129,11 +129,11 @@ public class Flipper {
     }
 
     /**
-     *
+     *  goes to desired degree
      *
      * @param desiredDegree the degree that we want to be at
-     * @param telemetry the degree that we are currently at
-     * @return returns the degree that we want to hit
+     * @param telemetry allows us to send info back to telemetry
+     * @return returns True when we reach the desired degree
      */
     public boolean goToDegree(double desiredDegree, Telemetry telemetry){
         return goToVoltage(getDesiredVoltage(desiredDegree), telemetry);

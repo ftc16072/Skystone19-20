@@ -46,6 +46,9 @@ public class Parker {
         parker.setPower(SPEED_OUT);
     }
 
+    /**
+     * retracts parker
+     */
     public void in() {
         parker.setPower(SPEED_IN);
     }
@@ -57,6 +60,11 @@ public class Parker {
         parker.setPower(0.0);
     }
 
+    /**
+     * aims parker
+     *
+     * @param front aim in the front or back
+     */
     public void aim(boolean front){
         if (front){
             aimer.setPosition(FRONT);

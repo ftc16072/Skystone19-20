@@ -13,6 +13,7 @@ public class QQ_ActionActionList extends QQ_AutoAction {
     private String description;
 
     /**
+     * @param description description of list
      * @param actionList list of actions to complete
      */
     public QQ_ActionActionList(String description, List<QQ_AutoAction> actionList) {
@@ -26,7 +27,7 @@ public class QQ_ActionActionList extends QQ_AutoAction {
      * @param robot     gives access to all robot functions
      * @param gameTime  lets us know the time since the op-mode was selected
      * @param telemetry lets us print stuff back to the telemetry
-     * @return returns true when completed
+     * @return returns true when list is completed
      */
     @Override
     public boolean run(Robot robot, double gameTime, Telemetry telemetry) {

@@ -40,6 +40,12 @@ public class Navigation {
         setPosition(0, 0, DistanceUnit.CM);
     }
 
+    /**
+     * Initialize the imu with an offset
+     *
+     * @param hwMap hardware map used from the configuration
+     * @param offset offset for the imu
+     */
     public void initializeImu(HardwareMap hwMap, double offset) {
         imu = hwMap.get(BNO055IMU.class, "imu");
         BNO055IMU.Parameters params = new BNO055IMU.Parameters();
@@ -48,6 +54,12 @@ public class Navigation {
         imuOffset = offset;
     }
 
+    /**
+     * Gives the robot the information it needs to make the controls field relative.
+     *
+     * @param angRadians angle of the robot in radians
+     * @return returns the angle of the robot in radians
+     */
     private double fromDriverRelToFieldRel(double angRadians) {
         if (redAlliance) {
             angRadians += Math.PI;
@@ -124,6 +136,7 @@ public class Navigation {
 
     /**
      * gets current max speed each wheel can turn at
+     *
      * @return mecanum drive's currently set max speed
      */
     public double getMecanumDriveMaxSpeed() {
@@ -235,10 +248,20 @@ public class Navigation {
         imuOffset = supposedHeading - currentHeading;
     }
 
+    /**
+     * get alliance
+     *
+     * @return true if it is red alliance
+     */
     public boolean isRedAlliance() {
         return redAlliance;
     }
 
+    /**
+     * set alliance
+     *
+     * @param redAlliance is it redAlliance
+     */
     public void setRedAlliance(boolean redAlliance) {
         Navigation.redAlliance = redAlliance;
     }

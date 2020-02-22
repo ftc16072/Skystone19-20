@@ -15,7 +15,7 @@ public class Dispenser {
     private Servo dispenserUpper;
 
     /**
-     * initializes the dispenserLower
+     * initializes the dispensers
      *
      * @param hwMap hardware map from the config
      */
@@ -27,7 +27,7 @@ public class Dispenser {
     /**
      * gets test for test wiring
      *
-     * @return returns a test that extends the dispenserLower
+     * @return returns a list of test that extends the dispensers
      */
     List<QQ_Test> getTests() {
         return Arrays.asList(
@@ -37,7 +37,7 @@ public class Dispenser {
     }
 
     /**
-     * extends dispenserLower
+     * dump the dispensers
      */
     public void dump() {
         dispenserLower.setPosition(DUMP_POSITION_LOWER);
@@ -45,7 +45,7 @@ public class Dispenser {
     }
 
     /**
-     * stops the dispenserLower
+     * hold the dispensers
      */
     public void hold() {
         dispenserLower.setPosition(HOLD_POSITION_LOWER);

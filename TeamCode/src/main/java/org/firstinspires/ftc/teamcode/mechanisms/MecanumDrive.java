@@ -73,7 +73,9 @@ public class MecanumDrive {
                 new QQ_TestMotor("Mecanum Wheel -> Front Left", 0.3, frontLeft),
                 new QQ_TestMotor("Mecanum Wheel -> Front Right", 0.3, frontRight),
                 new QQ_TestMotor("Mecanum Wheel -> Back Left", 0.3, backLeft),
-                new QQ_TestMotor("Mecanum Wheel -> Back Right", 0.3, backRight));
+                new QQ_TestMotor("Mecanum Wheel -> Back Left Bkwds", -0.3, backLeft),
+                new QQ_TestMotor("Mecanum Wheel -> Back Right", 0.3, backRight),
+                new QQ_TestMotor("Mecanum Wheel -> Back Right Bkwds", -0.3, backRight));
     }
 
     /**
@@ -147,6 +149,7 @@ public class MecanumDrive {
 
     /**
      * gets currently set max speed
+     *
      * @return the maxSpeed mecanum drive is currently set to
      */
     double getMaxSpeed() {

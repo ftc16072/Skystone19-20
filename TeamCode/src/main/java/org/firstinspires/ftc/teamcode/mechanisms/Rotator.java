@@ -58,6 +58,11 @@ public class Rotator {
 
     }
 
+    /**
+     * rotates the rotator to the fit location
+     *
+     * @param telemetry allows us to send information back to the phone.
+     */
     public void fit(Telemetry telemetry) {
         double angleRadians = AngleUnit.DEGREES.toRadians(FIT_LOCATION);
         double position = -1 * ((angleRadians / Math.PI) - 0.5);

@@ -27,7 +27,7 @@ public class QQ_ActionDriveTo extends QQ_AutoAction {
      * @param robot     gives access to all robot functions
      * @param gameTime  lets us know the time since the op-mode was selected
      * @param telemetry lets us print stuff back to the telemetry
-     * @return returns true when completed
+     * @return returns true when location has been reached
      */
     @Override
     public boolean run(Robot robot, double gameTime, Telemetry telemetry) {

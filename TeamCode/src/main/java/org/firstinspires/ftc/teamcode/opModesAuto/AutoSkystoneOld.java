@@ -31,8 +31,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Config
-@Autonomous(name = "Skystone", group = "ftc16072")
-public class AutoSkystone extends AutoBase {
+@Autonomous(name = "SkystoneOld", group = "ftc16072")
+public class AutoSkystoneOld extends AutoBase {
     SkystoneOpenCvPipeline pipeline = new SkystoneOpenCvPipeline();
     OpenCvCamera phoneCam;
     public static boolean useVision = true;

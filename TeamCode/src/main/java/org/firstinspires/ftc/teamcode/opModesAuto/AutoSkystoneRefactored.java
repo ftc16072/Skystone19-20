@@ -110,6 +110,14 @@ public class AutoSkystoneRefactored extends AutoBase {
         }
     }
 
+
+    /**
+     * Autonomous used to detect and grab the skystone.
+     *
+     * @param stonePosition Stone position is used in tne program to locate the skystones in the list of stones and to grab them correctly.
+     * @return Returns the amount of stones that has been collected to be used later in the program and to find out which auto to continue running.
+     */
+
     private QQ_ActionActionList grabStoneSteps(double stonePosition) {
         int allianceMultiplier = redAlliance ? 1 : -1;
         int stoneDirection = redAlliance ? 180 : 0;
@@ -180,6 +188,12 @@ public class AutoSkystoneRefactored extends AutoBase {
                 new QQ_ActionDriveTo(farPark_x, 0, DistanceUnit.INCH));
     }
 
+
+    /**
+     * Snatches the foundation and places the skystone collected on the foundation.
+     *
+     * @return returns the new action list for the robot to compile and execute.
+     */
     private QQ_ActionActionList getWaffleSteps() {
         int allianceMultiplier = redAlliance ? 1 : -1;
         int waffleDirection = redAlliance ? 180 : 0;
@@ -202,6 +216,8 @@ public class AutoSkystoneRefactored extends AutoBase {
         ));
     }
     /**
+     * Follows a certain point on the field and finds out how to get back to that location to grab the second skystone.
+     *
      * @return list of steps based on alliance
      */
     List<QQ_AutoAction> getSteps() {

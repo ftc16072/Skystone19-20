@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.actions.QQ_ActionActionList;
 import org.firstinspires.ftc.teamcode.mechanisms.Robot;
 import org.firstinspires.ftc.teamcode.actions.QQ_AutoAction;
 import org.firstinspires.ftc.teamcode.util.RobotPosition;
@@ -15,8 +16,7 @@ abstract public class AutoBase extends OpMode {
     final Robot robot = new Robot();
     OpModeManager mgr;
 
-    private List<QQ_AutoAction> autoSteps;
-    private int stepNum;
+    private QQ_ActionActionList autoSteps;
 
     boolean startDepot = true;
     boolean redAlliance = true;
@@ -110,6 +110,7 @@ abstract public class AutoBase extends OpMode {
         //robot.rotator.rotate(-90, AngleUnit.DEGREES, telemetry);
         robot.rotator.fit(telemetry);
         robot.pincer.fit();
+        robot.dispenser.hold();
 /*
 
         if (robot.lifter.downdistance.getDistance(DistanceUnit.CM) < 5.5 || robot.lifter.getEncoderPosition() <= 0) {
@@ -147,8 +148,7 @@ abstract public class AutoBase extends OpMode {
             farPark_x = FAR_PARK_RED_X * -1;
             nearPark_x = NEAR_PARK_RED_X * -1;
         }
-        autoSteps = getSteps();
-        stepNum = 0;
+        autoSteps = new QQ_ActionActionList("Main", getSteps());
 
     }
 
@@ -161,16 +161,8 @@ abstract public class AutoBase extends OpMode {
      */
     @Override
     public void loop() {
-        if (stepNum < autoSteps.size()) {
-            QQ_AutoAction step = autoSteps.get(stepNum);
-            telemetry.addData("auto", stepNum);
-            if (step.run(robot, time, telemetry)) {
-                stepNum++;
-                System.out.printf("QQ_Step %d finished at %f\n", stepNum, time);
-            }
-        } else {
-            telemetry.addData("auto", "Finished");
-        }
+        robot.dispenser.hold();
+        autoSteps.run(robot, time, telemetry);
     }
 
     @Override

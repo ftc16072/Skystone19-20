@@ -34,8 +34,11 @@ public class AutoSkystoneRefactored extends AutoBase {
     SkystoneOpenCvPipeline pipeline = new SkystoneOpenCvPipeline();
     OpenCvCamera phoneCam;
     public static boolean useVision = true;
+    public static boolean continuing = true;
+    public static double yReset = FIELD_BOUNDARIES - (WAFFLE_WIDTH + 9);
     private static double STONE_1_Y_POS = -25;
     private static double STONE_WIDTH = 8;
+    double xReset;
 
     /**
      * Initializes the camera and robot
@@ -43,6 +46,7 @@ public class AutoSkystoneRefactored extends AutoBase {
     @Override
     public void init() {
         super.init();
+
         if (useVision) {
             int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
             phoneCam = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
@@ -62,7 +66,10 @@ public class AutoSkystoneRefactored extends AutoBase {
     @Override
     public void start() {
         super.start();
-        phoneCam.stopStreaming();
+        if (useVision) {
+            phoneCam.stopStreaming();
+        }
+        robot.nav.setMecanumDriveMaxSpeed(1);
 
     }
 
@@ -78,6 +85,11 @@ public class AutoSkystoneRefactored extends AutoBase {
         farPark = true;
         telemetry.addData("Stone_Location", pipeline.stoneLocation);
         telemetry.update();
+        if (redAlliance) {
+            xReset = 54;
+        } else {
+            xReset = 44;
+        }
     }
 
     /**
@@ -123,6 +135,7 @@ public class AutoSkystoneRefactored extends AutoBase {
         int stoneDirection = redAlliance ? 180 : 0;
         QQ_ActionActionList stoneSteps = new QQ_ActionActionList("Grab Stone", Arrays.asList(
                 new QQ_ActionDriveTo(allianceMultiplier * (STONE_COLLECTION_RED_X + 8), stonePosition, DistanceUnit.INCH), // drive to the right location for a random stone
+                new QQ_ActionPincer(false),
                 new QQ_ActionRotator(0.0),
                 new QQ_ActionActionPair(
                         new QQ_ActionRotateTo(stoneDirection, AngleUnit.DEGREES),
@@ -212,7 +225,7 @@ public class AutoSkystoneRefactored extends AutoBase {
                 new QQ_ActionRotateTo(90, AngleUnit.DEGREES),
                 new QQ_ActionDriveTo(allianceMultiplier * (WAFFLE_RED_X + 18), WAFFLE_RED_Y + 10, DistanceUnit.INCH), //back up and square on wall
                 new QQ_ActionSnatcher(false),
-                new QQ_ActionSetPosition(new RobotPosition(allianceMultiplier * (WAFFLE_RED_X + 24), FIELD_BOUNDARIES - (WAFFLE_WIDTH + 9), DistanceUnit.INCH, 90, AngleUnit.DEGREES)) // reset where the robot thinks it is
+                new QQ_ActionSetPosition(new RobotPosition(allianceMultiplier * xReset, yReset, DistanceUnit.INCH, 90, AngleUnit.DEGREES)) // reset where the robot thinks it is
         ));
     }
     /**
@@ -228,22 +241,23 @@ public class AutoSkystoneRefactored extends AutoBase {
                 grabStoneSteps(getStoneYPosition(pipeline.stoneLocation)),
                 new QQ_ActionRotateTo(90, AngleUnit.DEGREES), // don't hit alliance partner
                 getWaffleSteps()));
+        if (continuing) {
+            QQ_ActionActionList secondStone = getSecondStoneSteps(pipeline.stoneLocation);
+            if (redAlliance) {
+                steps.addAll(Arrays.asList(
+                        new QQ_ActionActionPair(new QQ_ActionDriveTo(37, 24, DistanceUnit.INCH), new QQ_ActionLift(0.0, DistanceUnit.CM)), // clear alliance partner
+                        secondStone// run second stone steps
 
-        QQ_ActionActionList secondStone = getSecondStoneSteps(pipeline.stoneLocation);
-        if (redAlliance) {
-            steps.addAll(Arrays.asList(
-                    new QQ_ActionDriveTo(37, 24, DistanceUnit.INCH),// clear alliance partner
-                    secondStone// run second stone steps
 
-
-            ));
-        } else {
-            steps.addAll(Arrays.asList(
-                    new QQ_ActionDriveTo(-40, 24, DistanceUnit.INCH), // clear alliance partner
-                    secondStone// run second stone steps
-            ));
+                ));
+            } else {
+                steps.addAll(Arrays.asList(
+                        new QQ_ActionActionPair(new QQ_ActionDriveTo(-40, 24, DistanceUnit.INCH), new QQ_ActionLift(0.0, DistanceUnit.CM)), // clear alliance partner
+                        secondStone// run second stone steps
+                ));
+            }
+            steps.addAll(getParkSteps()); // run park steps
         }
-        steps.addAll(getParkSteps()); // run park steps
         return steps;
     }
 

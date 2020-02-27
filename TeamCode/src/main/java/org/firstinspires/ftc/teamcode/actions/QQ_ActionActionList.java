@@ -6,7 +6,6 @@ import org.firstinspires.ftc.teamcode.mechanisms.Robot;
 
 import java.util.List;
 
-
 public class QQ_ActionActionList extends QQ_AutoAction {
     private List<QQ_AutoAction> actionList;
     private int actionStepNum = 0;
@@ -31,15 +30,16 @@ public class QQ_ActionActionList extends QQ_AutoAction {
      */
     @Override
     public boolean run(Robot robot, double gameTime, Telemetry telemetry) {
-        if (actionStepNum < actionList.size()) {
+        while (actionStepNum < actionList.size()) {
             QQ_AutoAction step = actionList.get(actionStepNum);
             if (step.run(robot, gameTime, telemetry)) {
                 actionStepNum++;
                 telemetry.addData(description + " -- Step", actionStepNum);
+                System.out.printf("QQ:" + description + "-- Step %d finished at %f\n", actionStepNum, gameTime);
+            } else {
+                return false;
             }
-            return false;
-        } else {
-            return true;
         }
+        return true;
     }
 }

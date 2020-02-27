@@ -35,10 +35,10 @@ public class AutoSkystoneRefactored extends AutoBase {
     OpenCvCamera phoneCam;
     public static boolean useVision = true;
     public static boolean continuing = true;
-    public static double xReset = 44;
     public static double yReset = FIELD_BOUNDARIES - (WAFFLE_WIDTH + 9);
     private static double STONE_1_Y_POS = -25;
     private static double STONE_WIDTH = 8;
+    double xReset;
 
     /**
      * Initializes the camera and robot
@@ -46,6 +46,7 @@ public class AutoSkystoneRefactored extends AutoBase {
     @Override
     public void init() {
         super.init();
+
         if (useVision) {
             int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
             phoneCam = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
@@ -65,7 +66,9 @@ public class AutoSkystoneRefactored extends AutoBase {
     @Override
     public void start() {
         super.start();
-        phoneCam.stopStreaming();
+        if (useVision) {
+            phoneCam.stopStreaming();
+        }
         robot.nav.setMecanumDriveMaxSpeed(1);
 
     }
@@ -82,6 +85,11 @@ public class AutoSkystoneRefactored extends AutoBase {
         farPark = true;
         telemetry.addData("Stone_Location", pipeline.stoneLocation);
         telemetry.update();
+        if (redAlliance) {
+            xReset = 54;
+        } else {
+            xReset = 44;
+        }
     }
 
     /**

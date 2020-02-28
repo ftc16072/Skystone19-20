@@ -14,7 +14,7 @@ public class Rotator {
     private Servo rotator;
     private static final double LEFT_POSITION = 0.27;
     private static final double RIGHT_POSITION = 1;
-    private static final double FIT_LOCATION = -60;
+    private static final double FIT_LOCATION = -130;
 
 
 

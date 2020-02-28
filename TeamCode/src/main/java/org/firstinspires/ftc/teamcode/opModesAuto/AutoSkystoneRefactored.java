@@ -252,7 +252,7 @@ public class AutoSkystoneRefactored extends AutoBase {
                 ));
             } else {
                 steps.addAll(Arrays.asList(
-                        new QQ_ActionActionPair(new QQ_ActionDriveTo(-40, 24, DistanceUnit.INCH), new QQ_ActionLift(0.0, DistanceUnit.CM)), // clear alliance partner
+                        new QQ_ActionActionPair(new QQ_ActionDriveTo(-37, 24, DistanceUnit.INCH), new QQ_ActionLift(0.0, DistanceUnit.CM)), // clear alliance partner
                         secondStone// run second stone steps
                 ));
             }

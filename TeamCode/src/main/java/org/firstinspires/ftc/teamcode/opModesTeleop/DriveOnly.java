@@ -20,7 +20,7 @@ public class DriveOnly extends OpMode {
     private boolean bPressed = false;
     boolean xPressed = false;
     boolean pinch = true;
-    double flipperDegree = -5;
+    double flipperDegree = 90;
     QQ_AutoAction semiAuto = null;
 
     public DriveOnly() {
@@ -183,13 +183,14 @@ public class DriveOnly extends OpMode {
         }else {
             robot.parker.stop();
         }
-//aimer
+/**aimer
         if (gamepad2.dpad_left){
             robot.parker.aim(false);
         }
         else if (gamepad2.dpad_right){
             robot.parker.aim(true);
         }
+ **/
 
 
 

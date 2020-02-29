@@ -88,7 +88,7 @@ public class AutoSkystoneRefactored extends AutoBase {
         if (redAlliance) {
             xReset = 54;
         } else {
-            xReset = 44;
+            xReset = 54;
         }
     }
 
@@ -136,14 +136,16 @@ public class AutoSkystoneRefactored extends AutoBase {
         QQ_ActionActionList stoneSteps = new QQ_ActionActionList("Grab Stone", Arrays.asList(
                 new QQ_ActionDriveTo(allianceMultiplier * (STONE_COLLECTION_RED_X + 8), stonePosition, DistanceUnit.INCH), // drive to the right location for a random stone
                 new QQ_ActionPincer(false),
-                new QQ_ActionRotator(0.0),
                 new QQ_ActionActionPair(
                         new QQ_ActionRotateTo(stoneDirection, AngleUnit.DEGREES),
                         new QQ_ActionActionPair(
-                                new QQ_ActionLift(3.0, DistanceUnit.INCH),
-                                new QQ_ActionFlipper(90))
+                                new QQ_ActionLift(2.0, DistanceUnit.INCH),
+                                new QQ_ActionActionPair(
+                                        new QQ_ActionFlipper(90),
+                                        new QQ_ActionRotator(0.0)))
                 ), // rotate and lift lift in parallel to save time
-                new QQ_ActionDriveTo(allianceMultiplier * (STONE_COLLECTION_RED_X), stonePosition, DistanceUnit.INCH), // drive in to the right location to collect the stone
+                new QQ_ActionDriveTo(allianceMultiplier * (STONE_COLLECTION_RED_X - 2), stonePosition, DistanceUnit.INCH), // drive in to the right location to collect the stone
+                new QQ_ActionLift(0.0, DistanceUnit.CM),
                 new QQ_ActionPincer(true),
                 new QQ_ActionDelayFor(1), // grab the stone
                 new QQ_ActionDriveTo(allianceMultiplier * (STONE_COLLECTION_RED_X + 4), stonePosition, DistanceUnit.INCH))); // back up so as to disturb bricks less

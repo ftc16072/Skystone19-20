@@ -134,8 +134,8 @@ public class AutoSkystoneRefactored extends AutoBase {
         int allianceMultiplier = redAlliance ? 1 : -1;
         int stoneDirection = redAlliance ? 180 : 0;
         QQ_ActionActionList stoneSteps = new QQ_ActionActionList("Grab Stone", Arrays.asList(
-                new QQ_ActionDriveTo(allianceMultiplier * (STONE_COLLECTION_RED_X + 8), stonePosition, DistanceUnit.INCH), // drive to the right location for a random stone
                 new QQ_ActionPincer(false),
+                new QQ_ActionDriveTo(allianceMultiplier * (STONE_COLLECTION_RED_X + 8), stonePosition, DistanceUnit.INCH), // drive to the right location for a random stone
                 new QQ_ActionActionPair(
                         new QQ_ActionRotateTo(stoneDirection, AngleUnit.DEGREES),
                         new QQ_ActionActionPair(
